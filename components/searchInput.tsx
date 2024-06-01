@@ -7,7 +7,7 @@ const SearchInput: FC = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100",
+        inputWrapper: "bg-default-100 w-full",
         input: "text-sm",
       }}
       labelPlacement="outside"
