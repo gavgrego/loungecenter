@@ -1,12 +1,17 @@
-const getLounges = async () => {
-  const data = await fetch(
-    `${process.env.SANITY_BASE_URL}/v2024-05-30/data/query/production?query=*[_type == "airportLounge"]`,
-    {
-      method: "GET",
-    }
-  );
+import { Lounge } from "./api/documentation";
 
-  return await data.json();
+const getLounges = async (): Promise<Lounge[] | null> => {
+  try {
+    const response = await fetch(`${process.env.STRAPI_BASE_URL}/api/lounges`, {
+      method: "GET",
+      cache: "no-cache",
+    });
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching lounges", error);
+    return null;
+  }
 };
 
 export default getLounges;

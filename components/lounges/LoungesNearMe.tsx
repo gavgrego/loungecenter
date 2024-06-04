@@ -4,8 +4,14 @@ import getLounges from "@/data/getLounges";
 
 const LoungesNearMe = async () => {
   const lounges = await getLounges();
-  console.log(lounges);
-  return <div>Lounges Near Me</div>;
+
+  return lounges?.map((lounge) => {
+    return (
+      <div>
+        <h3>{lounge?.name}</h3>
+      </div>
+    );
+  });
 };
 
 export default LoungesNearMe;
