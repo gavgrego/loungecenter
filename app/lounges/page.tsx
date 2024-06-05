@@ -6,7 +6,7 @@ const LoungesPage = async () => {
   return (
     <div>
       {lounges?.map((lounge) => {
-        return <LoungeCard lounge={lounge} />;
+        return <LoungeCard key={lounge.id} lounge={lounge} />;
       })}
     </div>
   );

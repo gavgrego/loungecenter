@@ -1,19 +1,14 @@
-import {
-  Lounge,
-  LoungeAirportDataAttributesUpdatedByData,
-} from "@/data/api/documentation";
+import { LoungeResponseDataObject } from "@/data/api/documentation";
 import {
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   Divider,
-  Link,
-  Image,
 } from "@nextui-org/react";
 
 type LoungeCardProps = {
-  lounge: LoungeAirportDataAttributesUpdatedByData;
+  lounge: LoungeResponseDataObject;
 };
 
 const LoungeCard = ({ lounge }: LoungeCardProps) => {
@@ -30,13 +25,8 @@ const LoungeCard = ({ lounge }: LoungeCardProps) => {
       </CardBody>
       <Divider />
       <CardFooter>
-        <Link
-          isExternal
-          showAnchorIcon
-          href="https://github.com/nextui-org/nextui"
-        >
-          Visit source code on GitHub.
-        </Link>
+        Get in With:
+        <div className="flex flex-row gap-2"></div>
       </CardFooter>
     </Card>
   );

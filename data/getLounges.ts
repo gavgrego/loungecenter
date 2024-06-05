@@ -1,11 +1,6 @@
-import {
-  Lounge,
-  LoungeAirportDataAttributesUpdatedByData,
-} from "./api/documentation";
+import { Lounge, LoungeResponseDataObject } from "./api/documentation";
 
-const getLounges = async (): Promise<
-  LoungeAirportDataAttributesUpdatedByData[] | null
-> => {
+const getLounges = async (): Promise<LoungeResponseDataObject[] | null> => {
   try {
     const response = await fetch(`${process.env.STRAPI_BASE_URL}/api/lounges`, {
       method: "GET",
