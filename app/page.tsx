@@ -7,6 +7,7 @@ export default function Home() {
       <div className="flex flex-row gap-4 text-6xl items-center justify-center">
         <p>✈️</p>
         <p>🛋️</p>
+        <h2 className="font-semibold text-5xl">Airside</h2>
       </div>
       <h2>Find out what lounges you have access to, quick.</h2>
       <div className="max-w-[800px] w-full">

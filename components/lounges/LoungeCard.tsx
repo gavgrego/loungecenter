@@ -1,4 +1,7 @@
-import { Lounge } from "@/data/api/documentation";
+import {
+  Lounge,
+  LoungeAirportDataAttributesUpdatedByData,
+} from "@/data/api/documentation";
 import {
   Card,
   CardHeader,
@@ -10,22 +13,15 @@ import {
 } from "@nextui-org/react";
 
 type LoungeCardProps = {
-  lounge: Lounge;
+  lounge: LoungeAirportDataAttributesUpdatedByData;
 };
 
 const LoungeCard = ({ lounge }: LoungeCardProps) => {
   return (
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3">
-        <Image
-          alt="nextui logo"
-          height={40}
-          radius="sm"
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-          width={40}
-        />
         <div className="flex flex-col">
-          <p className="text-md">{lounge?.name}</p>
+          <p className="text-md">{lounge?.attributes?.name}</p>
         </div>
       </CardHeader>
       <Divider />
