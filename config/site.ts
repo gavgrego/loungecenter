@@ -10,6 +10,11 @@ export const siteConfig = {
       bold: true,
     },
     {
+      label: "Airports",
+      href: "/airports",
+      bold: true,
+    },
+    {
       label: "Pricing",
       href: "/pricing",
     },

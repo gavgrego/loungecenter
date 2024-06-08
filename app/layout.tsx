@@ -45,7 +45,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
               {children}
             </main>
             <footer className="w-full flex items-center justify-center py-3">
-              Made in Marin County, CA 🌁
+              {/* Made in Marin County, CA 🌁 */}
             </footer>
           </div>
         </Providers>

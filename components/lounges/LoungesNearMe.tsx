@@ -1,17 +1,10 @@
-// fetch lounges here, or home page?
-
-import getLounges from "@/data/getLounges";
+import getLounges from "@/data/lounge/getLounges";
 
 const LoungesNearMe = async () => {
-  const lounges = await getLounges();
+  const lounges = await getLounges({ lat: "0", lon: "0", limit: 5 });
 
-  return lounges?.map((lounge) => {
-    return (
-      <div>
-        <h3>{lounge?.name}</h3>
-      </div>
-    );
-  });
+  // pick the 5 closest lounges
+  return <div></div>;
 };
 
 export default LoungesNearMe;

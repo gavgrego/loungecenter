@@ -1,8 +1,10 @@
-import { Input } from "@nextui-org/input";
-import { SearchIcon } from "./icons";
+import { Input, type InputProps } from "@nextui-org/input";
+import { SearchIcon } from "../icons";
 import { FC } from "react";
 
-const SearchInput: FC = () => {
+type SearchInputProps = InputProps;
+
+const SearchInput = ({ ...props }: SearchInputProps) => {
   return (
     <Input
       aria-label="Search"
@@ -11,11 +13,11 @@ const SearchInput: FC = () => {
         input: "text-sm",
       }}
       labelPlacement="outside"
-      placeholder="Search..."
       startContent={
         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
       type="search"
+      {...props}
     />
   );
 };

@@ -1,5 +1,5 @@
 import LoungesNearMe from "@/components/lounges/LoungesNearMe";
-import SearchInput from "@/components/searchInput";
+import SearchInput from "@/components/search/searchInput";
 
 export default function Home() {
   return (
@@ -9,7 +9,10 @@ export default function Home() {
         <p>🛋️</p>
         <h2 className="font-semibold text-5xl">Airside</h2>
       </div>
-      <h2>Find out what lounges you have access to, quick.</h2>
+      <h3 className="max-w-[500px] text-center">
+        Find airport lounge access, get reviews and info, and see just how busy
+        it is before you even get there.
+      </h3>
       <div className="max-w-[800px] w-full">
         <SearchInput />
       </div>

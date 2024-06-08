@@ -5,3 +5,7 @@
 h2 {
   @apply text-2xl;
 }
+
+h1 {
+  @apply text-4xl font-semibold;
+}
