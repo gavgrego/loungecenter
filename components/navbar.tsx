@@ -21,17 +21,17 @@ export const Navbar = () => {
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
+        <NavbarBrand as="li" className="gap-6 max-w-fit">
           <NextLink className="flex justify-start items-center gap-2" href="/">
             <div className="flex flex-row gap-1 text-xl">
               <p>✈️</p>
               <p>🛋️</p>
             </div>
 
-            <p className="font-bold text-inherit">Airside</p>
+            <p className="font-bold text-inherit text-3xl">Airside</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-10 justify-start ml-2">
+        <ul className="hidden lg:flex gap-8 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink

@@ -15,7 +15,7 @@ const LoungesPage = async () => {
       <div className="grid grid-cols-3 gap-8">
         {lounges?.map((lounge) => {
           return (
-            <div className="">
+            <div key={lounge.id} className="">
               <LoungeCard key={lounge.id} lounge={lounge} />
             </div>
           );

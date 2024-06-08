@@ -1,6 +1,5 @@
 import { Input, type InputProps } from "@nextui-org/input";
 import { SearchIcon } from "../icons";
-import { FC } from "react";
 
 type SearchInputProps = InputProps;
 

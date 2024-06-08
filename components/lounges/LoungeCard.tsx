@@ -5,8 +5,8 @@ type LoungeCardProps = {
   lounge: LoungeResponseDataObject;
 };
 
-const LoungeCard = async ({ lounge }: LoungeCardProps) => {
-  const airportCode = lounge.attributes?.airport?.data?.attributes?.Code;
+const LoungeCard = ({ lounge }: LoungeCardProps) => {
+  const airportCode = lounge.attributes?.airport?.data?.attributes?.code;
   const slug = lounge.attributes?.slug;
 
   return (

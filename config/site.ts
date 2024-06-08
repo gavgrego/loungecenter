@@ -12,7 +12,6 @@ export const siteConfig = {
     {
       label: "Airports",
       href: "/airports",
-      bold: true,
     },
     {
       label: "Pricing",
