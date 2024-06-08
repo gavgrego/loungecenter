@@ -305,14 +305,14 @@ export const LoungeAirportDataAttributesState = {
 } as const;
 
 export type LoungeAirportDataAttributes = {
-  City?: string;
-  Code?: string;
-  Country?: LoungeAirportDataAttributesCountry;
+  city?: string;
+  code?: string;
+  country?: LoungeAirportDataAttributesCountry;
   createdAt?: string;
   createdBy?: LoungeAirportDataAttributesCreatedBy;
   lounges?: LoungeAirportDataAttributesLounges;
-  Name?: string;
-  State?: LoungeAirportDataAttributesState;
+  name?: string;
+  state?: LoungeAirportDataAttributesState;
   updatedAt?: string;
   updatedBy?: LoungeAirportDataAttributesUpdatedBy;
 };
@@ -1547,14 +1547,14 @@ export const CardLoungeDataAttributesAirportDataAttributesState = {
 } as const;
 
 export type CardLoungeDataAttributesAirportDataAttributes = {
-  City?: string;
-  Code?: string;
-  Country?: CardLoungeDataAttributesAirportDataAttributesCountry;
+  city?: string;
+  code?: string;
+  country?: CardLoungeDataAttributesAirportDataAttributesCountry;
   createdAt?: string;
   createdBy?: CardLoungeDataAttributesAirportDataAttributesCreatedBy;
   lounges?: CardLoungeDataAttributesAirportDataAttributesLounges;
-  Name?: string;
-  State?: CardLoungeDataAttributesAirportDataAttributesState;
+  name?: string;
+  state?: CardLoungeDataAttributesAirportDataAttributesState;
   updatedAt?: string;
   updatedBy?: CardLoungeDataAttributesAirportDataAttributesUpdatedBy;
 };
@@ -2288,14 +2288,14 @@ export type AirportLounges = {
 };
 
 export interface Airport {
-  City: string;
-  Code: string;
-  Country: AirportCountry;
+  city: string;
+  code: string;
+  country: AirportCountry;
   createdAt?: string;
   createdBy?: AirportCreatedBy;
   lounges?: AirportLounges;
-  Name: string;
-  State?: AirportState;
+  name: string;
+  state?: AirportState;
   updatedAt?: string;
   updatedBy?: AirportUpdatedBy;
 }
@@ -2802,14 +2802,14 @@ export type AirportLoungesDataItemAttributesAirportDataAttributesLounges = {
 };
 
 export type AirportLoungesDataItemAttributesAirportDataAttributes = {
-  City?: string;
-  Code?: string;
-  Country?: AirportLoungesDataItemAttributesAirportDataAttributesCountry;
+  city?: string;
+  code?: string;
+  country?: AirportLoungesDataItemAttributesAirportDataAttributesCountry;
   createdAt?: string;
   createdBy?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedBy;
   lounges?: AirportLoungesDataItemAttributesAirportDataAttributesLounges;
-  Name?: string;
-  State?: AirportLoungesDataItemAttributesAirportDataAttributesState;
+  name?: string;
+  state?: AirportLoungesDataItemAttributesAirportDataAttributesState;
   updatedAt?: string;
   updatedBy?: AirportLoungesDataItemAttributesAirportDataAttributesUpdatedBy;
 };
@@ -3437,12 +3437,12 @@ export const AirportRequestDataCountry = {
 } as const;
 
 export type AirportRequestData = {
-  City: string;
-  Code: string;
-  Country: AirportRequestDataCountry;
+  city: string;
+  code: string;
+  country: AirportRequestDataCountry;
   lounges?: AirportRequestDataLoungesItem[];
-  Name: string;
-  State?: AirportRequestDataState;
+  name: string;
+  state?: AirportRequestDataState;
 };
 
 export type ErrorErrorDetails = { [key: string]: any };

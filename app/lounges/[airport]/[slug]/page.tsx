@@ -9,12 +9,12 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     <div>
       <h1>{loungeData.name}</h1>
       <div className="flex flex-row gap-3">
-        <h2>{airportData.Name}</h2>
-        <h2>{airportData.City}</h2>
-        {airportData.State ? <h2>{airportData.State}</h2> : ""}
-        <h2>{airportData.Country}</h2>
+        <h2>{airportData.name}</h2>
+        <h2>{airportData.city}</h2>
+        {airportData.state ? <h2>{airportData.state}</h2> : ""}
+        <h2>{airportData.country}</h2>
       </div>
-      <h3>{airportData.Code}</h3>
+      <h3>{airportData.code}</h3>
     </div>
   );
 };

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-06-08T05:16:17.900Z"
+    "x-generation-date": "2024-06-08T20:10:05.857Z"
   },
   "x-strapi-config": {
     "plugins": [],
@@ -86,10 +86,10 @@
         "required": ["data"],
         "properties": {
           "data": {
-            "required": ["Code", "Name", "City", "Country"],
+            "required": ["code", "name", "city", "country"],
             "type": "object",
             "properties": {
-              "Code": {
+              "code": {
                 "type": "string"
               },
               "lounges": {
@@ -106,13 +106,13 @@
                   "example": "string or id"
                 }
               },
-              "Name": {
+              "name": {
                 "type": "string"
               },
-              "City": {
+              "city": {
                 "type": "string"
               },
-              "State": {
+              "state": {
                 "type": "string",
                 "enum": [
                   "AL",
@@ -167,7 +167,7 @@
                   "WY"
                 ]
               },
-              "Country": {
+              "country": {
                 "type": "string",
                 "enum": [
                   "Argentina",
@@ -326,9 +326,9 @@
       },
       "Airport": {
         "type": "object",
-        "required": ["Code", "Name", "City", "Country"],
+        "required": ["code", "name", "city", "country"],
         "properties": {
-          "Code": {
+          "code": {
             "type": "string"
           },
           "lounges": {
@@ -360,7 +360,7 @@
                                 "attributes": {
                                   "type": "object",
                                   "properties": {
-                                    "Code": {
+                                    "code": {
                                       "type": "string"
                                     },
                                     "lounges": {
@@ -383,13 +383,13 @@
                                         }
                                       }
                                     },
-                                    "Name": {
+                                    "name": {
                                       "type": "string"
                                     },
-                                    "City": {
+                                    "city": {
                                       "type": "string"
                                     },
-                                    "State": {
+                                    "state": {
                                       "type": "string",
                                       "enum": [
                                         "AL",
@@ -444,7 +444,7 @@
                                         "WY"
                                       ]
                                     },
-                                    "Country": {
+                                    "country": {
                                       "type": "string",
                                       "enum": [
                                         "Argentina",
@@ -1482,13 +1482,13 @@
               }
             }
           },
-          "Name": {
+          "name": {
             "type": "string"
           },
-          "City": {
+          "city": {
             "type": "string"
           },
-          "State": {
+          "state": {
             "type": "string",
             "enum": [
               "AL",
@@ -1543,7 +1543,7 @@
               "WY"
             ]
           },
-          "Country": {
+          "country": {
             "type": "string",
             "enum": [
               "Argentina",
@@ -2497,7 +2497,7 @@
                               "attributes": {
                                 "type": "object",
                                 "properties": {
-                                  "Code": {
+                                  "code": {
                                     "type": "string"
                                   },
                                   "lounges": {
@@ -2520,13 +2520,13 @@
                                       }
                                     }
                                   },
-                                  "Name": {
+                                  "name": {
                                     "type": "string"
                                   },
-                                  "City": {
+                                  "city": {
                                     "type": "string"
                                   },
-                                  "State": {
+                                  "state": {
                                     "type": "string",
                                     "enum": [
                                       "AL",
@@ -2581,7 +2581,7 @@
                                       "WY"
                                     ]
                                   },
-                                  "Country": {
+                                  "country": {
                                     "type": "string",
                                     "enum": [
                                       "Argentina",
@@ -3448,7 +3448,7 @@
                   "attributes": {
                     "type": "object",
                     "properties": {
-                      "Code": {
+                      "code": {
                         "type": "string"
                       },
                       "lounges": {
@@ -4375,13 +4375,13 @@
                           }
                         }
                       },
-                      "Name": {
+                      "name": {
                         "type": "string"
                       },
-                      "City": {
+                      "city": {
                         "type": "string"
                       },
-                      "State": {
+                      "state": {
                         "type": "string",
                         "enum": [
                           "AL",
@@ -4436,7 +4436,7 @@
                           "WY"
                         ]
                       },
-                      "Country": {
+                      "country": {
                         "type": "string",
                         "enum": [
                           "Argentina",
