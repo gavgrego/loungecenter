@@ -21,10 +21,12 @@ const LoungeCard = ({ lounge }: LoungeCardProps) => {
         </div>
       </CardHeader>
       <Divider />
+      {/* if lounge has card access */}
       <CardFooter>
         <p className="text-sm font-semibold tracking-wider">GET IN WITH:</p>
         <div className="flex flex-row gap-2"></div>
       </CardFooter>
+      {/*  */}
     </Card>
   );
 };
