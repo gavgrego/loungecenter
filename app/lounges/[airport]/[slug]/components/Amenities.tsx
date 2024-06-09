@@ -1,0 +1,3 @@
+type AmenitiesProps = {};
+
+const Amenities = () => {};

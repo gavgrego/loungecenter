@@ -1,8 +1,8 @@
-import { AirportListResponse } from "../api/documentation";
+import { LoungeResponseDataObject } from "../api/documentation";
 
 const getLoungesByAirportCode = async (
-  airportCode: string
-): Promise<AirportListResponse> => {
+  airportCode: string,
+): Promise<LoungeResponseDataObject[]> => {
   // CAUTION: Deep filtering is not recommended.
   // Querying your API with deep filters may cause performance issues. If one of your deep filtering queries is too slow, we recommend building a custom route with an optimized version of the query.
 
@@ -11,7 +11,7 @@ const getLoungesByAirportCode = async (
     {
       method: "GET",
       cache: "no-cache",
-    }
+    },
   );
 
   return await response.json();

@@ -13,7 +13,7 @@ type ImageCarouselProps = {
 const ImageCarousel = ({ placeImages }: ImageCarouselProps) => {
   return (
     <Carousel
-      className="max-h-[500px] my-8"
+      className="my-8"
       opts={{
         loop: true,
       }}
@@ -23,10 +23,14 @@ const ImageCarousel = ({ placeImages }: ImageCarouselProps) => {
           const fetchedImage = await getGoogleImage(image.name);
 
           return (
-            <CarouselItem key={image.name} className="pl-4 md:basis-1/2">
+            <CarouselItem
+              key={image.name}
+              className="pl-4 md:basis-1/2 cursor-grab"
+            >
               <Image
                 alt={image?.name}
                 aria-label={image?.name}
+                className="object-cover w-full h-full"
                 height={image?.heightPx}
                 src={fetchedImage?.photoUri}
                 width={image?.widthPx}

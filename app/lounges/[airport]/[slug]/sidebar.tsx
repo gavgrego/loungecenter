@@ -3,6 +3,7 @@
 import {
   Accordion,
   AccordionItem,
+  Link,
   Table,
   TableBody,
   TableCell,
@@ -25,6 +26,13 @@ const LoungeSidebar = ({ loungeData, placeDetails }: LoungeSidebarProps) => {
   return (
     <div className="flex flex-col gap-3">
       <div className="font-medium">📍&nbsp;{placeDetails.formattedAddress}</div>
+      <Link
+        className="font-medium"
+        href={`tel:${placeDetails.internationalPhoneNumber}`}
+      >
+        ☎️&nbsp;{placeDetails.internationalPhoneNumber}
+      </Link>
+
       <Accordion className="p-0" defaultExpandedKeys={["1"]}>
         <AccordionItem
           key={1}
@@ -50,13 +58,17 @@ const LoungeSidebar = ({ loungeData, placeDetails }: LoungeSidebarProps) => {
         </AccordionItem>
       </Accordion>
       {/* hours table */}
-      <h2>Access With:</h2>
+      <h3>Access With:</h3>
       {/* access table */}
-      <h2>How Busy</h2>
-      <h2>Overall Rating:</h2>
-      <div className="flex flex-row font-bold text-xl">
-        <span className="text-yellow-400">{placeDetails.rating}</span>
-        &nbsp;/&nbsp;5
+      {/* IF PRO MEMBER */}
+      <h3>How Busy</h3>
+      {/*  */}
+      <div className="flex flex-row gap-3 items-center">
+        <h3>Overall Rating:</h3>
+        <div className="flex flex-row font-bold text-xl">
+          <span className="text-yellow-400">{placeDetails.rating}</span>
+          &nbsp;/&nbsp;5
+        </div>
       </div>
     </div>
   );

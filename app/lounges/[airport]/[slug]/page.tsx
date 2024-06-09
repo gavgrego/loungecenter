@@ -1,5 +1,9 @@
+import { Suspense } from "react";
+import { CircularProgress } from "@nextui-org/react";
+
 import LoungeSidebar from "./sidebar";
 import ImageCarousel from "./components/ImageCarousel";
+import Notes from "./components/Notes";
 
 import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
@@ -16,9 +20,9 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <>
-      <div className="flex flex-row gap-10">
-        <div className="md:basis-2/3">
-          <h1 className="text-5xl font-semibold">{loungeData?.name}</h1>
+      <div className="flex flex-col md:flex-row gap-10">
+        <div className="basis-full md:basis-2/3">
+          <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
           <div className="flex flex-row gap-3">
             <h2>{airportData?.name}</h2>
             <h2>{airportData?.city}</h2>
@@ -26,11 +30,14 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             <h2>{airportData?.country}</h2>
           </div>
           <h3>{airportData?.code}</h3>
-
-          <ImageCarousel placeImages={placeImages} />
+          <Suspense fallback={<CircularProgress />}>
+            <ImageCarousel placeImages={placeImages} />
+          </Suspense>
+          <div>{loungeData?.description}</div>
+          {loungeData?.notes ? <Notes markdown={loungeData?.notes} /> : null}
         </div>
 
-        <aside className="md:basis-1/3 sticky">
+        <aside className="basis-full md:basis-1/3 md:sticky">
           <LoungeSidebar loungeData={loungeData} placeDetails={placeDetails} />
         </aside>
       </div>
