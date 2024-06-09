@@ -26,6 +26,14 @@ export const siteConfig = {
       label: "GO PRO",
       href: "/go-pro",
       bold: true,
+      color: "success" as
+        | "success"
+        | "secondary"
+        | "foreground"
+        | "primary"
+        | "warning"
+        | "danger"
+        | undefined,
     },
   ],
   navMenuItems: [

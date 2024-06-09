@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { CircularProgress } from "@nextui-org/react";
+import { CircularProgress, Divider } from "@nextui-org/react";
 
 import LoungeSidebar from "./sidebar";
 import ImageCarousel from "./components/ImageCarousel";
@@ -23,18 +23,28 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
       <div className="flex flex-col md:flex-row gap-10">
         <div className="basis-full md:basis-2/3">
           <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
-          <div className="flex flex-row gap-3">
-            <h2>{airportData?.name}</h2>
-            <h2>{airportData?.city}</h2>
-            {airportData?.state ? <h2>{airportData?.state}</h2> : ""}
-            <h2>{airportData?.country}</h2>
-          </div>
-          <h3>{airportData?.code}</h3>
+          <h2 className="text-xl font-semibold mb-1">
+            {airportData?.code} - 📍{loungeData?.location}
+          </h2>
+          <h2 className="flex flex-row text-sm">
+            <span>
+              {airportData?.name} &mdash; {airportData?.city},&nbsp;
+            </span>
+            <span>{airportData?.state ? airportData?.state : ""},&nbsp;</span>
+            <span>{airportData?.country}</span>
+          </h2>
           <Suspense fallback={<CircularProgress />}>
             <ImageCarousel placeImages={placeImages} />
           </Suspense>
+          <Divider className="my-5" />
           <div>{loungeData?.description}</div>
-          {loungeData?.notes ? <Notes markdown={loungeData?.notes} /> : null}
+          <Divider className="my-5" />
+          {loungeData?.notes ? (
+            <div>
+              <h3>Things of note:</h3>
+              <Notes markdown={loungeData?.notes} />
+            </div>
+          ) : null}
         </div>
 
         <aside className="basis-full md:basis-1/3 md:sticky">

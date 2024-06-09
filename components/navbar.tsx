@@ -37,14 +37,14 @@ export const Navbar = () => {
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
-                  linkStyles({ color: "foreground" }),
+                  linkStyles({ color: item.color ? item.color : "foreground" }),
                   `data-[active=true]:text-primary data-[active=true]:font-medium ${
                     item.bold ? "font-bold" : ""
                   } 
                   ${item.bounce ? "animate-bounce" : ""}
                   `,
                 )}
-                color="foreground"
+                color={item.color ? item.color : "foreground"}
                 href={item.href}
               >
                 {item.label}

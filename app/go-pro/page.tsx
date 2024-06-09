@@ -15,7 +15,9 @@ const GoProPage = () => {
           >
             <p className="font-semibold">
               Airside provides a more intuitive, full-featured way to get
-              critical lounge information.
+              critical lounge information. Our data is automatically sourced and
+              updated from places like Google, ensuring the most accurate and
+              up-to-date info.
             </p>
             <p className="font-semibold">
               In addition to providing basic information like hours and

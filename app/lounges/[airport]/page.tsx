@@ -7,6 +7,10 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
   const airportData = airport.data?.[0].attributes;
   const airportLounges = await getLoungesByAirportCode(params.airport);
 
+  // Want to have a table with all lounges
+
+  // then below, lounges by terminal
+
   return (
     <div>
       {airportData?.name}
