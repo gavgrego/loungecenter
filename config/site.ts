@@ -14,16 +14,16 @@ export const siteConfig = {
       href: "/airports",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
       label: "Blog",
       href: "/blog",
     },
     {
       label: "About",
       href: "/about",
+    },
+    {
+      label: "GO PRO",
+      href: "/pro",
     },
   ],
   navMenuItems: [
