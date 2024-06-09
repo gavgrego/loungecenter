@@ -49,7 +49,6 @@
     "next": "14.2.3",
     "next-themes": "^0.2.1",
     "postcss": "8.4.38",
-    "prettier": "^3.3.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-instantsearch": "^7.11.0",
@@ -62,6 +61,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.55.9",
     "openapi-typescript": "^6.7.6",
     "orval": "^6.29.1"
   }
