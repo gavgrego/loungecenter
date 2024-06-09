@@ -8,6 +8,7 @@ export const siteConfig = {
       label: "Lounges",
       href: "/lounges",
       bold: true,
+      bounce: true,
     },
     {
       label: "Airports",
@@ -23,7 +24,8 @@ export const siteConfig = {
     },
     {
       label: "GO PRO",
-      href: "/pro",
+      href: "/go-pro",
+      bold: true,
     },
   ],
   navMenuItems: [

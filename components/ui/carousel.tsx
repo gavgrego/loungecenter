@@ -48,15 +48,7 @@ const Carousel = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & CarouselProps
 >(
   (
-    {
-      orientation = "horizontal",
-      opts,
-      setApi,
-      plugins,
-      className,
-      children,
-      ...props
-    },
+    { orientation = "horizontal", opts, setApi, className, children, ...props },
     ref,
   ) => {
     const [carouselRef, api] = useEmblaCarousel(

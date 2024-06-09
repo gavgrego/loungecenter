@@ -20,15 +20,15 @@ const ImageCarousel = ({ placeImages }: ImageCarouselProps) => {
     >
       <CarouselContent className="-ml-4 ">
         {placeImages?.map(async (image) => {
-          const fetchedImage = await getGoogleImage(image.name as string);
+          const fetchedImage = await getGoogleImage(image.name);
 
           return (
             <CarouselItem key={image.name} className="pl-4 md:basis-1/2">
               <Image
-                alt={image?.name as string}
-                aria-label={image?.name as string}
+                alt={image?.name}
+                aria-label={image?.name}
                 height={image?.heightPx}
-                src={fetchedImage?.photoUri as string}
+                src={fetchedImage?.photoUri}
                 width={image?.widthPx}
               />
             </CarouselItem>

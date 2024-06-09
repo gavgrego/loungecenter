@@ -17,7 +17,7 @@ import { Lounge } from "@/data/api/documentation";
 import { GooglePlace } from "@/types/googlePlaces/types";
 
 type LoungeSidebarProps = {
-  loungeData: Lounge;
+  loungeData: Lounge | undefined;
   placeDetails: GooglePlace;
 };
 

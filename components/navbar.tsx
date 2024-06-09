@@ -12,10 +12,11 @@ import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
+import SearchInput from "./search/searchInput";
+
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { TwitterIcon, DiscordIcon } from "@/components/icons";
-import SearchInput from "./search/searchInput";
 
 export const Navbar = () => {
   return (
@@ -38,8 +39,10 @@ export const Navbar = () => {
                 className={clsx(
                   linkStyles({ color: "foreground" }),
                   `data-[active=true]:text-primary data-[active=true]:font-medium ${
-                    item.bold && "font-bold animate-bounce"
-                  }`
+                    item.bold ? "font-bold" : ""
+                  } 
+                  ${item.bounce ? "animate-bounce" : ""}
+                  `,
                 )}
                 color="foreground"
                 href={item.href}
@@ -83,8 +86,8 @@ export const Navbar = () => {
                   index === 2
                     ? "primary"
                     : index === siteConfig.navMenuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href="#"
                 size="lg"

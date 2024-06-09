@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-06-08T22:55:29.184Z"
+    "x-generation-date": "2024-06-09T17:24:41.832Z"
   },
   "x-strapi-config": {
     "plugins": [],
@@ -46,7 +46,9 @@
     "schemas": {
       "Error": {
         "type": "object",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "data": {
             "nullable": true,
@@ -83,10 +85,17 @@
       },
       "AirportRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
-            "required": ["code", "name", "city", "country"],
+            "required": [
+              "code",
+              "name",
+              "city",
+              "country"
+            ],
             "type": "object",
             "properties": {
               "code": {
@@ -326,7 +335,12 @@
       },
       "Airport": {
         "type": "object",
-        "required": ["code", "name", "city", "country"],
+        "required": [
+          "code",
+          "name",
+          "city",
+          "country"
+        ],
         "properties": {
           "code": {
             "type": "string"
@@ -851,84 +865,6 @@
                             }
                           }
                         },
-                        "hours": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "number"
-                            },
-                            "mondayOpen": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "mondayClose": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "tuesdayOpen": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "tuesdayClose": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "wednesdayOpen": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "wednesdayClose": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "thursdayOpen": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "thursdayClose": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "fridayOpen": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "fridayClose": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "saturdayOpen": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "saturdayClose": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "sundayOpen": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            },
-                            "sundayClose": {
-                              "type": "string",
-                              "format": "time",
-                              "example": "12:54.000"
-                            }
-                          }
-                        },
                         "cards": {
                           "type": "object",
                           "properties": {
@@ -948,7 +884,11 @@
                                       },
                                       "processor": {
                                         "type": "string",
-                                        "enum": ["Visa", "Amex", "Mastercard"]
+                                        "enum": [
+                                          "Visa",
+                                          "Amex",
+                                          "Mastercard"
+                                        ]
                                       },
                                       "bank": {
                                         "type": "string",
@@ -1355,7 +1295,10 @@
                                       },
                                       "personalOrBiz": {
                                         "type": "string",
-                                        "enum": ["Personal", "Business"]
+                                        "enum": [
+                                          "Personal",
+                                          "Business"
+                                        ]
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -1412,156 +1355,11 @@
                         },
                         "amenities": {},
                         "detriments": {},
-                        "Latitude": {
-                          "type": "string"
-                        },
-                        "Longitutde": {
-                          "type": "string"
-                        },
                         "slug": {
                           "type": "string"
                         },
-                        "images": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "number"
-                                  },
-                                  "attributes": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "alternativeText": {
-                                        "type": "string"
-                                      },
-                                      "caption": {
-                                        "type": "string"
-                                      },
-                                      "width": {
-                                        "type": "integer"
-                                      },
-                                      "height": {
-                                        "type": "integer"
-                                      },
-                                      "formats": {},
-                                      "hash": {
-                                        "type": "string"
-                                      },
-                                      "ext": {
-                                        "type": "string"
-                                      },
-                                      "mime": {
-                                        "type": "string"
-                                      },
-                                      "size": {
-                                        "type": "number",
-                                        "format": "float"
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      },
-                                      "previewUrl": {
-                                        "type": "string"
-                                      },
-                                      "provider": {
-                                        "type": "string"
-                                      },
-                                      "provider_metadata": {},
-                                      "related": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "attributes": {
-                                                  "type": "object",
-                                                  "properties": {}
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "folder": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "folderPath": {
-                                        "type": "string"
-                                      },
-                                      "createdAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "updatedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "createdBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "updatedBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
+                        "googlePlaceId": {
+                          "type": "string"
                         },
                         "createdAt": {
                           "type": "string",
@@ -1860,7 +1658,9 @@
       },
       "CardRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
             "type": "object",
@@ -1870,7 +1670,11 @@
               },
               "processor": {
                 "type": "string",
-                "enum": ["Visa", "Amex", "Mastercard"]
+                "enum": [
+                  "Visa",
+                  "Amex",
+                  "Mastercard"
+                ]
               },
               "bank": {
                 "type": "string",
@@ -1912,7 +1716,10 @@
               },
               "personalOrBiz": {
                 "type": "string",
-                "enum": ["Personal", "Business"]
+                "enum": [
+                  "Personal",
+                  "Business"
+                ]
               }
             }
           }
@@ -1972,7 +1779,11 @@
           },
           "processor": {
             "type": "string",
-            "enum": ["Visa", "Amex", "Mastercard"]
+            "enum": [
+              "Visa",
+              "Amex",
+              "Mastercard"
+            ]
           },
           "bank": {
             "type": "string",
@@ -2878,84 +2689,6 @@
                           }
                         }
                       },
-                      "hours": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "mondayOpen": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "mondayClose": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "tuesdayOpen": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "tuesdayClose": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "wednesdayOpen": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "wednesdayClose": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "thursdayOpen": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "thursdayClose": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "fridayOpen": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "fridayClose": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "saturdayOpen": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "saturdayClose": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "sundayOpen": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          },
-                          "sundayClose": {
-                            "type": "string",
-                            "format": "time",
-                            "example": "12:54.000"
-                          }
-                        }
-                      },
                       "cards": {
                         "type": "object",
                         "properties": {
@@ -2975,7 +2708,11 @@
                                     },
                                     "processor": {
                                       "type": "string",
-                                      "enum": ["Visa", "Amex", "Mastercard"]
+                                      "enum": [
+                                        "Visa",
+                                        "Amex",
+                                        "Mastercard"
+                                      ]
                                     },
                                     "bank": {
                                       "type": "string",
@@ -3151,7 +2888,10 @@
                                     },
                                     "personalOrBiz": {
                                       "type": "string",
-                                      "enum": ["Personal", "Business"]
+                                      "enum": [
+                                        "Personal",
+                                        "Business"
+                                      ]
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -3208,156 +2948,11 @@
                       },
                       "amenities": {},
                       "detriments": {},
-                      "Latitude": {
-                        "type": "string"
-                      },
-                      "Longitutde": {
-                        "type": "string"
-                      },
                       "slug": {
                         "type": "string"
                       },
-                      "images": {
-                        "type": "object",
-                        "properties": {
-                          "data": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {
-                                    "name": {
-                                      "type": "string"
-                                    },
-                                    "alternativeText": {
-                                      "type": "string"
-                                    },
-                                    "caption": {
-                                      "type": "string"
-                                    },
-                                    "width": {
-                                      "type": "integer"
-                                    },
-                                    "height": {
-                                      "type": "integer"
-                                    },
-                                    "formats": {},
-                                    "hash": {
-                                      "type": "string"
-                                    },
-                                    "ext": {
-                                      "type": "string"
-                                    },
-                                    "mime": {
-                                      "type": "string"
-                                    },
-                                    "size": {
-                                      "type": "number",
-                                      "format": "float"
-                                    },
-                                    "url": {
-                                      "type": "string"
-                                    },
-                                    "previewUrl": {
-                                      "type": "string"
-                                    },
-                                    "provider": {
-                                      "type": "string"
-                                    },
-                                    "provider_metadata": {},
-                                    "related": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "folder": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "folderPath": {
-                                      "type": "string"
-                                    },
-                                    "createdAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "updatedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "createdBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "updatedBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
+                      "googlePlaceId": {
+                        "type": "string"
                       },
                       "createdAt": {
                         "type": "string",
@@ -3421,7 +3016,10 @@
           },
           "personalOrBiz": {
             "type": "string",
-            "enum": ["Personal", "Business"]
+            "enum": [
+              "Personal",
+              "Business"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -3494,7 +3092,10 @@
         }
       },
       "LoungeLocalizationRequest": {
-        "required": ["locale"],
+        "required": [
+          "googlePlaceId",
+          "locale"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -3510,9 +3111,6 @@
               }
             ],
             "example": "string or id"
-          },
-          "hours": {
-            "$ref": "#/components/schemas/TimeHoursComponent"
           },
           "cards": {
             "type": "array",
@@ -3530,28 +3128,11 @@
           },
           "amenities": {},
           "detriments": {},
-          "Latitude": {
-            "type": "string"
-          },
-          "Longitutde": {
-            "type": "string"
-          },
           "slug": {
             "type": "string"
           },
-          "images": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
-              ],
-              "example": "string or id"
-            }
+          "googlePlaceId": {
+            "type": "string"
           },
           "locale": {
             "type": "string"
@@ -3560,9 +3141,14 @@
       },
       "LoungeRequest": {
         "type": "object",
-        "required": ["data"],
+        "required": [
+          "data"
+        ],
         "properties": {
           "data": {
+            "required": [
+              "googlePlaceId"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -3578,9 +3164,6 @@
                   }
                 ],
                 "example": "string or id"
-              },
-              "hours": {
-                "$ref": "#/components/schemas/TimeHoursComponent"
               },
               "cards": {
                 "type": "array",
@@ -3598,28 +3181,11 @@
               },
               "amenities": {},
               "detriments": {},
-              "Latitude": {
-                "type": "string"
-              },
-              "Longitutde": {
-                "type": "string"
-              },
               "slug": {
                 "type": "string"
               },
-              "images": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "integer"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "example": "string or id"
-                }
+              "googlePlaceId": {
+                "type": "string"
               },
               "locale": {
                 "type": "string"
@@ -3744,6 +3310,9 @@
       },
       "Lounge": {
         "type": "object",
+        "required": [
+          "googlePlaceId"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -3794,84 +3363,6 @@
                                               "properties": {}
                                             }
                                           }
-                                        }
-                                      }
-                                    },
-                                    "hours": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "mondayOpen": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "mondayClose": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "tuesdayOpen": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "tuesdayClose": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "wednesdayOpen": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "wednesdayClose": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "thursdayOpen": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "thursdayClose": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "fridayOpen": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "fridayClose": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "saturdayOpen": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "saturdayClose": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "sundayOpen": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
-                                        },
-                                        "sundayClose": {
-                                          "type": "string",
-                                          "format": "time",
-                                          "example": "12:54.000"
                                         }
                                       }
                                     },
@@ -4617,156 +4108,11 @@
                                     },
                                     "amenities": {},
                                     "detriments": {},
-                                    "Latitude": {
-                                      "type": "string"
-                                    },
-                                    "Longitutde": {
-                                      "type": "string"
-                                    },
                                     "slug": {
                                       "type": "string"
                                     },
-                                    "images": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "alternativeText": {
-                                                    "type": "string"
-                                                  },
-                                                  "caption": {
-                                                    "type": "string"
-                                                  },
-                                                  "width": {
-                                                    "type": "integer"
-                                                  },
-                                                  "height": {
-                                                    "type": "integer"
-                                                  },
-                                                  "formats": {},
-                                                  "hash": {
-                                                    "type": "string"
-                                                  },
-                                                  "ext": {
-                                                    "type": "string"
-                                                  },
-                                                  "mime": {
-                                                    "type": "string"
-                                                  },
-                                                  "size": {
-                                                    "type": "number",
-                                                    "format": "float"
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  },
-                                                  "previewUrl": {
-                                                    "type": "string"
-                                                  },
-                                                  "provider": {
-                                                    "type": "string"
-                                                  },
-                                                  "provider_metadata": {},
-                                                  "related": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "array",
-                                                        "items": {
-                                                          "type": "object",
-                                                          "properties": {
-                                                            "id": {
-                                                              "type": "number"
-                                                            },
-                                                            "attributes": {
-                                                              "type": "object",
-                                                              "properties": {}
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  "folder": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "id": {
-                                                            "type": "number"
-                                                          },
-                                                          "attributes": {
-                                                            "type": "object",
-                                                            "properties": {}
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  "folderPath": {
-                                                    "type": "string"
-                                                  },
-                                                  "createdAt": {
-                                                    "type": "string",
-                                                    "format": "date-time"
-                                                  },
-                                                  "updatedAt": {
-                                                    "type": "string",
-                                                    "format": "date-time"
-                                                  },
-                                                  "createdBy": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "id": {
-                                                            "type": "number"
-                                                          },
-                                                          "attributes": {
-                                                            "type": "object",
-                                                            "properties": {}
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  "updatedBy": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "id": {
-                                                            "type": "number"
-                                                          },
-                                                          "attributes": {
-                                                            "type": "object",
-                                                            "properties": {}
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
+                                    "googlePlaceId": {
+                                      "type": "string"
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -5045,9 +4391,6 @@
               }
             }
           },
-          "hours": {
-            "$ref": "#/components/schemas/TimeHoursComponent"
-          },
           "cards": {
             "type": "object",
             "properties": {
@@ -5070,156 +4413,11 @@
           },
           "amenities": {},
           "detriments": {},
-          "Latitude": {
-            "type": "string"
-          },
-          "Longitutde": {
-            "type": "string"
-          },
           "slug": {
             "type": "string"
           },
-          "images": {
-            "type": "object",
-            "properties": {
-              "data": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "alternativeText": {
-                          "type": "string"
-                        },
-                        "caption": {
-                          "type": "string"
-                        },
-                        "width": {
-                          "type": "integer"
-                        },
-                        "height": {
-                          "type": "integer"
-                        },
-                        "formats": {},
-                        "hash": {
-                          "type": "string"
-                        },
-                        "ext": {
-                          "type": "string"
-                        },
-                        "mime": {
-                          "type": "string"
-                        },
-                        "size": {
-                          "type": "number",
-                          "format": "float"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "previewUrl": {
-                          "type": "string"
-                        },
-                        "provider": {
-                          "type": "string"
-                        },
-                        "provider_metadata": {},
-                        "related": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "number"
-                                  },
-                                  "attributes": {
-                                    "type": "object",
-                                    "properties": {}
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "folder": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "folderPath": {
-                          "type": "string"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "createdBy": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "updatedBy": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "googlePlaceId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -5300,84 +4498,6 @@
             "type": "object"
           }
         }
-      },
-      "TimeHoursComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "mondayOpen": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "mondayClose": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "tuesdayOpen": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "tuesdayClose": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "wednesdayOpen": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "wednesdayClose": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "thursdayOpen": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "thursdayClose": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "fridayOpen": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "fridayClose": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "saturdayOpen": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "saturdayClose": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "sundayOpen": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          },
-          "sundayClose": {
-            "type": "string",
-            "format": "time",
-            "example": "12:54.000"
-          }
-        }
       }
     }
   },
@@ -5446,7 +4566,9 @@
             }
           }
         },
-        "tags": ["Airport"],
+        "tags": [
+          "Airport"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -5615,7 +4737,9 @@
             }
           }
         },
-        "tags": ["Airport"],
+        "tags": [
+          "Airport"
+        ],
         "parameters": [],
         "operationId": "post/airports",
         "requestBody": {
@@ -5694,7 +4818,9 @@
             }
           }
         },
-        "tags": ["Airport"],
+        "tags": [
+          "Airport"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -5772,7 +4898,9 @@
             }
           }
         },
-        "tags": ["Airport"],
+        "tags": [
+          "Airport"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -5861,7 +4989,9 @@
             }
           }
         },
-        "tags": ["Airport"],
+        "tags": [
+          "Airport"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -5941,7 +5071,9 @@
             }
           }
         },
-        "tags": ["Card"],
+        "tags": [
+          "Card"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -6110,7 +5242,9 @@
             }
           }
         },
-        "tags": ["Card"],
+        "tags": [
+          "Card"
+        ],
         "parameters": [],
         "operationId": "post/cards",
         "requestBody": {
@@ -6189,7 +5323,9 @@
             }
           }
         },
-        "tags": ["Card"],
+        "tags": [
+          "Card"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6267,7 +5403,9 @@
             }
           }
         },
-        "tags": ["Card"],
+        "tags": [
+          "Card"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6356,7 +5494,9 @@
             }
           }
         },
-        "tags": ["Card"],
+        "tags": [
+          "Card"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6436,7 +5576,9 @@
             }
           }
         },
-        "tags": ["Lounge"],
+        "tags": [
+          "Lounge"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -6605,7 +5747,9 @@
             }
           }
         },
-        "tags": ["Lounge"],
+        "tags": [
+          "Lounge"
+        ],
         "parameters": [],
         "operationId": "post/lounges",
         "requestBody": {
@@ -6684,7 +5828,9 @@
             }
           }
         },
-        "tags": ["Lounge"],
+        "tags": [
+          "Lounge"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6762,7 +5908,9 @@
             }
           }
         },
-        "tags": ["Lounge"],
+        "tags": [
+          "Lounge"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6851,7 +5999,9 @@
             }
           }
         },
-        "tags": ["Lounge"],
+        "tags": [
+          "Lounge"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -6931,7 +6081,9 @@
             }
           }
         },
-        "tags": ["Lounge"],
+        "tags": [
+          "Lounge"
+        ],
         "parameters": [
           {
             "name": "id",
