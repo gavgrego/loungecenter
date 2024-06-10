@@ -13,19 +13,19 @@ const GoProPage = () => {
             aria-label="What's the difference between Airside and other online lounge resources?"
             title="❓ What's the difference between Airside and other online lounge resources?"
           >
-            <p className="font-semibold">
+            <p className="">
               Airside provides a more intuitive, full-featured way to get
               critical lounge information. Our data is automatically sourced and
               updated from places like Google, ensuring the most accurate and
               up-to-date info.
             </p>
-            <p className="font-semibold">
+            <p className="">
               In addition to providing basic information like hours and
               location, Airside also offers real-time foot traffic data, robust
               filtering, and a community of Pro members who share exclusive tips
               and tricks.
             </p>
-            <p className="font-semibold mt-2">
+            <p className="mt-2">
               ❗ Other lounge resources are also incentivized to promote certain
               lounges, while Airside is completely unbiased and
               community-driven.
@@ -50,8 +50,8 @@ const GoProPage = () => {
                 rush and can&apos;t be bothered to search.
               </li>
               <li>
-                Seeing how busy a lounge is before you walk 2 terminals over,
-                thanks to our real-time foot traffic data.
+                Seeing how busy a lounge is before you make the trek, thanks to
+                our real-time foot traffic data.
               </li>
               <li>
                 Pro channels in Discord hosting a myriad of exclusive real-time

@@ -4,6 +4,7 @@ import { CircularProgress, Divider } from "@nextui-org/react";
 import LoungeSidebar from "./sidebar";
 import ImageCarousel from "./components/ImageCarousel";
 import Notes from "./components/Notes";
+import DirectionsAndMap from "./components/DirectionsAndMap";
 
 import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
@@ -40,11 +41,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           <div>{loungeData?.description}</div>
           <Divider className="my-5" />
           {loungeData?.notes ? (
-            <div>
-              <h3>Things of note:</h3>
+            <>
+              <h3 className="mb-2">Important Info:</h3>
               <Notes markdown={loungeData?.notes} />
-            </div>
+            </>
           ) : null}
+          <Divider className="my-5" />
+          <DirectionsAndMap loungeData={loungeData} />
         </div>
 
         <aside className="basis-full md:basis-1/3 md:sticky">

@@ -4,18 +4,7 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
-import type {
-  MutationFunction,
-  QueryFunction,
-  QueryKey,
-  UseMutationOptions,
-  UseMutationResult,
-  UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
-import axios from "axios";
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+
 export type GetLoungesParams = {
   /**
    * Sort by attributes ascending (asc) or descending (desc)
@@ -218,17 +207,19 @@ export type LoungeLocalizations = {
 export interface Lounge {
   airport?: LoungeAirport;
   amenities?: LoungeAmenities;
-  cards?: LoungeCards;
+  card?: LoungeCard;
   createdAt?: string;
   createdBy?: LoungeCreatedBy;
   description: string;
   detriments?: unknown;
+  directions?: string;
   googlePlaceId: string;
   locale?: string;
   localizations?: LoungeLocalizations;
   location?: string;
   name?: string;
   notes?: string;
+  priorityPass?: boolean;
   slug?: string;
   updatedAt?: string;
   updatedBy?: LoungeUpdatedBy;
@@ -245,15 +236,15 @@ export type LoungeCreatedBy = {
   data?: LoungeCreatedByData;
 };
 
-export type LoungeCardsDataItemAttributes = { [key: string]: any };
+export type LoungeCardDataAttributes = { [key: string]: any };
 
-export type LoungeCardsDataItem = {
-  attributes?: LoungeCardsDataItemAttributes;
+export type LoungeCardData = {
+  attributes?: LoungeCardDataAttributes;
   id?: number;
 };
 
-export type LoungeCards = {
-  data?: LoungeCardsDataItem[];
+export type LoungeCard = {
+  data?: LoungeCardData;
 };
 
 export type LoungeAmenitiesDataItemAttributes = { [key: string]: any };
@@ -389,17 +380,19 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesLocalizations =
 export type LoungeAirportDataAttributesLoungesDataItemAttributes = {
   airport?: LoungeAirportDataAttributesLoungesDataItemAttributesAirport;
   amenities?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenities;
-  cards?: LoungeAirportDataAttributesLoungesDataItemAttributesCards;
+  card?: LoungeAirportDataAttributesLoungesDataItemAttributesCard;
   createdAt?: string;
   createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCreatedBy;
   description?: string;
   detriments?: unknown;
+  directions?: string;
   googlePlaceId?: string;
   locale?: string;
   localizations?: LoungeAirportDataAttributesLoungesDataItemAttributesLocalizations;
   location?: string;
   name?: string;
   notes?: string;
+  priorityPass?: boolean;
   slug?: string;
   updatedAt?: string;
   updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesUpdatedBy;
@@ -418,114 +411,112 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesCreatedBy = {
   data?: LoungeAirportDataAttributesLoungesDataItemAttributesCreatedByData;
 };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor =
-  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor];
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor =
+  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor =
+export const LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor =
   {
     Visa: "Visa",
     Amex: "Amex",
     Mastercard: "Mastercard",
   } as const;
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
-  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz];
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
+  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
+export const LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
   {
     Personal: "Personal",
     Business: "Business",
   } as const;
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributes =
   {
     annualFee?: number;
-    bank?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank;
+    bank?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank;
     createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedBy;
-    icon?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIcon;
-    lounges?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesLounges;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedBy;
+    icon?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIcon;
+    lounges?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLounges;
     name?: string;
-    personalOrBiz?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz;
-    processor?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor;
-    publishedAt?: string;
+    personalOrBiz?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz;
+    processor?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor;
     updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedBy;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItem =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCards = {
-  data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItem[];
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardData = {
+  attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributes;
+  id?: number;
 };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItemAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCard = {
+  data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardData;
+};
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItem =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItem =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItemAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesLounges =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLounges =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItem[];
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItem[];
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIcon =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIcon =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributes =
   {
     alternativeText?: string;
     caption?: string;
     createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy;
     ext?: string;
-    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder;
+    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder;
     folderPath?: string;
     formats?: unknown;
     hash?: string;
@@ -535,75 +526,75 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAtt
     previewUrl?: string;
     provider?: string;
     provider_metadata?: unknown;
-    related?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated;
+    related?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated;
     size?: number;
     updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy;
     url?: string;
     width?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem[];
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem[];
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParent =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParent =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
   {
     alternativeText?: string;
     caption?: string;
     createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
     ext?: string;
-    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
+    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
     folderPath?: string;
     formats?: unknown;
     hash?: string;
@@ -613,156 +604,156 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAtt
     previewUrl?: string;
     provider?: string;
     provider_metadata?: unknown;
-    related?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
+    related?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
     size?: number;
     updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
     url?: string;
     width?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFiles =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFiles =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem[];
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItem[];
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes =
   {
-    children?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildren;
+    children?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildren;
     createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedBy;
-    files?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFiles;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedBy;
+    files?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFiles;
     name?: string;
-    parent?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParent;
+    parent?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParent;
     path?: string;
     pathId?: number;
     updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedBy;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedBy;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItem =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItem =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildren =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildren =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItem[];
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItem[];
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank =
-  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank];
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank =
+  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank =
+export const LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank =
   {
     Chase: "Chase",
     Amex: "Amex",
@@ -1189,7 +1180,7 @@ export interface LoungeLocalizationResponse {
   meta?: LoungeLocalizationResponseMeta;
 }
 
-export type LoungeRequestDataCardsItem = number | string;
+export type LoungeRequestDataCard = number | string;
 
 export type LoungeRequestDataAmenitiesItem = number | string;
 
@@ -1198,14 +1189,16 @@ export type LoungeRequestDataAirport = number | string;
 export type LoungeRequestData = {
   airport?: LoungeRequestDataAirport;
   amenities?: LoungeRequestDataAmenitiesItem[];
-  cards?: LoungeRequestDataCardsItem[];
+  card?: LoungeRequestDataCard;
   description: string;
   detriments?: unknown;
+  directions?: string;
   googlePlaceId: string;
   locale?: string;
   location?: string;
   name?: string;
   notes?: string;
+  priorityPass?: boolean;
   slug?: string;
 };
 
@@ -1213,7 +1206,7 @@ export interface LoungeRequest {
   data: LoungeRequestData;
 }
 
-export type LoungeLocalizationRequestCardsItem = number | string;
+export type LoungeLocalizationRequestCard = number | string;
 
 export type LoungeLocalizationRequestAmenitiesItem = number | string;
 
@@ -1222,14 +1215,16 @@ export type LoungeLocalizationRequestAirport = number | string;
 export interface LoungeLocalizationRequest {
   airport?: LoungeLocalizationRequestAirport;
   amenities?: LoungeLocalizationRequestAmenitiesItem[];
-  cards?: LoungeLocalizationRequestCardsItem[];
+  card?: LoungeLocalizationRequestCard;
   description: string;
   detriments?: unknown;
+  directions?: string;
   googlePlaceId: string;
   locale: string;
   location?: string;
   name?: string;
   notes?: string;
+  priorityPass?: boolean;
   slug?: string;
 }
 
@@ -1293,7 +1288,6 @@ export interface Card {
   name?: string;
   personalOrBiz?: CardPersonalOrBiz;
   processor?: CardProcessor;
-  publishedAt?: string;
   updatedAt?: string;
   updatedBy?: CardUpdatedBy;
 }
@@ -1318,17 +1312,19 @@ export type CardLoungesDataItemAttributesLocalizations = {
 export type CardLoungesDataItemAttributes = {
   airport?: CardLoungesDataItemAttributesAirport;
   amenities?: CardLoungesDataItemAttributesAmenities;
-  cards?: CardLoungesDataItemAttributesCards;
+  card?: CardLoungesDataItemAttributesCard;
   createdAt?: string;
   createdBy?: CardLoungesDataItemAttributesCreatedBy;
   description?: string;
   detriments?: unknown;
+  directions?: string;
   googlePlaceId?: string;
   locale?: string;
   localizations?: CardLoungesDataItemAttributesLocalizations;
   location?: string;
   name?: string;
   notes?: string;
+  priorityPass?: boolean;
   slug?: string;
   updatedAt?: string;
   updatedBy?: CardLoungesDataItemAttributesUpdatedBy;
@@ -1347,149 +1343,145 @@ export type CardLoungesDataItemAttributesCreatedBy = {
   data?: CardLoungesDataItemAttributesCreatedByData;
 };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributes = {
+export type CardLoungesDataItemAttributesCardDataAttributes = {
   annualFee?: number;
-  bank?: CardLoungesDataItemAttributesCardsDataItemAttributesBank;
+  bank?: CardLoungesDataItemAttributesCardDataAttributesBank;
   createdAt?: string;
-  createdBy?: CardLoungesDataItemAttributesCardsDataItemAttributesCreatedBy;
-  icon?: CardLoungesDataItemAttributesCardsDataItemAttributesIcon;
-  lounges?: CardLoungesDataItemAttributesCardsDataItemAttributesLounges;
+  createdBy?: CardLoungesDataItemAttributesCardDataAttributesCreatedBy;
+  icon?: CardLoungesDataItemAttributesCardDataAttributesIcon;
+  lounges?: CardLoungesDataItemAttributesCardDataAttributesLounges;
   name?: string;
-  personalOrBiz?: CardLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz;
-  processor?: CardLoungesDataItemAttributesCardsDataItemAttributesProcessor;
-  publishedAt?: string;
+  personalOrBiz?: CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz;
+  processor?: CardLoungesDataItemAttributesCardDataAttributesProcessor;
   updatedAt?: string;
-  updatedBy?: CardLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy;
+  updatedBy?: CardLoungesDataItemAttributesCardDataAttributesUpdatedBy;
 };
 
-export type CardLoungesDataItemAttributesCardsDataItem = {
-  attributes?: CardLoungesDataItemAttributesCardsDataItemAttributes;
+export type CardLoungesDataItemAttributesCardData = {
+  attributes?: CardLoungesDataItemAttributesCardDataAttributes;
   id?: number;
 };
 
-export type CardLoungesDataItemAttributesCards = {
-  data?: CardLoungesDataItemAttributesCardsDataItem[];
+export type CardLoungesDataItemAttributesCard = {
+  data?: CardLoungesDataItemAttributesCardData;
 };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy = {
-  data?: CardLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData;
+export type CardLoungesDataItemAttributesCardDataAttributesUpdatedByData = {
+  attributes?: CardLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes;
+  id?: number;
 };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesProcessor =
-  (typeof CardLoungesDataItemAttributesCardsDataItemAttributesProcessor)[keyof typeof CardLoungesDataItemAttributesCardsDataItemAttributesProcessor];
+export type CardLoungesDataItemAttributesCardDataAttributesUpdatedBy = {
+  data?: CardLoungesDataItemAttributesCardDataAttributesUpdatedByData;
+};
+
+export type CardLoungesDataItemAttributesCardDataAttributesProcessor =
+  (typeof CardLoungesDataItemAttributesCardDataAttributesProcessor)[keyof typeof CardLoungesDataItemAttributesCardDataAttributesProcessor];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesCardsDataItemAttributesProcessor = {
+export const CardLoungesDataItemAttributesCardDataAttributesProcessor = {
   Visa: "Visa",
   Amex: "Amex",
   Mastercard: "Mastercard",
 } as const;
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
-  (typeof CardLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz)[keyof typeof CardLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz];
+export type CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
+  (typeof CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz)[keyof typeof CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
-  {
-    Personal: "Personal",
-    Business: "Business",
-  } as const;
+export const CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz = {
+  Personal: "Personal",
+  Business: "Business",
+} as const;
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItemAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes =
   { [key: string]: any };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItem =
-  {
-    attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItemAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardsDataItemAttributesLounges = {
-  data?: CardLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItem[];
-};
-
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconData = {
-  attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes;
+export type CardLoungesDataItemAttributesCardDataAttributesLoungesDataItem = {
+  attributes?: CardLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes;
   id?: number;
 };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIcon = {
-  data?: CardLoungesDataItemAttributesCardsDataItemAttributesIconData;
+export type CardLoungesDataItemAttributesCardDataAttributesLounges = {
+  data?: CardLoungesDataItemAttributesCardDataAttributesLoungesDataItem[];
 };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesIconData = {
+  attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributes;
+  id?: number;
+};
+
+export type CardLoungesDataItemAttributesCardDataAttributesIcon = {
+  data?: CardLoungesDataItemAttributesCardDataAttributesIconData;
+};
+
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData =
   {
-    attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes;
+    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy =
   {
-    data?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData;
+    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem =
   {
-    attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
+    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes;
     id?: number;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated =
   {
-    data?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem[];
+    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem[];
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes =
   { [key: string]: any };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData =
   {
-    attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes;
+    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes;
     id?: number;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder =
   {
-    data?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData;
+    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData =
   {
-    attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes;
+    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy =
   {
-    data?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData;
+    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributes =
   {
     alternativeText?: string;
     caption?: string;
     createdAt?: string;
-    createdBy?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy;
+    createdBy?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy;
     ext?: string;
-    folder?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder;
+    folder?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder;
     folderPath?: string;
     formats?: unknown;
     hash?: string;
@@ -1499,32 +1491,31 @@ export type CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttribut
     previewUrl?: string;
     provider?: string;
     provider_metadata?: unknown;
-    related?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated;
+    related?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated;
     size?: number;
     updatedAt?: string;
-    updatedBy?: CardLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy;
+    updatedBy?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy;
     url?: string;
     width?: number;
   };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes =
+export type CardLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesCreatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardsDataItemAttributesCreatedBy = {
-  data?: CardLoungesDataItemAttributesCardsDataItemAttributesCreatedByData;
+export type CardLoungesDataItemAttributesCardDataAttributesCreatedByData = {
+  attributes?: CardLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes;
+  id?: number;
 };
 
-export type CardLoungesDataItemAttributesCardsDataItemAttributesBank =
-  (typeof CardLoungesDataItemAttributesCardsDataItemAttributesBank)[keyof typeof CardLoungesDataItemAttributesCardsDataItemAttributesBank];
+export type CardLoungesDataItemAttributesCardDataAttributesCreatedBy = {
+  data?: CardLoungesDataItemAttributesCardDataAttributesCreatedByData;
+};
+
+export type CardLoungesDataItemAttributesCardDataAttributesBank =
+  (typeof CardLoungesDataItemAttributesCardDataAttributesBank)[keyof typeof CardLoungesDataItemAttributesCardDataAttributesBank];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesCardsDataItemAttributesBank = {
+export const CardLoungesDataItemAttributesCardDataAttributesBank = {
   Chase: "Chase",
   Amex: "Amex",
   Barclays: "Barclays",
@@ -2674,17 +2665,19 @@ export type AirportLoungesDataItemAttributesLocalizations = {
 export type AirportLoungesDataItemAttributes = {
   airport?: AirportLoungesDataItemAttributesAirport;
   amenities?: AirportLoungesDataItemAttributesAmenities;
-  cards?: AirportLoungesDataItemAttributesCards;
+  card?: AirportLoungesDataItemAttributesCard;
   createdAt?: string;
   createdBy?: AirportLoungesDataItemAttributesCreatedBy;
   description?: string;
   detriments?: unknown;
+  directions?: string;
   googlePlaceId?: string;
   locale?: string;
   localizations?: AirportLoungesDataItemAttributesLocalizations;
   location?: string;
   name?: string;
   notes?: string;
+  priorityPass?: boolean;
   slug?: string;
   updatedAt?: string;
   updatedBy?: AirportLoungesDataItemAttributesUpdatedBy;
@@ -2703,147 +2696,143 @@ export type AirportLoungesDataItemAttributesCreatedBy = {
   data?: AirportLoungesDataItemAttributesCreatedByData;
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItem = {
-  attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributes;
+export type AirportLoungesDataItemAttributesCardData = {
+  attributes?: AirportLoungesDataItemAttributesCardDataAttributes;
   id?: number;
 };
 
-export type AirportLoungesDataItemAttributesCards = {
-  data?: AirportLoungesDataItemAttributesCardsDataItem[];
+export type AirportLoungesDataItemAttributesCard = {
+  data?: AirportLoungesDataItemAttributesCardData;
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData =
-  {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy = {
-  data?: AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData;
+export type AirportLoungesDataItemAttributesCardDataAttributesUpdatedByData = {
+  attributes?: AirportLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes;
+  id?: number;
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor =
-  (typeof AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor)[keyof typeof AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor];
+export type AirportLoungesDataItemAttributesCardDataAttributesUpdatedBy = {
+  data?: AirportLoungesDataItemAttributesCardDataAttributesUpdatedByData;
+};
+
+export type AirportLoungesDataItemAttributesCardDataAttributesProcessor =
+  (typeof AirportLoungesDataItemAttributesCardDataAttributesProcessor)[keyof typeof AirportLoungesDataItemAttributesCardDataAttributesProcessor];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor =
-  {
-    Visa: "Visa",
-    Amex: "Amex",
-    Mastercard: "Mastercard",
-  } as const;
+export const AirportLoungesDataItemAttributesCardDataAttributesProcessor = {
+  Visa: "Visa",
+  Amex: "Amex",
+  Mastercard: "Mastercard",
+} as const;
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
-  (typeof AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz)[keyof typeof AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz];
+export type AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
+  (typeof AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz)[keyof typeof AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
-  {
-    Personal: "Personal",
-    Business: "Business",
-  } as const;
+export const AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz = {
+  Personal: "Personal",
+  Business: "Business",
+} as const;
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributes = {
+export type AirportLoungesDataItemAttributesCardDataAttributes = {
   annualFee?: number;
-  bank?: AirportLoungesDataItemAttributesCardsDataItemAttributesBank;
+  bank?: AirportLoungesDataItemAttributesCardDataAttributesBank;
   createdAt?: string;
-  createdBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedBy;
-  icon?: AirportLoungesDataItemAttributesCardsDataItemAttributesIcon;
-  lounges?: AirportLoungesDataItemAttributesCardsDataItemAttributesLounges;
+  createdBy?: AirportLoungesDataItemAttributesCardDataAttributesCreatedBy;
+  icon?: AirportLoungesDataItemAttributesCardDataAttributesIcon;
+  lounges?: AirportLoungesDataItemAttributesCardDataAttributesLounges;
   name?: string;
-  personalOrBiz?: AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz;
-  processor?: AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor;
-  publishedAt?: string;
+  personalOrBiz?: AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz;
+  processor?: AirportLoungesDataItemAttributesCardDataAttributesProcessor;
   updatedAt?: string;
-  updatedBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy;
+  updatedBy?: AirportLoungesDataItemAttributesCardDataAttributesUpdatedBy;
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItemAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItem =
+export type AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItem =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItemAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesLounges = {
-  data?: AirportLoungesDataItemAttributesCardsDataItemAttributesLoungesDataItem[];
+export type AirportLoungesDataItemAttributesCardDataAttributesLounges = {
+  data?: AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItem[];
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconData = {
-  attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes;
+export type AirportLoungesDataItemAttributesCardDataAttributesIconData = {
+  attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributes;
   id?: number;
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIcon = {
-  data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconData;
+export type AirportLoungesDataItemAttributesCardDataAttributesIcon = {
+  data?: AirportLoungesDataItemAttributesCardDataAttributesIconData;
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem[];
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem[];
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes =
   {
-    children?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildren;
+    children?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildren;
     createdAt?: string;
-    createdBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedBy;
-    files?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFiles;
+    createdBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedBy;
+    files?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFiles;
     name?: string;
-    parent?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParent;
+    parent?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParent;
     path?: string;
     pathId?: number;
     updatedAt?: string;
-    updatedBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedBy;
+    updatedBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedBy;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributes =
   {
     alternativeText?: string;
     caption?: string;
     createdAt?: string;
-    createdBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy;
+    createdBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy;
     ext?: string;
-    folder?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder;
+    folder?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder;
     folderPath?: string;
     formats?: unknown;
     hash?: string;
@@ -2853,55 +2842,55 @@ export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttri
     previewUrl?: string;
     provider?: string;
     provider_metadata?: unknown;
-    related?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated;
+    related?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated;
     size?: number;
     updatedAt?: string;
-    updatedBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy;
+    updatedBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy;
     url?: string;
     width?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedBy =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedBy =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesUpdatedByData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParent =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParent =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesParentData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesParentData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFiles =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFiles =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem[];
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItem[];
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
   {
     alternativeText?: string;
     caption?: string;
     createdAt?: string;
-    createdBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
+    createdBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
     ext?: string;
-    folder?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
+    folder?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
     folderPath?: string;
     formats?: unknown;
     hash?: string;
@@ -2911,136 +2900,135 @@ export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttri
     previewUrl?: string;
     provider?: string;
     provider_metadata?: unknown;
-    related?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
+    related?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
     size?: number;
     updatedAt?: string;
-    updatedBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
+    updatedBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
     url?: string;
     width?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedBy =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedBy =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesCreatedByData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesCreatedByData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItem =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItem =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItemAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildren =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildren =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributesChildrenDataItem[];
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributesChildrenDataItem[];
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy =
+export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy =
   {
-    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData;
+    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData;
   };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByData =
-  {
-    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedBy = {
-  data?: AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByData;
+export type AirportLoungesDataItemAttributesCardDataAttributesCreatedByData = {
+  attributes?: AirportLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes;
+  id?: number;
 };
 
-export type AirportLoungesDataItemAttributesCardsDataItemAttributesBank =
-  (typeof AirportLoungesDataItemAttributesCardsDataItemAttributesBank)[keyof typeof AirportLoungesDataItemAttributesCardsDataItemAttributesBank];
+export type AirportLoungesDataItemAttributesCardDataAttributesCreatedBy = {
+  data?: AirportLoungesDataItemAttributesCardDataAttributesCreatedByData;
+};
+
+export type AirportLoungesDataItemAttributesCardDataAttributesBank =
+  (typeof AirportLoungesDataItemAttributesCardDataAttributesBank)[keyof typeof AirportLoungesDataItemAttributesCardDataAttributesBank];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const AirportLoungesDataItemAttributesCardsDataItemAttributesBank = {
+export const AirportLoungesDataItemAttributesCardDataAttributesBank = {
   Chase: "Chase",
   Amex: "Amex",
   Barclays: "Barclays",
@@ -3846,1462 +3834,3 @@ export type ErrorDataOneOf = { [key: string]: any };
  * @nullable
  */
 export type ErrorData = ErrorDataOneOf | ErrorDataOneOfTwoItem[] | null;
-
-export const getAirports = (
-  params?: GetAirportsParams,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AirportListResponse>> => {
-  return axios.get(`/airports`, {
-    ...options,
-    params: { ...params, ...options?.params },
-  });
-};
-
-export const getGetAirportsQueryKey = (params?: GetAirportsParams) => {
-  return [`/airports`, ...(params ? [params] : [])] as const;
-};
-
-export const getGetAirportsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getAirports>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetAirportsParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAirports>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetAirportsQueryKey(params);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAirports>>> = ({
-    signal,
-  }) => getAirports(params, { signal, ...axiosOptions });
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAirports>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetAirportsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getAirports>>
->;
-export type GetAirportsQueryError = AxiosError<Error>;
-
-export const useGetAirports = <
-  TData = Awaited<ReturnType<typeof getAirports>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetAirportsParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAirports>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetAirportsQueryOptions(params, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const postAirports = (
-  airportRequest: AirportRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AirportResponse>> => {
-  return axios.post(`/airports`, airportRequest, options);
-};
-
-export const getPostAirportsMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postAirports>>,
-    TError,
-    { data: AirportRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postAirports>>,
-  TError,
-  { data: AirportRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postAirports>>,
-    { data: AirportRequest }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return postAirports(data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PostAirportsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postAirports>>
->;
-export type PostAirportsMutationBody = AirportRequest;
-export type PostAirportsMutationError = AxiosError<Error>;
-
-export const usePostAirports = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postAirports>>,
-    TError,
-    { data: AirportRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postAirports>>,
-  TError,
-  { data: AirportRequest },
-  TContext
-> => {
-  const mutationOptions = getPostAirportsMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const getAirportsId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AirportResponse>> => {
-  return axios.get(`/airports/${id}`, options);
-};
-
-export const getGetAirportsIdQueryKey = (id: number) => {
-  return [`/airports/${id}`] as const;
-};
-
-export const getGetAirportsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getAirportsId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAirportsId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetAirportsIdQueryKey(id);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAirportsId>>> = ({
-    signal,
-  }) => getAirportsId(id, { signal, ...axiosOptions });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAirportsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetAirportsIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getAirportsId>>
->;
-export type GetAirportsIdQueryError = AxiosError<Error>;
-
-export const useGetAirportsId = <
-  TData = Awaited<ReturnType<typeof getAirportsId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAirportsId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetAirportsIdQueryOptions(id, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const putAirportsId = (
-  id: number,
-  airportRequest: AirportRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AirportResponse>> => {
-  return axios.put(`/airports/${id}`, airportRequest, options);
-};
-
-export const getPutAirportsIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putAirportsId>>,
-    TError,
-    { id: number; data: AirportRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putAirportsId>>,
-  TError,
-  { id: number; data: AirportRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putAirportsId>>,
-    { id: number; data: AirportRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return putAirportsId(id, data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PutAirportsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putAirportsId>>
->;
-export type PutAirportsIdMutationBody = AirportRequest;
-export type PutAirportsIdMutationError = AxiosError<Error>;
-
-export const usePutAirportsId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putAirportsId>>,
-    TError,
-    { id: number; data: AirportRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof putAirportsId>>,
-  TError,
-  { id: number; data: AirportRequest },
-  TContext
-> => {
-  const mutationOptions = getPutAirportsIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const deleteAirportsId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<number>> => {
-  return axios.delete(`/airports/${id}`, options);
-};
-
-export const getDeleteAirportsIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteAirportsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteAirportsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteAirportsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return deleteAirportsId(id, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type DeleteAirportsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteAirportsId>>
->;
-
-export type DeleteAirportsIdMutationError = AxiosError<Error>;
-
-export const useDeleteAirportsId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteAirportsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteAirportsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationOptions = getDeleteAirportsIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const getAmenities = (
-  params?: GetAmenitiesParams,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AmenityListResponse>> => {
-  return axios.get(`/amenities`, {
-    ...options,
-    params: { ...params, ...options?.params },
-  });
-};
-
-export const getGetAmenitiesQueryKey = (params?: GetAmenitiesParams) => {
-  return [`/amenities`, ...(params ? [params] : [])] as const;
-};
-
-export const getGetAmenitiesQueryOptions = <
-  TData = Awaited<ReturnType<typeof getAmenities>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetAmenitiesParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAmenities>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetAmenitiesQueryKey(params);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAmenities>>> = ({
-    signal,
-  }) => getAmenities(params, { signal, ...axiosOptions });
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAmenities>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetAmenitiesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getAmenities>>
->;
-export type GetAmenitiesQueryError = AxiosError<Error>;
-
-export const useGetAmenities = <
-  TData = Awaited<ReturnType<typeof getAmenities>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetAmenitiesParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAmenities>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetAmenitiesQueryOptions(params, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const postAmenities = (
-  amenityRequest: AmenityRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AmenityResponse>> => {
-  return axios.post(`/amenities`, amenityRequest, options);
-};
-
-export const getPostAmenitiesMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postAmenities>>,
-    TError,
-    { data: AmenityRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postAmenities>>,
-  TError,
-  { data: AmenityRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postAmenities>>,
-    { data: AmenityRequest }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return postAmenities(data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PostAmenitiesMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postAmenities>>
->;
-export type PostAmenitiesMutationBody = AmenityRequest;
-export type PostAmenitiesMutationError = AxiosError<Error>;
-
-export const usePostAmenities = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postAmenities>>,
-    TError,
-    { data: AmenityRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postAmenities>>,
-  TError,
-  { data: AmenityRequest },
-  TContext
-> => {
-  const mutationOptions = getPostAmenitiesMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const getAmenitiesId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AmenityResponse>> => {
-  return axios.get(`/amenities/${id}`, options);
-};
-
-export const getGetAmenitiesIdQueryKey = (id: number) => {
-  return [`/amenities/${id}`] as const;
-};
-
-export const getGetAmenitiesIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getAmenitiesId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAmenitiesId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetAmenitiesIdQueryKey(id);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAmenitiesId>>> = ({
-    signal,
-  }) => getAmenitiesId(id, { signal, ...axiosOptions });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAmenitiesId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetAmenitiesIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getAmenitiesId>>
->;
-export type GetAmenitiesIdQueryError = AxiosError<Error>;
-
-export const useGetAmenitiesId = <
-  TData = Awaited<ReturnType<typeof getAmenitiesId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getAmenitiesId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetAmenitiesIdQueryOptions(id, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const putAmenitiesId = (
-  id: number,
-  amenityRequest: AmenityRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<AmenityResponse>> => {
-  return axios.put(`/amenities/${id}`, amenityRequest, options);
-};
-
-export const getPutAmenitiesIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putAmenitiesId>>,
-    TError,
-    { id: number; data: AmenityRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putAmenitiesId>>,
-  TError,
-  { id: number; data: AmenityRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putAmenitiesId>>,
-    { id: number; data: AmenityRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return putAmenitiesId(id, data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PutAmenitiesIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putAmenitiesId>>
->;
-export type PutAmenitiesIdMutationBody = AmenityRequest;
-export type PutAmenitiesIdMutationError = AxiosError<Error>;
-
-export const usePutAmenitiesId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putAmenitiesId>>,
-    TError,
-    { id: number; data: AmenityRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof putAmenitiesId>>,
-  TError,
-  { id: number; data: AmenityRequest },
-  TContext
-> => {
-  const mutationOptions = getPutAmenitiesIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const deleteAmenitiesId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<number>> => {
-  return axios.delete(`/amenities/${id}`, options);
-};
-
-export const getDeleteAmenitiesIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteAmenitiesId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteAmenitiesId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteAmenitiesId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return deleteAmenitiesId(id, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type DeleteAmenitiesIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteAmenitiesId>>
->;
-
-export type DeleteAmenitiesIdMutationError = AxiosError<Error>;
-
-export const useDeleteAmenitiesId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteAmenitiesId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteAmenitiesId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationOptions = getDeleteAmenitiesIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const getCards = (
-  params?: GetCardsParams,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<CardListResponse>> => {
-  return axios.get(`/cards`, {
-    ...options,
-    params: { ...params, ...options?.params },
-  });
-};
-
-export const getGetCardsQueryKey = (params?: GetCardsParams) => {
-  return [`/cards`, ...(params ? [params] : [])] as const;
-};
-
-export const getGetCardsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getCards>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetCardsParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getCards>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetCardsQueryKey(params);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getCards>>> = ({
-    signal,
-  }) => getCards(params, { signal, ...axiosOptions });
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCards>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetCardsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getCards>>
->;
-export type GetCardsQueryError = AxiosError<Error>;
-
-export const useGetCards = <
-  TData = Awaited<ReturnType<typeof getCards>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetCardsParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getCards>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCardsQueryOptions(params, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const postCards = (
-  cardRequest: CardRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<CardResponse>> => {
-  return axios.post(`/cards`, cardRequest, options);
-};
-
-export const getPostCardsMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postCards>>,
-    TError,
-    { data: CardRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postCards>>,
-  TError,
-  { data: CardRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postCards>>,
-    { data: CardRequest }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return postCards(data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PostCardsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postCards>>
->;
-export type PostCardsMutationBody = CardRequest;
-export type PostCardsMutationError = AxiosError<Error>;
-
-export const usePostCards = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postCards>>,
-    TError,
-    { data: CardRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postCards>>,
-  TError,
-  { data: CardRequest },
-  TContext
-> => {
-  const mutationOptions = getPostCardsMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const getCardsId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<CardResponse>> => {
-  return axios.get(`/cards/${id}`, options);
-};
-
-export const getGetCardsIdQueryKey = (id: number) => {
-  return [`/cards/${id}`] as const;
-};
-
-export const getGetCardsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getCardsId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getCardsId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetCardsIdQueryKey(id);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getCardsId>>> = ({
-    signal,
-  }) => getCardsId(id, { signal, ...axiosOptions });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCardsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetCardsIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getCardsId>>
->;
-export type GetCardsIdQueryError = AxiosError<Error>;
-
-export const useGetCardsId = <
-  TData = Awaited<ReturnType<typeof getCardsId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getCardsId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCardsIdQueryOptions(id, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const putCardsId = (
-  id: number,
-  cardRequest: CardRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<CardResponse>> => {
-  return axios.put(`/cards/${id}`, cardRequest, options);
-};
-
-export const getPutCardsIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putCardsId>>,
-    TError,
-    { id: number; data: CardRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putCardsId>>,
-  TError,
-  { id: number; data: CardRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putCardsId>>,
-    { id: number; data: CardRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return putCardsId(id, data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PutCardsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putCardsId>>
->;
-export type PutCardsIdMutationBody = CardRequest;
-export type PutCardsIdMutationError = AxiosError<Error>;
-
-export const usePutCardsId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putCardsId>>,
-    TError,
-    { id: number; data: CardRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof putCardsId>>,
-  TError,
-  { id: number; data: CardRequest },
-  TContext
-> => {
-  const mutationOptions = getPutCardsIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const deleteCardsId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<number>> => {
-  return axios.delete(`/cards/${id}`, options);
-};
-
-export const getDeleteCardsIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteCardsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteCardsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteCardsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return deleteCardsId(id, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type DeleteCardsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteCardsId>>
->;
-
-export type DeleteCardsIdMutationError = AxiosError<Error>;
-
-export const useDeleteCardsId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteCardsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteCardsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationOptions = getDeleteCardsIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const getLounges = (
-  params?: GetLoungesParams,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<LoungeListResponse>> => {
-  return axios.get(`/lounges`, {
-    ...options,
-    params: { ...params, ...options?.params },
-  });
-};
-
-export const getGetLoungesQueryKey = (params?: GetLoungesParams) => {
-  return [`/lounges`, ...(params ? [params] : [])] as const;
-};
-
-export const getGetLoungesQueryOptions = <
-  TData = Awaited<ReturnType<typeof getLounges>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetLoungesParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getLounges>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetLoungesQueryKey(params);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getLounges>>> = ({
-    signal,
-  }) => getLounges(params, { signal, ...axiosOptions });
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getLounges>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetLoungesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getLounges>>
->;
-export type GetLoungesQueryError = AxiosError<Error>;
-
-export const useGetLounges = <
-  TData = Awaited<ReturnType<typeof getLounges>>,
-  TError = AxiosError<Error>,
->(
-  params?: GetLoungesParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getLounges>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetLoungesQueryOptions(params, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const postLounges = (
-  loungeRequest: LoungeRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<LoungeResponse>> => {
-  return axios.post(`/lounges`, loungeRequest, options);
-};
-
-export const getPostLoungesMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postLounges>>,
-    TError,
-    { data: LoungeRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postLounges>>,
-  TError,
-  { data: LoungeRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postLounges>>,
-    { data: LoungeRequest }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return postLounges(data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PostLoungesMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postLounges>>
->;
-export type PostLoungesMutationBody = LoungeRequest;
-export type PostLoungesMutationError = AxiosError<Error>;
-
-export const usePostLounges = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postLounges>>,
-    TError,
-    { data: LoungeRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postLounges>>,
-  TError,
-  { data: LoungeRequest },
-  TContext
-> => {
-  const mutationOptions = getPostLoungesMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const getLoungesId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<LoungeResponse>> => {
-  return axios.get(`/lounges/${id}`, options);
-};
-
-export const getGetLoungesIdQueryKey = (id: number) => {
-  return [`/lounges/${id}`] as const;
-};
-
-export const getGetLoungesIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getLoungesId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getLoungesId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetLoungesIdQueryKey(id);
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getLoungesId>>> = ({
-    signal,
-  }) => getLoungesId(id, { signal, ...axiosOptions });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof getLoungesId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
-
-export type GetLoungesIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getLoungesId>>
->;
-export type GetLoungesIdQueryError = AxiosError<Error>;
-
-export const useGetLoungesId = <
-  TData = Awaited<ReturnType<typeof getLoungesId>>,
-  TError = AxiosError<Error>,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getLoungesId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetLoungesIdQueryOptions(id, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
-
-  query.queryKey = queryOptions.queryKey;
-
-  return query;
-};
-
-export const putLoungesId = (
-  id: number,
-  loungeRequest: LoungeRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<LoungeResponse>> => {
-  return axios.put(`/lounges/${id}`, loungeRequest, options);
-};
-
-export const getPutLoungesIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putLoungesId>>,
-    TError,
-    { id: number; data: LoungeRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putLoungesId>>,
-  TError,
-  { id: number; data: LoungeRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putLoungesId>>,
-    { id: number; data: LoungeRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return putLoungesId(id, data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PutLoungesIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putLoungesId>>
->;
-export type PutLoungesIdMutationBody = LoungeRequest;
-export type PutLoungesIdMutationError = AxiosError<Error>;
-
-export const usePutLoungesId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putLoungesId>>,
-    TError,
-    { id: number; data: LoungeRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof putLoungesId>>,
-  TError,
-  { id: number; data: LoungeRequest },
-  TContext
-> => {
-  const mutationOptions = getPutLoungesIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const deleteLoungesId = (
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<number>> => {
-  return axios.delete(`/lounges/${id}`, options);
-};
-
-export const getDeleteLoungesIdMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteLoungesId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteLoungesId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteLoungesId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return deleteLoungesId(id, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type DeleteLoungesIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteLoungesId>>
->;
-
-export type DeleteLoungesIdMutationError = AxiosError<Error>;
-
-export const useDeleteLoungesId = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteLoungesId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteLoungesId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationOptions = getDeleteLoungesIdMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
-
-export const postLoungesIdLocalizations = (
-  id: number,
-  loungeLocalizationRequest: LoungeLocalizationRequest,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<LoungeLocalizationResponse>> => {
-  return axios.post(
-    `/lounges/${id}/localizations`,
-    loungeLocalizationRequest,
-    options,
-  );
-};
-
-export const getPostLoungesIdLocalizationsMutationOptions = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postLoungesIdLocalizations>>,
-    TError,
-    { id: number; data: LoungeLocalizationRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postLoungesIdLocalizations>>,
-  TError,
-  { id: number; data: LoungeLocalizationRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postLoungesIdLocalizations>>,
-    { id: number; data: LoungeLocalizationRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return postLoungesIdLocalizations(id, data, axiosOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PostLoungesIdLocalizationsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postLoungesIdLocalizations>>
->;
-export type PostLoungesIdLocalizationsMutationBody = LoungeLocalizationRequest;
-export type PostLoungesIdLocalizationsMutationError = AxiosError<Error>;
-
-export const usePostLoungesIdLocalizations = <
-  TError = AxiosError<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postLoungesIdLocalizations>>,
-    TError,
-    { id: number; data: LoungeLocalizationRequest },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postLoungesIdLocalizations>>,
-  TError,
-  { id: number; data: LoungeLocalizationRequest },
-  TContext
-> => {
-  const mutationOptions = getPostLoungesIdLocalizationsMutationOptions(options);
-
-  return useMutation(mutationOptions);
-};
