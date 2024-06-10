@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["airside-lounge-images.s3.us-west-2.amazonaws.com"],
+    domains: ["LoungeVault-lounge-images.s3.us-west-2.amazonaws.com"],
   },
 };
 

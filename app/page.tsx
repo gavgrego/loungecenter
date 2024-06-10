@@ -7,16 +7,17 @@ export default function Home() {
       <div className="flex flex-row gap-4 text-6xl items-center justify-center">
         <p>✈️</p>
         <p>🛋️</p>
-        <h2 className="font-semibold text-5xl">Airside</h2>
+        <h2 className="font-semibold text-5xl">LoungeVault</h2>
       </div>
       <h3 className="max-w-[500px] text-center">
-        Find airport lounge access, get reviews and info, and see just how busy
-        it is before you even get there.
+        {/* Find airport lounge access, get reviews and info, and see just how busy
+        it is before you even get there. */}
       </h3>
       <div className="max-w-[800px] w-full">
         <SearchInput />
       </div>
       <LoungesNearMe />
+      {/* NEWSLETTER SIGN UP */}
     </section>
   );
 }

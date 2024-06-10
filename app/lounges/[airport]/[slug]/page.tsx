@@ -21,7 +21,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col md:flex-row gap-10 items-start">
         <div className="basis-full md:basis-2/3">
           <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
           <h2 className="text-xl font-semibold mb-1">
@@ -48,9 +48,11 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           ) : null}
           <Divider className="my-5" />
           <DirectionsAndMap loungeData={loungeData} />
+
+          {/* OTHER LOUNGES AT XYZ AIRPORT? */}
         </div>
 
-        <aside className="basis-full md:basis-1/3 md:sticky">
+        <aside className="basis-full md:basis-1/3 md:sticky md:top-20">
           <LoungeSidebar loungeData={loungeData} placeDetails={placeDetails} />
         </aside>
       </div>

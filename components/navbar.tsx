@@ -29,7 +29,7 @@ export const Navbar = () => {
               <p>🛋️</p>
             </div>
 
-            <p className="font-bold text-inherit text-3xl">Airside</p>
+            <p className="font-bold text-inherit text-3xl">LoungeVault</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-8 justify-start ml-2">

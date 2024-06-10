@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Airside",
+  name: "LoungeVault",
   description: "Find what lounges you have access to, quick.",
   navItems: [
     {
@@ -26,7 +26,7 @@ export const siteConfig = {
       label: "GO PRO",
       href: "/go-pro",
       bold: true,
-      color: "success" as
+      color: "secondary" as
         | "success"
         | "secondary"
         | "foreground"

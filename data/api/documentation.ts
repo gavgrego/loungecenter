@@ -213,6 +213,7 @@ export interface Lounge {
   description: string;
   detriments?: unknown;
   directions?: string;
+  featured?: boolean;
   googlePlaceId: string;
   locale?: string;
   localizations?: LoungeLocalizations;
@@ -386,6 +387,7 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributes = {
   description?: string;
   detriments?: unknown;
   directions?: string;
+  featured?: boolean;
   googlePlaceId?: string;
   locale?: string;
   localizations?: LoungeAirportDataAttributesLoungesDataItemAttributesLocalizations;
@@ -1193,6 +1195,7 @@ export type LoungeRequestData = {
   description: string;
   detriments?: unknown;
   directions?: string;
+  featured?: boolean;
   googlePlaceId: string;
   locale?: string;
   location?: string;
@@ -1219,6 +1222,7 @@ export interface LoungeLocalizationRequest {
   description: string;
   detriments?: unknown;
   directions?: string;
+  featured?: boolean;
   googlePlaceId: string;
   locale: string;
   location?: string;
@@ -1318,6 +1322,7 @@ export type CardLoungesDataItemAttributes = {
   description?: string;
   detriments?: unknown;
   directions?: string;
+  featured?: boolean;
   googlePlaceId?: string;
   locale?: string;
   localizations?: CardLoungesDataItemAttributesLocalizations;
@@ -2671,6 +2676,7 @@ export type AirportLoungesDataItemAttributes = {
   description?: string;
   detriments?: unknown;
   directions?: string;
+  featured?: boolean;
   googlePlaceId?: string;
   locale?: string;
   localizations?: AirportLoungesDataItemAttributesLocalizations;
