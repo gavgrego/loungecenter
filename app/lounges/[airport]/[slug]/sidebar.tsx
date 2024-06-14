@@ -25,15 +25,18 @@ type LoungeSidebarProps = {
 };
 
 const LoungeSidebar = ({ loungeData, placeDetails }: LoungeSidebarProps) => {
+  const phone = placeDetails.internationalPhoneNumber
+    ? placeDetails.internationalPhoneNumber
+    : placeDetails.nationalPhoneNumber;
+
   return (
     <div className="flex flex-col gap-3">
       <div className="font-medium">📍&nbsp;{placeDetails.formattedAddress}</div>
-      <Link
-        className="font-medium"
-        href={`tel:${placeDetails.internationalPhoneNumber}`}
-      >
-        ☎️&nbsp;{placeDetails.internationalPhoneNumber}
-      </Link>
+      {phone ? (
+        <Link className="font-medium" href={`tel:${phone}`}>
+          ☎️&nbsp;{phone}
+        </Link>
+      ) : null}
 
       <Accordion className="p-0" defaultExpandedKeys={["1"]}>
         <AccordionItem
@@ -53,13 +56,12 @@ const LoungeSidebar = ({ loungeData, placeDetails }: LoungeSidebarProps) => {
                       <TableCell className="font-semibold">{day}</TableCell>
                     </TableRow>
                   );
-                },
+                }
               )}
             </TableBody>
           </Table>
         </AccordionItem>
       </Accordion>
-      <h3>Access With:</h3>
       {/* <div>
         {loungeData?.cards?.data?.map((card) => {
           return (

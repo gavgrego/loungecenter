@@ -46,8 +46,8 @@ const GoProPage = () => {
                 Pass, and ticket type.
               </li>
               <li>
-                Access to our AI chatbot, which is helpful if you&apos;re in a
-                rush and can&apos;t be bothered to search.
+                Keep track of what lounges you have access to via credit cards
+                and priority pass.
               </li>
               <li>
                 Seeing how busy a lounge is before you make the trek, thanks to
@@ -56,6 +56,10 @@ const GoProPage = () => {
               <li>
                 Pro channels in Discord hosting a myriad of exclusive real-time
                 info and lounge tips.
+              </li>
+              <li>
+                <strong>COMING SOON:</strong> Access to our AI chatbot,
+                providing instantaneous lounge information.
               </li>
             </ul>
           </AccordionItem>

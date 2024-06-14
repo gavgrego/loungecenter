@@ -1,4 +1,3 @@
-import LoungesNearMe from "@/components/lounges/LoungesNearMe";
 import SearchInput from "@/components/search/searchInput";
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
       <div className="max-w-[800px] w-full">
         <SearchInput />
       </div>
-      <LoungesNearMe />
       {/* NEWSLETTER SIGN UP */}
     </section>
   );

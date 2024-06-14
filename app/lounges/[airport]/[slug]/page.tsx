@@ -1,5 +1,4 @@
-import { Suspense } from "react";
-import { CircularProgress, Divider } from "@nextui-org/react";
+import { Divider } from "@nextui-org/react";
 
 import LoungeSidebar from "./sidebar";
 import ImageCarousel from "./components/ImageCarousel";
@@ -8,13 +7,21 @@ import DirectionsAndMap from "./components/DirectionsAndMap";
 
 import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
+import getTrafficData from "@/data/lounge/getTrafficData";
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const lounge = await getLoungeBySlug(params.slug);
   const loungeData = lounge.data?.[0].attributes;
   const placeDetails = await getGooglePlaceDetails(
-    String(loungeData?.googlePlaceId),
+    String(loungeData?.googlePlaceId)
   );
+
+  const trafficData = await getTrafficData({
+    name: String(loungeData?.name),
+    address: String(placeDetails.formattedAddress),
+  });
+
+  console.log(trafficData);
 
   const placeImages = placeDetails.photos;
   const airportData = loungeData?.airport?.data?.attributes;
@@ -34,9 +41,8 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             <span>{airportData?.state ? airportData?.state : ""},&nbsp;</span>
             <span>{airportData?.country}</span>
           </h2>
-          <Suspense fallback={<CircularProgress />}>
-            <ImageCarousel placeImages={placeImages} />
-          </Suspense>
+          <h2 className="text-sm">Access With:</h2>
+          <ImageCarousel placeImages={placeImages} />
           <Divider className="my-5" />
           <div>{loungeData?.description}</div>
           <Divider className="my-5" />
