@@ -11,6 +11,7 @@ import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 
 import SearchInput from "./search/searchInput";
 
@@ -42,7 +43,7 @@ export const Navbar = () => {
                     item.bold ? "font-bold" : ""
                   } 
                   ${item.bounce ? "animate-bounce" : ""}
-                  `,
+                  `
                 )}
                 color={item.color ? item.color : "foreground"}
                 href={item.href}
@@ -67,6 +68,13 @@ export const Navbar = () => {
           </Link>
 
           <ThemeSwitch />
+
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </NavbarItem>
       </NavbarContent>
 

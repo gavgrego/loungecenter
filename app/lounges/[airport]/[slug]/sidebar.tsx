@@ -18,13 +18,17 @@ import Hours from "./components/Hours";
 
 import { Lounge } from "@/data/api/documentation";
 import { GooglePlace } from "@/types/googlePlaces/types";
-
 type LoungeSidebarProps = {
   loungeData: Lounge | undefined;
   placeDetails: GooglePlace;
+  userId: string | null;
 };
 
-const LoungeSidebar = ({ loungeData, placeDetails }: LoungeSidebarProps) => {
+const LoungeSidebar = ({
+  loungeData,
+  placeDetails,
+  userId,
+}: LoungeSidebarProps) => {
   const phone = placeDetails.internationalPhoneNumber
     ? placeDetails.internationalPhoneNumber
     : placeDetails.nationalPhoneNumber;
@@ -37,7 +41,6 @@ const LoungeSidebar = ({ loungeData, placeDetails }: LoungeSidebarProps) => {
           ☎️&nbsp;{phone}
         </Link>
       ) : null}
-
       <Accordion className="p-0" defaultExpandedKeys={["1"]}>
         <AccordionItem
           key={1}
@@ -72,9 +75,11 @@ const LoungeSidebar = ({ loungeData, placeDetails }: LoungeSidebarProps) => {
         })}
       </div> */}
       {/* access table */}
-      {/* IF PRO MEMBER */}
-      <h3>How Busy</h3>
-      {/*  */}
+      {userId ? (
+        <div>
+          <h3>How Busy</h3>
+        </div>
+      ) : null}
       <div className="flex flex-row gap-3 items-center">
         <div className="flex items-center flex-row gap-1">
           <Tooltip closeDelay={100} content="Live data from Google!">

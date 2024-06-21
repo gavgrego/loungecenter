@@ -1,4 +1,5 @@
 import { Divider } from "@nextui-org/react";
+import { auth } from "@clerk/nextjs/server";
 
 import LoungeSidebar from "./sidebar";
 import ImageCarousel from "./components/ImageCarousel";
@@ -16,12 +17,12 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     String(loungeData?.googlePlaceId)
   );
 
+  const { userId } = auth();
+
   const trafficData = await getTrafficData({
     name: String(loungeData?.name),
     address: String(placeDetails.formattedAddress),
   });
-
-  console.log(trafficData);
 
   const placeImages = placeDetails.photos;
   const airportData = loungeData?.airport?.data?.attributes;
@@ -59,7 +60,11 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
         </div>
 
         <aside className="basis-full md:basis-1/3 md:sticky md:top-20">
-          <LoungeSidebar loungeData={loungeData} placeDetails={placeDetails} />
+          <LoungeSidebar
+            loungeData={loungeData}
+            placeDetails={placeDetails}
+            userId={userId}
+          />
         </aside>
       </div>
     </>
