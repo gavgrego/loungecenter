@@ -42,9 +42,16 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             <span>{airportData?.state ? airportData?.state : ""},&nbsp;</span>
             <span>{airportData?.country}</span>
           </h2>
-          <h2 className="text-sm">Access With:</h2>
+          <h2 className="text-md mt-3 flex flex-row">
+            Access With:&nbsp;
+            {userId ? (
+              <div>AMEX Plat</div>
+            ) : (
+              <div>VIEW W/ A PRO MEMBERSHIP</div>
+            )}
+          </h2>
           <ImageCarousel placeImages={placeImages} />
-          <Divider className="my-5" />
+          <Divider className="my-4" />
           <div>{loungeData?.description}</div>
           <Divider className="my-5" />
           {loungeData?.notes ? (
