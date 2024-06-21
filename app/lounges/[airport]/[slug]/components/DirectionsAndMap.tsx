@@ -10,7 +10,7 @@ const DirectionsAndMap = ({ loungeData }: DirectionsAndMapProps) => {
     <>
       <h3>🚶Walking Directions:</h3>
       <p>{loungeData?.directions}</p>
-      <div className="mt-5 rounded-lg">
+      <div className="mt-5 [&_iframe]:rounded-lg">
         <GoogleMapsEmbed
           apiKey={process.env.GOOGLE_API_KEY || ""}
           height={400}
