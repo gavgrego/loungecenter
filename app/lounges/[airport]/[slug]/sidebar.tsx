@@ -35,6 +35,10 @@ const LoungeSidebar = ({
 
   return (
     <div className="flex flex-col gap-3">
+      <h2 className="text-md  flex flex-row">
+        Access With:&nbsp;
+        {userId ? <div>AMEX Plat</div> : <div>VIEW W/ A PRO MEMBERSHIP</div>}
+      </h2>
       <div className="font-medium">📍&nbsp;{placeDetails.formattedAddress}</div>
       {phone ? (
         <Link className="font-medium" href={`tel:${phone}`}>
@@ -65,24 +69,14 @@ const LoungeSidebar = ({
           </Table>
         </AccordionItem>
       </Accordion>
-      {/* <div>
-        {loungeData?.cards?.data?.map((card) => {
-          return (
-            <div key={card.id}>
-              <div className="font-semibold">{card.id}</div>
-            </div>
-          );
-        })}
-      </div> */}
-      {/* access table */}
       {userId ? (
         <div>
-          <h3>How Busy</h3>
+          <h3>Estimated Busyness:</h3>
         </div>
       ) : null}
       <div className="flex flex-row gap-3 items-center">
         <div className="flex items-center flex-row gap-1">
-          <Tooltip closeDelay={100} content="Live data from Google!">
+          <Tooltip closeDelay={100} content="Live ratings from Google!">
             <Info size={20} />
           </Tooltip>
           <h3>Overall Rating:</h3>

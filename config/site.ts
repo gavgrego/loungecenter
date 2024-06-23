@@ -25,6 +25,7 @@ export const siteConfig = {
       href: "/go-pro",
       bold: true,
       bounce: true,
+      hideIfPro: true,
       color: "secondary" as
         | "success"
         | "secondary"

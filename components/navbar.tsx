@@ -73,7 +73,10 @@ export const Navbar = () => {
             <SignInButton />
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <UserButton
+              userProfileMode="navigation"
+              userProfileUrl="/profile"
+            />
           </SignedIn>
         </NavbarItem>
       </NavbarContent>
