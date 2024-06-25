@@ -39,6 +39,16 @@ const Settings = () => {
       >
         Do you have Priority Pass?
       </Switch>
+
+      <CheckboxGroup
+        isDisabled
+        color="secondary"
+        label="Select airline alliance status you have:"
+      >
+        <Checkbox value="amex-plat">Oneworld Emerald</Checkbox>
+        <Checkbox value="cap1-vx">Capital One Venture X</Checkbox>
+        <Checkbox value="chase-reserve">Chase Sapphire Reserve</Checkbox>
+      </CheckboxGroup>
     </div>
   );
 };

@@ -1,6 +1,19 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+
 import Settings from "./settings";
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["posts"],
+    // queryFn: getPosts,
+  });
+
   return (
     // this page will contain the user's profile information
     //
@@ -16,7 +29,9 @@ const ProfilePage = () => {
         have, making finding accessible lounges a breee.
       </p>
 
-      <Settings />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Settings />
+      </HydrationBoundary>
     </div>
   );
 };
