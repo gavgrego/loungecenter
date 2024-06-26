@@ -13,3 +13,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   return NextResponse.json({ success: true });
 }
+
+export async function GET(req: NextRequest, res: NextResponse) {
+  const { userId } = getAuth(req);
+
+  await clerkClient.users.getUser(userId as string);
+
+  return NextResponse.json({ success: true });
+}

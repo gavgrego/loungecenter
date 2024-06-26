@@ -5,15 +5,16 @@ import { useUser } from "@clerk/nextjs";
 
 const Settings = () => {
   const { user } = useUser();
-  const hasPriorityPass = Boolean(user?.unsafeMetadata?.hasPriorityPass);
+  const hasPriorityPass = user?.unsafeMetadata?.hasPriorityPass;
 
-  // this feels a little delayed, so maybe use something like react query to better handle state?
-  const handleToggle = async () => {
-    await fetch("/api/profile", {
-      method: "POST",
-      body: JSON.stringify(!hasPriorityPass),
+  if (!user) return null;
+
+  const togglePriorityPass = async () => {
+    await user.update({
+      unsafeMetadata: {
+        hasPriorityPass: !hasPriorityPass,
+      },
     });
-    await user?.reload();
   };
 
   return (
@@ -34,8 +35,8 @@ const Settings = () => {
 
       <Switch
         color="secondary"
-        isSelected={Boolean(user?.unsafeMetadata?.hasPriorityPass)}
-        onClick={() => handleToggle()}
+        isSelected={Boolean(hasPriorityPass)}
+        onClick={() => togglePriorityPass()}
       >
         Do you have Priority Pass?
       </Switch>

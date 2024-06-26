@@ -10,8 +10,8 @@ const ProfilePage = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["posts"],
-    // queryFn: getPosts,
+    queryKey: ["getSettings"],
+    // queryFn: getSettings,
   });
 
   return (
@@ -26,7 +26,7 @@ const ProfilePage = async () => {
       <h1>Profile</h1>
       <p>
         Adjust your personal profile by setting what cards and programs you
-        have, making finding accessible lounges a breee.
+        have, making finding accessible lounges a breeze.
       </p>
 
       <HydrationBoundary state={dehydrate(queryClient)}>
