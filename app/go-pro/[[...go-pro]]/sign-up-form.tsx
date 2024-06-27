@@ -11,6 +11,7 @@ import {
   Input,
   RadioGroup,
   Radio,
+  CircularProgress,
 } from "@nextui-org/react";
 
 type SignUpFormProps = {
@@ -20,11 +21,14 @@ type SignUpFormProps = {
 const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   const { isLoaded, signUp } = useSignUp();
   const stripe = useStripe();
+  const [isLoading, setIsLoading] = useState(false);
+
   const [priceId, setPriceId] = useState("");
   const elements = useElements();
   const [email, setEmail] = useState("");
 
   const onSubmit = async () => {
+    setIsLoading(true);
     if (!isLoaded && !signUp) return null;
 
     try {
@@ -58,7 +62,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form>
       <Card className="w-full sm:w-96">
         <CardHeader>
           <div className="flex flex-col gap-2">
@@ -72,6 +76,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
           <div>
             <Input
               required
+              aria-label="Email Address"
               id="emailAddress"
               label="Email Address"
               name="emailAddress"
@@ -106,15 +111,20 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
           </div>
 
           <h3>Payment details</h3>
-          <div className="rounded border p-2">
-            <CardElement />
+          <div className="rounded border p-2 ">
+            <CardElement className="text-white" />
           </div>
         </CardBody>
 
         <div className="m-2 flex flex-col gap-2">
-          <Button disabled={!isLoaded} type="submit">
-            Verify Your Email
-          </Button>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <Button disabled={!isLoaded} onClick={onSubmit}>
+              Verify Your Email
+            </Button>
+          )}
+
           <p className="text-xs">
             After signing up, you will be sent a One Time Password code sent via
             email to verify before being charged.

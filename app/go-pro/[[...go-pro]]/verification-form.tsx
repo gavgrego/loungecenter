@@ -4,9 +4,7 @@ import * as React from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Card, Input } from "@nextui-org/react";
-
-import { Button } from "@/components/ui/button";
+import { Card, Input, Button } from "@nextui-org/react";
 
 const VerificationForm = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -39,7 +37,7 @@ const VerificationForm = () => {
 
   return (
     <div className="mt-20 flex items-center justify-center">
-      <form onSubmit={handleVerification}>
+      <form>
         <Card className="w-full sm:w-96">
           <div>
             <Input
@@ -51,9 +49,13 @@ const VerificationForm = () => {
               onChange={(e) => setCode(e.target.value)}
             />
           </div>
-          <div className="grid w-full gap-y-4">
-            <Button disabled={!isLoaded} type="submit">
-              Verify
+          <div className="grid w-full p-2">
+            <Button
+              color="secondary"
+              disabled={!isLoaded}
+              onClick={handleVerification}
+            >
+              Verify and Confirm Subscription
             </Button>
           </div>
         </Card>
