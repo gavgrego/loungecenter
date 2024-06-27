@@ -5,9 +5,11 @@ import { useUser } from "@clerk/nextjs";
 
 const Settings = () => {
   const { user } = useUser();
-  const hasPriorityPass = user?.unsafeMetadata?.hasPriorityPass;
 
   if (!user) return null;
+
+  const cardsSelected = user?.unsafeMetadata?.cardSelections as string[];
+  const hasPriorityPass = user?.unsafeMetadata?.hasPriorityPass;
 
   const togglePriorityPass = async () => {
     await user.update({
@@ -17,11 +19,21 @@ const Settings = () => {
     });
   };
 
+  const handleCardSelections = async (value: string[]) => {
+    await user.update({
+      unsafeMetadata: {
+        cardSelections: value,
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col gap-8 mt-10">
       <CheckboxGroup
         color="secondary"
         label="Select credit cards you have to save them to your profile:"
+        value={cardsSelected}
+        onChange={(value) => handleCardSelections(value)}
       >
         <Checkbox value="amex-plat">
           American Express Platinum (Personal or Business)
@@ -41,6 +53,7 @@ const Settings = () => {
         Do you have Priority Pass?
       </Switch>
 
+      {/* TODO: Flesh this out, organize by airline alliance in 3 columns */}
       <CheckboxGroup
         isDisabled
         color="secondary"
