@@ -107,7 +107,9 @@ const GoProContent = () => {
             <TableCell>✅</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>AI chatbot</TableCell>
+            <TableCell>
+              AI chatbot <em className="text-xs">(Coming Soon!)</em>
+            </TableCell>
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>

@@ -95,12 +95,12 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
               onValueChange={(e) => setPriceId(e)}
             >
               <div className="flex items-center space-x-2">
-                <Radio id="monthly" value="prod_QN95gJAvhewXxf">
+                <Radio id="monthly" value="price_1PWOniJ8buZJpCe9xpDhw0g5">
                   <strong>Monthly</strong> ($9.99/month)
                 </Radio>
               </div>
               <div className="flex items-center space-x-2">
-                <Radio id="yearly" value="prod_QN967NHvKu3UQG">
+                <Radio id="yearly" value="price_1PWOoLJ8buZJpCe9ICmwzc71">
                   <strong>Yearly</strong> ($99.99/year){" "}
                   <span className="italic text-sm text-warning">
                     Save $20 a year!
@@ -112,7 +112,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
 
           <h3>Payment details</h3>
           <div className="rounded border p-2 ">
-            <CardElement className="text-white" />
+            <CardElement className="text-white" id="card" />
           </div>
         </CardBody>
 

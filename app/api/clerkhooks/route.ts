@@ -29,7 +29,6 @@ const handler = createWebhooksHandler({
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
       default_payment_method: pm.id,
-      trial_period_days: 14,
       items: [
         {
           price: priceId as string,
