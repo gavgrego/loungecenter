@@ -3,11 +3,19 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 import Settings from "./settings";
+import ManageAccount from "./manage-account";
 
 const ProfilePage = async () => {
   const queryClient = new QueryClient();
+  const { userId } = auth();
+
+  if (!userId) {
+    redirect("/");
+  }
 
   await queryClient.prefetchQuery({
     queryKey: ["getSettings"],
@@ -32,6 +40,8 @@ const ProfilePage = async () => {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Settings />
       </HydrationBoundary>
+
+      <ManageAccount />
     </div>
   );
 };

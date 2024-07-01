@@ -9,16 +9,16 @@ const GoProPage = () => {
   const { user } = useUser();
 
   return (
-    <div className="flex flex-col md:flex-row gap-10">
+    <div className="flex flex-col md:flex-row gap-10 items-start">
       <div className="md:basis-2/3">
         <h1 className="mb-8">Go Pro!</h1>
         <p>
           A LoungeVault Pro Membership provides a myriad of benefits for the
-          serious traveler.
+          serious traveler:
         </p>
         <GoProContent />
       </div>
-      <aside className="md:basis-1/3">
+      <aside className="md:basis-1/3 md:sticky md:top-0">
         {!user ? <SignUp /> : "Thanks for being a Pro member!"}
       </aside>
     </div>

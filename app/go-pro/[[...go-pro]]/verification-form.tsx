@@ -25,13 +25,10 @@ const VerificationForm = () => {
       if (signInAttempt.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });
 
-        router.push("/go-pro/confirmation");
+        router.push("/?verified=true");
       } else {
-        // 👉 If the status is not complete. User may need to complete further steps.
       }
-    } catch (err) {
-      // 👉 Something went wrong...
-    }
+    } catch (err) {}
   };
 
   return (
@@ -57,6 +54,7 @@ const VerificationForm = () => {
               )}
             />
           </div>
+          {/* TODO: Add terms of service checkbox */}
           <p className="my-2">
             Once you submit your verification code, you will be charged and your
             subscription will be activated.{"  "}

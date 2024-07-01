@@ -19,12 +19,11 @@ const SignUp = () => {
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
   );
 
-  // 👉 Render the verification form, meaning OTP email has been set
+  // Render the verification form, meaning OTP email has been set
   if (verifying) {
     return <VerificationForm />;
   }
 
-  // 👉 Render the signup form by default
   return (
     <div className="mt-20 flex items-center justify-center">
       {/* @ts-ignore */}
