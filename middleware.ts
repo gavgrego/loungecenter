@@ -5,5 +5,5 @@ export default clerkMiddleware();
 export const config = {
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
   publicRoutes: ["/"],
-  // ignoredRoutes: ["/api/clerkhooks"],
+  ignoredRoutes: ["/api/clerkhooks"],
 };

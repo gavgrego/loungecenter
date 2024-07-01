@@ -13,6 +13,7 @@ import {
   Radio,
   CircularProgress,
 } from "@nextui-org/react";
+import { useForm, Controller } from "react-hook-form";
 
 type SignUpFormProps = {
   setVerifying: (val: boolean) => void;
@@ -21,14 +22,17 @@ type SignUpFormProps = {
 const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   const { isLoaded, signUp } = useSignUp();
   const stripe = useStripe();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [priceId, setPriceId] = useState("");
   const elements = useElements();
-  const [email, setEmail] = useState("");
+  const [cardValid, setCardValid] = useState(false);
+  const [subscription, setSubscription] = useState(
+    "price_1PWOniJ8buZJpCe9xpDhw0g5"
+  );
+
+  const { register, handleSubmit, getValues, control, formState } = useForm({
+    shouldUseNativeValidation: true,
+  });
 
   const onSubmit = async () => {
-    setIsLoading(true);
     if (!isLoaded && !signUp) return null;
 
     try {
@@ -46,10 +50,10 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
       }
 
       await signUp.create({
-        emailAddress: email,
+        emailAddress: getValues("emailAddress"),
         unsafeMetadata: {
           cardToken,
-          priceId,
+          priceId: subscription,
         },
       });
 
@@ -62,7 +66,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-full sm:w-96">
         <CardHeader>
           <div className="flex flex-col gap-2">
@@ -74,55 +78,79 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
         </CardHeader>
         <CardBody className="grid gap-y-4">
           <div>
-            <Input
-              required
-              aria-label="Email Address"
-              id="emailAddress"
-              label="Email Address"
+            <Controller
+              control={control}
               name="emailAddress"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              render={() => (
+                <Input
+                  label="Email Address"
+                  type="email"
+                  {...register("emailAddress", { required: true })}
+                />
+              )}
             />
           </div>
 
           <div>
-            <RadioGroup
-              className="mt-2"
-              color="secondary"
-              defaultValue="monthly"
-              value={priceId}
-              onValueChange={(e) => setPriceId(e)}
-            >
-              <div className="flex items-center space-x-2">
-                <Radio id="monthly" value="price_1PWOniJ8buZJpCe9xpDhw0g5">
-                  <strong>Monthly</strong> ($9.99/month)
-                </Radio>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Radio id="yearly" value="price_1PWOoLJ8buZJpCe9ICmwzc71">
-                  <strong>Yearly</strong> ($99.99/year){" "}
-                  <span className="italic text-sm text-warning">
-                    Save $20 a year!
-                  </span>
-                </Radio>
-              </div>
-            </RadioGroup>
+            <Controller
+              control={control}
+              name="subscription"
+              render={() => (
+                <RadioGroup
+                  className="mt-2"
+                  color="secondary"
+                  value={subscription}
+                  onChange={(e) => setSubscription(e.target.value)}
+                >
+                  <Radio
+                    className="flex items-center space-x-2"
+                    value="price_1PWOniJ8buZJpCe9xpDhw0g5"
+                  >
+                    <strong>Monthly</strong> ($9.99/month)
+                  </Radio>
+                  <Radio
+                    className="flex items-center space-x-2"
+                    value="price_1PWOoLJ8buZJpCe9ICmwzc71"
+                  >
+                    <strong>Yearly</strong> ($99.99/year){" "}
+                    <span className="italic text-sm text-warning">
+                      Save $20 a year!
+                    </span>
+                  </Radio>
+                </RadioGroup>
+              )}
+            />
           </div>
 
           <h3>Payment details</h3>
           <div className="rounded border p-2 ">
-            <CardElement className="text-white" id="card" />
+            <CardElement
+              className="text-white"
+              id="card"
+              onChange={(event) => {
+                if (event.complete) {
+                  setCardValid(true);
+                }
+              }}
+            />
           </div>
         </CardBody>
 
         <div className="m-2 flex flex-col gap-2">
-          {isLoading ? (
+          {formState.isSubmitting ? (
             <CircularProgress />
           ) : (
-            <Button disabled={!isLoaded} onClick={onSubmit}>
+            <Button
+              color="secondary"
+              isDisabled={!formState.isValid || !cardValid}
+              type="submit"
+            >
               Verify Your Email
             </Button>
+          )}
+
+          {formState.errors.root?.message && (
+            <p className="text-red-500">{formState.errors.root?.message}</p>
           )}
 
           <p className="text-xs">

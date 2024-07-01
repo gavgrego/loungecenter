@@ -3,32 +3,27 @@
 import * as React from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Card, Input, Button, CircularProgress } from "@nextui-org/react";
+import { Controller, useForm } from "react-hook-form";
 
 const VerificationForm = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
-  const [code, setCode] = useState("");
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
-  // 👉 Handles the verification process once the user has entered the validation code from email
-  async function handleVerification(e: React.FormEvent) {
-    setIsLoading(true);
-    e.preventDefault();
+  const { register, handleSubmit, getValues, control, formState } = useForm({
+    shouldUseNativeValidation: true,
+  });
+
+  const onSubmit = async () => {
     if (!isLoaded && !signUp) return null;
 
     try {
-      // 👉 Use the code provided by the user and attempt verification
       const signInAttempt = await signUp.attemptEmailAddressVerification({
-        code,
+        code: getValues("code"),
       });
 
-      // 👉 If verification was completed, set the session to active
-      // and redirect the user
       if (signInAttempt.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });
-        setIsLoading(false);
 
         router.push("/go-pro/confirmation");
       } else {
@@ -37,31 +32,44 @@ const VerificationForm = () => {
     } catch (err) {
       // 👉 Something went wrong...
     }
-  }
+  };
 
   return (
-    <div className="mt-20 flex items-center justify-center">
+    <div className="mt-20 flex items-center justify-center ">
       {/* need to figure out why onsubmit form functionality is not working and just refreshed the page */}
-      <form>
-        <Card className="w-full sm:w-96">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card className="w-full sm:w-96 p-4">
           <div>
-            <Input
-              required
-              id="code"
-              label="Enter your verification code"
+            <Controller
+              control={control}
               name="code"
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
+              render={() => (
+                <Input
+                  required
+                  id="code"
+                  label="Enter your verification code"
+                  {...register("code", {
+                    required: true,
+                    minLength: 6,
+                    maxLength: 6,
+                  })}
+                />
+              )}
             />
           </div>
-          <div className="grid w-full p-2">
-            {isLoading ? (
+          <p className="my-2">
+            Once you submit your verification code, you will be charged and your
+            subscription will be activated.{"  "}
+            <strong>You can cancel your subscription at any time.</strong>
+          </p>
+          <div className="grid w-full">
+            {formState.isSubmitting ? (
               <CircularProgress />
             ) : (
               <Button
                 color="secondary"
-                disabled={!isLoaded}
-                onClick={handleVerification}
+                isDisabled={!formState.isValid}
+                type="submit"
               >
                 Verify and Confirm Subscription
               </Button>

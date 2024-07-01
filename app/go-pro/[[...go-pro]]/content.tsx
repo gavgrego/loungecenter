@@ -76,7 +76,7 @@ const GoProContent = () => {
       </Accordion>
       <Table isStriped className="mt-8">
         <TableHeader>
-          <TableColumn>&nbsp;</TableColumn>
+          <TableColumn>Benefit</TableColumn>
           <TableColumn className="text-sm">Free</TableColumn>
           <TableColumn className="text-sm">Pro</TableColumn>
         </TableHeader>
@@ -92,12 +92,19 @@ const GoProContent = () => {
             <TableCell>✅</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Filter by access method</TableCell>
+            <TableCell>Advanced filtering</TableCell>
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Save and view by access method</TableCell>
+            <TableCell>Save and view lounges by access method</TableCell>
+            <TableCell>❌</TableCell>
+            <TableCell>✅</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              Save and view what lounges you&apos;ve visited
+            </TableCell>
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>

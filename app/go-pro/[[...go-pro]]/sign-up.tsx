@@ -8,8 +8,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import SignUpForm from "./sign-up-form";
 import VerificationForm from "./verification-form";
 
-// import VerificationForm from './VerificationForm'
-
 const SignUp = () => {
   const [verifying, setVerifying] = useState(false);
   const options = {
