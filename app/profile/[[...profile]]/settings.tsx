@@ -47,6 +47,7 @@ const Settings = () => {
 
       <Switch
         color="secondary"
+        defaultSelected={Boolean(hasPriorityPass)}
         isSelected={Boolean(hasPriorityPass)}
         onClick={() => togglePriorityPass()}
       >
