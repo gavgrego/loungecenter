@@ -215,6 +215,7 @@ export interface Lounge {
   directions?: string;
   featured?: boolean;
   googlePlaceId: string;
+  guest: string;
   locale?: string;
   localizations?: LoungeLocalizations;
   location?: string;

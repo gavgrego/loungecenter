@@ -35,10 +35,11 @@ const LoungeSidebar = ({
 
   return (
     <div className="flex flex-col gap-3">
-      <h2 className="text-md  flex flex-row">
-        Access With:&nbsp;
+      <div className="flex flex-row gap-2 items-center">
+        <h3 className="text-md flex flex-row">Access With:&nbsp;</h3>
         {userId ? <div>AMEX Plat</div> : <div>VIEW W/ A PRO MEMBERSHIP</div>}
-      </h2>
+      </div>
+
       <div className="font-medium">📍&nbsp;{placeDetails.formattedAddress}</div>
       {phone ? (
         <Link className="font-medium" href={`tel:${phone}`}>

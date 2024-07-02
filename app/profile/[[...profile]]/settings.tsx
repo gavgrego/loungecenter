@@ -35,10 +35,18 @@ const Settings = () => {
         value={cardsSelected}
         onChange={(value) => handleCardSelections(value)}
       >
+        {/* Maybe group these if the list gets out of hand? */}
         <Checkbox value="amex-plat">
           American Express Platinum (Personal or Business)
         </Checkbox>
         <Checkbox value="cap1-vx">Capital One Venture X</Checkbox>
+        <Checkbox value="cap1-savor">
+          Capital One Venture (Plaza Premium)
+        </Checkbox>
+        <Checkbox value="cap1-savor">
+          Capital One Spark Miles (Plaza Premium)
+        </Checkbox>
+
         <Checkbox value="chase-reserve">Chase Sapphire Reserve</Checkbox>
         <Checkbox value="united-club">
           Chase United Club (Business or Infinite)
