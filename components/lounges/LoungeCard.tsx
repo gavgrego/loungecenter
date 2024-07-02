@@ -1,7 +1,9 @@
-import { Card, CardHeader, CardFooter, Divider, Link } from "@nextui-org/react";
+import { Card, CardHeader, CardFooter, Link, Tooltip } from "@nextui-org/react";
+import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
+import ImageCarousel from "@/app/lounges/[airport]/[slug]/components/ImageCarousel";
 
 type LoungeCardProps = {
   lounge: LoungeResponseDataObject;
@@ -15,18 +17,23 @@ const LoungeCard = async ({ lounge }: LoungeCardProps) => {
   const placeDetails = await getGooglePlaceDetails(googlePlaceId as string);
 
   return (
-    <Card
-      as={Link}
-      className="max-w-[400px]"
-      href={`/lounges/${airportCode}/${slug}`}
-    >
-      <CardHeader className="flex gap-3">
-        <p className="text-xl text-center font-semibold w-full">
-          {lounge?.attributes?.name}
-        </p>
-      </CardHeader>
-      {/* <ImageCarousel placeImages={placeDetails.photos} /> */}
-      <Divider />
+    <Card className="max-w-[400px] relative overflow-visible">
+      <Link color="secondary" href={`/lounges/${airportCode}/${slug}`}>
+        <Tooltip closeDelay={100} content="You've got access to this lounge!">
+          <SealCheck
+            className="absolute -right-4 -top-4 z-10"
+            color="green"
+            size={40}
+            weight="fill"
+          />
+        </Tooltip>
+        <CardHeader className="flex gap-3">
+          <h3 className="text-xl text-center font-semibold w-full">
+            {lounge?.attributes?.name}
+          </h3>
+        </CardHeader>
+      </Link>
+      <ImageCarousel className="my-3" placeImages={placeDetails.photos} />
       {/* if lounge has card access */}
       <CardFooter>
         <p className="text-xs font-medium tracking-wider">GET IN WITH:</p>

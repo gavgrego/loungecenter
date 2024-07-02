@@ -104,17 +104,17 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
                 >
                   <Radio
                     className="flex items-center space-x-2"
-                    value="price_1PWOniJ8buZJpCe9xpDhw0g5"
+                    value="price_1PYEb5J8buZJpCe9V0Zkc9kN"
                   >
-                    <strong>Monthly</strong> ($9.99/month)
+                    <strong>Monthly</strong> ($7.99/month)
                   </Radio>
                   <Radio
                     className="flex items-center space-x-2"
-                    value="price_1PWOoLJ8buZJpCe9ICmwzc71"
+                    value="price_1PYEcHJ8buZJpCe92iaen98q"
                   >
-                    <strong>Yearly</strong> ($99.99/year){" "}
+                    <strong>Yearly</strong> ($79.99/year){" "}
                     <span className="italic text-sm text-warning">
-                      Save $20 a year!
+                      Save 16% a year!
                     </span>
                   </Radio>
                 </RadioGroup>

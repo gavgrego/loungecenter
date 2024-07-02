@@ -17,11 +17,7 @@ const LoungesPage = async () => {
       <h1 className="text-center mb-8">Popular Lounges</h1>
       <div className="grid grid-cols-3 gap-8">
         {lounges?.map((lounge) => {
-          return (
-            <div key={lounge.id} className="">
-              <LoungeCard key={lounge.id} lounge={lounge} />
-            </div>
-          );
+          return <LoungeCard key={lounge.id} lounge={lounge} />;
         })}
       </div>
       {/* ALL LOUNGES TABLE */}

@@ -1,5 +1,3 @@
-"use client";
-
 import { HTMLAttributes } from "react";
 
 import { LoungeResponseDataObject } from "@/data/api/documentation";

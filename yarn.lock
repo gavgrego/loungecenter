@@ -1730,10 +1730,10 @@
     "@orval/core" "6.29.1"
     lodash.uniq "^4.5.0"
 
-"@phosphor-icons/react@^2.1.5":
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/@phosphor-icons/react/-/react-2.1.5.tgz#762c368778a4040d52c5532b8af1692b66e16783"
-  integrity sha512-B7vRm/w+P/+eavWZP5CB5Ul0ffK4Y7fpd/auWKuGvm+8pVgAJzbOK8O0s+DqzR+TwWkh5pHtJTuoAtaSvgCPzg==
+"@phosphor-icons/react@^2.1.5-alpha.3":
+  version "2.1.5-alpha.3"
+  resolved "https://registry.yarnpkg.com/@phosphor-icons/react/-/react-2.1.5-alpha.3.tgz#722d9dd6c0eb3cde329f2d622ebe982b8bafaeba"
+  integrity sha512-PWx6BND/b7gePEVSmIYv9TdVKfbH79zn4r3mP57JpK+b8o2W76nELa/F+c2kJSnudguvEyQr5WXpgx8v3PvCig==
 
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"

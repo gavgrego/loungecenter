@@ -1,15 +1,15 @@
 import { Divider } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
 
-import LoungeSidebar from "./sidebar";
-import ImageCarousel from "./components/ImageCarousel";
 import Notes from "./components/Notes";
 import DirectionsAndMap from "./components/DirectionsAndMap";
 import OtherLounges from "./components/OtherLounges";
+import LoungeSidebar from "./sidebar";
+import ImageCarousel from "./components/ImageCarousel";
 
 import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
-import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getOtherLounges from "@/data/lounge/getOtherLounges";
+import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const { userId } = auth();
@@ -18,7 +18,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const loungeData = lounge.data?.[0].attributes;
 
   const placeDetails = await getGooglePlaceDetails(
-    String(loungeData?.googlePlaceId)
+    loungeData?.googlePlaceId as string
   );
   const otherLounges = await getOtherLounges(
     loungeData?.airport?.data?.attributes?.code as string,
@@ -50,7 +50,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             <span>{airportData?.country}</span>
           </h2>
 
-          <ImageCarousel placeImages={placeImages} />
+          <ImageCarousel className="my-8" placeImages={placeImages} />
           <Divider className="my-4" />
           <div>{loungeData?.description}</div>
           <Divider className="my-5" />
