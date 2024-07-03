@@ -114,7 +114,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
                   >
                     <strong>Yearly</strong> ($79.99/year){" "}
                     <span className="italic text-sm text-warning">
-                      Save 16% a year!
+                      Get 2 free months!
                     </span>
                   </Radio>
                 </RadioGroup>

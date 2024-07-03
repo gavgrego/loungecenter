@@ -43,6 +43,13 @@ const GoProContent = () => {
           </TableRow>
           <TableRow>
             <TableCell>
+              See which lounges have day passes for purchase
+            </TableCell>
+            <TableCell>❌</TableCell>
+            <TableCell>✅</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
               Save and view what lounges you&apos;ve visited
             </TableCell>
             <TableCell>❌</TableCell>

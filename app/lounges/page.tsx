@@ -14,7 +14,7 @@ const LoungesPage = async () => {
           placeholder="Find a lounge or airport..."
         />
       </div>
-      <h1 className="text-center mb-8">Popular Lounges</h1>
+      <h1 className="text-center mb-10">Popular Lounges</h1>
       <div className="grid grid-cols-3 gap-8">
         {lounges?.map((lounge) => {
           return <LoungeCard key={lounge.id} lounge={lounge} />;

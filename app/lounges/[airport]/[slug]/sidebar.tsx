@@ -12,7 +12,7 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { Info } from "@phosphor-icons/react";
+import { Info } from "@phosphor-icons/react/dist/ssr/Info";
 
 import Hours from "./components/Hours";
 
@@ -35,17 +35,16 @@ const LoungeSidebar = ({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-row gap-2 items-center">
-        <h3 className="text-md flex flex-row">Access With:&nbsp;</h3>
-        {userId ? <div>AMEX Plat</div> : <div>VIEW W/ A PRO MEMBERSHIP</div>}
-      </div>
-
       <div className="font-medium">📍&nbsp;{placeDetails.formattedAddress}</div>
       {phone ? (
         <Link className="font-medium" href={`tel:${phone}`}>
           ☎️&nbsp;{phone}
         </Link>
       ) : null}
+      <div className="flex flex-row gap-2 items-center">
+        <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
+        {userId ? <div>AMEX Plat</div> : <div>VIEW W/ A PRO MEMBERSHIP</div>}
+      </div>
       <Accordion className="p-0" defaultExpandedKeys={["1"]}>
         <AccordionItem
           key={1}

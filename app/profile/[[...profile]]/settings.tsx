@@ -39,6 +39,9 @@ const Settings = () => {
         <Checkbox value="amex-plat">
           American Express Platinum (Personal or Business)
         </Checkbox>
+        <Checkbox value="amex-plat">
+          American Express Delta Skymiles Reserve (Personal or Business)
+        </Checkbox>
         <Checkbox value="cap1-vx">Capital One Venture X</Checkbox>
         <Checkbox value="cap1-savor">
           Capital One Venture (Plaza Premium)

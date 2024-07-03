@@ -17,6 +17,8 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
+        xs: "320px",
+        md: "448px",
         "2xl": "1400px",
       },
     },
@@ -46,7 +48,11 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), nextui()],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/container-queries"),
+    nextui(),
+  ],
 } satisfies Config;
 
 export default config;

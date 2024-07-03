@@ -1,5 +1,6 @@
-import { Divider } from "@nextui-org/react";
+import { Divider, Tooltip } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
+import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 
 import Notes from "./components/Notes";
 import DirectionsAndMap from "./components/DirectionsAndMap";
@@ -38,7 +39,12 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     <>
       <div className="flex flex-col md:flex-row gap-10 items-start">
         <div className="basis-full md:basis-2/3">
-          <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
+          <div className="flex flex-row gap-4 items-center">
+            <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
+            <Tooltip closeDelay={100} content="You have access to this lounge!">
+              <SealCheck color="green" size={50} weight="fill" />
+            </Tooltip>
+          </div>
           <h2 className="text-xl font-semibold mb-1">
             {airportData?.code} - 📍{loungeData?.location}
           </h2>
@@ -50,30 +56,45 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             <span>{airportData?.country}</span>
           </h2>
 
-          <ImageCarousel className="my-8" placeImages={placeImages} />
+          <ImageCarousel
+            className="my-8 [&_img]:max-h-[500px]"
+            placeImages={placeImages}
+          />
           <Divider className="my-4" />
+
           <div>{loungeData?.description}</div>
+
           <Divider className="my-5" />
           {loungeData?.notes ? (
             <>
-              <h3 className="mb-2">❗Important Info:</h3>
+              <h3 className="mb-2">❗ Important Info:</h3>
               <Notes markdown={loungeData?.notes} />
             </>
           ) : null}
+          {loungeData?.guest && (
+            <>
+              <Divider className="my-5" />
+              <h3>👫 Guest Access:</h3>
+              <p>{loungeData?.guest}</p>
+            </>
+          )}
+
           <Divider className="my-5" />
-          <h3>👫Guest Access:</h3>
-          <p>{loungeData?.guest}</p>
-          <Divider className="my-5" />
-          <h3>🚶Walking Directions:</h3>
+
+          <h3>🚶 Walking Directions:</h3>
           <p>{loungeData?.directions}</p>
+
           <Divider className="my-5" />
+
           <DirectionsAndMap loungeData={loungeData} />
 
-          <OtherLounges
-            airport={airportData?.code as string}
-            className="mt-10"
-            lounges={otherLounges}
-          />
+          {otherLounges && otherLounges.length > 0 && (
+            <OtherLounges
+              airport={airportData?.code as string}
+              className="mt-14"
+              lounges={otherLounges}
+            />
+          )}
         </div>
 
         <aside className="basis-full md:basis-1/3 md:sticky md:top-16">
