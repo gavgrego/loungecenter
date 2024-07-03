@@ -32,16 +32,14 @@ const ManageAccount = () => {
   return (
     <div>
       <h1>Manage Account</h1>
-      <Button color="secondary" onPress={onOpen}>
+      <Button className="mt-2" color="secondary" onPress={onOpen}>
         Cancel Your Pro Membership
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {() => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Cancel Your Pro Membership
-              </ModalHeader>
+              <ModalHeader>Cancel Your Pro Membership</ModalHeader>
               <ModalBody>
                 <p>
                   Upon cancellation,{" "}

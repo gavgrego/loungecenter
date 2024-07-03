@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 
 const Settings = () => {
   const { user } = useUser();
+  const unsafeMetadata = user?.unsafeMetadata;
 
   if (!user) return null;
 
@@ -14,6 +15,7 @@ const Settings = () => {
   const togglePriorityPass = async () => {
     await user.update({
       unsafeMetadata: {
+        ...unsafeMetadata,
         hasPriorityPass: !hasPriorityPass,
       },
     });
@@ -22,6 +24,7 @@ const Settings = () => {
   const handleCardSelections = async (value: string[]) => {
     await user.update({
       unsafeMetadata: {
+        ...unsafeMetadata,
         cardSelections: value,
       },
     });
@@ -36,20 +39,16 @@ const Settings = () => {
         onChange={(value) => handleCardSelections(value)}
       >
         {/* Maybe group these if the list gets out of hand? */}
+        {/* pull these in from strapi */}
         <Checkbox value="amex-plat">
           American Express Platinum (Personal or Business)
         </Checkbox>
-        <Checkbox value="amex-plat">
+        <Checkbox value="amex-delta-reserve">
           American Express Delta Skymiles Reserve (Personal or Business)
         </Checkbox>
         <Checkbox value="cap1-vx">Capital One Venture X</Checkbox>
-        <Checkbox value="cap1-savor">
-          Capital One Venture (Plaza Premium)
-        </Checkbox>
-        <Checkbox value="cap1-savor">
-          Capital One Spark Miles (Plaza Premium)
-        </Checkbox>
-
+        <Checkbox value="cap1-venture">Capital One Venture</Checkbox>
+        <Checkbox value="cap1-spark-miles">Capital One Spark Miles</Checkbox>
         <Checkbox value="chase-reserve">Chase Sapphire Reserve</Checkbox>
         <Checkbox value="united-club">
           Chase United Club (Business or Infinite)
@@ -58,7 +57,6 @@ const Settings = () => {
 
       <Switch
         color="secondary"
-        defaultSelected={Boolean(hasPriorityPass)}
         isSelected={Boolean(hasPriorityPass)}
         onClick={() => togglePriorityPass()}
       >

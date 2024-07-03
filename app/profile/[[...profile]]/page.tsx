@@ -1,26 +1,16 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import { Divider } from "@nextui-org/react";
 
 import Settings from "./settings";
 import ManageAccount from "./manage-account";
 
 const ProfilePage = async () => {
-  const queryClient = new QueryClient();
   const { userId } = auth();
 
   if (!userId) {
     redirect("/");
   }
-
-  await queryClient.prefetchQuery({
-    queryKey: ["getSettings"],
-    // queryFn: getSettings,
-  });
 
   return (
     // this page will contain the user's profile information
@@ -37,10 +27,8 @@ const ProfilePage = async () => {
         have, making finding accessible lounges a breeze.
       </p>
 
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Settings />
-      </HydrationBoundary>
-
+      <Settings />
+      <Divider className="my-6" />
       <ManageAccount />
     </div>
   );
