@@ -18,7 +18,7 @@ const LoungeCard = async ({ lounge }: LoungeCardProps) => {
   const placeDetails = await getGooglePlaceDetails(googlePlaceId as string);
 
   return (
-    <Card className="max-w-[400px] relative overflow-visible">
+    <Card isFooterBlurred className="max-w-[400px] relative overflow-visible">
       <Tooltip closeDelay={100} content="You have access to this lounge!">
         <SealCheck
           className="absolute -right-4 -top-4 z-10"

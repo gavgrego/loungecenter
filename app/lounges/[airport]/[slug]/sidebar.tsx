@@ -24,11 +24,7 @@ type LoungeSidebarProps = {
   userId: string | null;
 };
 
-const LoungeSidebar = ({
-  loungeData,
-  placeDetails,
-  userId,
-}: LoungeSidebarProps) => {
+const LoungeSidebar = ({ placeDetails, userId }: LoungeSidebarProps) => {
   const phone = placeDetails.internationalPhoneNumber
     ? placeDetails.internationalPhoneNumber
     : placeDetails.nationalPhoneNumber;
@@ -69,11 +65,7 @@ const LoungeSidebar = ({
           </Table>
         </AccordionItem>
       </Accordion>
-      {userId ? (
-        <div>
-          <h3>Estimated Busyness:</h3>
-        </div>
-      ) : null}
+
       <div className="flex flex-row gap-3 items-center">
         <div className="flex items-center flex-row gap-1">
           <Tooltip closeDelay={100} content="Live ratings from Google!">

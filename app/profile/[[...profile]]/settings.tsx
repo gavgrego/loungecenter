@@ -10,6 +10,7 @@ const Settings = () => {
   if (!user) return null;
 
   const cardsSelected = user?.unsafeMetadata?.cardSelections as string[];
+  const loungeMemberships = user?.unsafeMetadata?.loungeMemberships as string[];
   const hasPriorityPass = user?.unsafeMetadata?.hasPriorityPass;
 
   const togglePriorityPass = async () => {
@@ -26,6 +27,15 @@ const Settings = () => {
       unsafeMetadata: {
         ...unsafeMetadata,
         cardSelections: value,
+      },
+    });
+  };
+
+  const handleLoungeMemberships = async (value: string[]) => {
+    await user.update({
+      unsafeMetadata: {
+        ...unsafeMetadata,
+        loungeMemberships: value,
       },
     });
   };
@@ -53,6 +63,16 @@ const Settings = () => {
         <Checkbox value="united-club">
           Chase United Club (Business or Infinite)
         </Checkbox>
+      </CheckboxGroup>
+
+      <CheckboxGroup
+        color="secondary"
+        label="Do you have any lounge memberships?"
+        value={loungeMemberships}
+        onChange={(value) => handleLoungeMemberships(value)}
+      >
+        <Checkbox value="alaska">Alaska Lounge</Checkbox>
+        <Checkbox value="alaska-plus">Alaska Lounge+</Checkbox>
       </CheckboxGroup>
 
       <Switch

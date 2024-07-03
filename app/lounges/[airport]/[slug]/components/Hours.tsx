@@ -8,11 +8,14 @@ const Hours = ({ open }: HoursProps) => {
       {open ? (
         <div className="flex flex-row gap-3 items-center">
           <div className="w-3 h-3 bg-green-600 rounded-full" />
+          {/* i18n */}
           Open Now!
         </div>
       ) : (
         <div className="flex flex-row gap-3 items-center">
           <div className="w-3 h-3 bg-red-600 rounded-full" />
+          {/* i18n */}
+
           <div>Currently Closed</div>
         </div>
       )}

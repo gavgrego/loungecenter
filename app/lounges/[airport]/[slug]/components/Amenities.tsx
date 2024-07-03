@@ -1,3 +1,0 @@
-type AmenitiesProps = {};
-
-const Amenities = () => {};

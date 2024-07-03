@@ -7,12 +7,24 @@ export type GooglePlace = {
     openNow: boolean;
     periods: {
       open: {
-        day: string;
-        time: string;
+        day: number;
+        hour: number;
+        minute: number;
+        date: {
+          year: number;
+          month: number;
+          day: number;
+        };
       };
       close: {
-        day: string;
-        time: string;
+        day: number;
+        hour: number;
+        minute: number;
+        date: {
+          year: number;
+          month: number;
+          day: number;
+        };
       };
     }[];
     weekdayDescriptions: string[];
