@@ -16,6 +16,8 @@ import getOtherLounges from "@/data/lounge/getOtherLounges";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
 
+export type ChartData = { name: string; value: number }[];
+
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const { userId } = auth();
 
@@ -45,8 +47,24 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     name: String(loungeData?.name),
     address: String(placeDetails.formattedAddress),
   });
+  // The endpoint returns hourly data starting at 6AM for the current day, and ending
+  // at 5AM the next day.  Unfortunate, but we will just use tomorrow's 5AM hour for today
+  // in order to prevent two fetches for one day, and 5AM shouldn't matter too much day-to-day
+  const hoursData = trafficData.analysis.day_raw;
+  const fiveAm = hoursData.pop() as number;
 
-  console.log(trafficData);
+  // take tomorrow's 5AM data and put it at the beginning of the today
+  hoursData.unshift(fiveAm);
+  const chartData: ChartData = [];
+
+  hoursData.map((hour, i) => {
+    chartData.push({
+      name: `${i + todaysOpen}:00`,
+      value: hour,
+    });
+  });
+
+  const filteredChartData = chartData.filter((hour) => hour.value !== 0);
 
   // add support for additional photos added via strapi, if there are any
   const placeImages = placeDetails.photos;
@@ -103,27 +121,25 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
           <Divider className="my-5" />
 
-          <div className="grid grid-cols-2">
-            <div className="col-span-1">
-              <h3>🌟 Amenities:</h3>
-              <IconList items={amenities} />
+          {amenities && amenities.length > 0 && (
+            <div className="grid grid-cols-2">
+              <div className="col-span-1">
+                <h3>🌟 Amenities:</h3>
+                <IconList items={amenities} />
+              </div>
+              <div className="col-span-1">
+                <h3>☔ Detriments:</h3>
+                <IconList items={detriments} />
+              </div>
             </div>
-            <div className="col-span-1">
-              <h3>☔ Detriments:</h3>
-              <IconList items={detriments} />
-            </div>
-          </div>
+          )}
 
           <Divider className="my-5" />
 
           {userId ? (
             <div>
               <h3>Live Foot Traffic:</h3>
-              <TrafficChart
-                closeHour={todaysClose}
-                openHour={todaysOpen}
-                trafficData={trafficData}
-              />
+              <TrafficChart chartData={filteredChartData} />
             </div>
           ) : null}
 
