@@ -1,4 +1,4 @@
-import { Divider, Tooltip } from "@nextui-org/react";
+import { Divider, Image, Link, Tooltip } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
 import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 import dayjs from "dayjs";
@@ -16,8 +16,8 @@ import getOtherLounges from "@/data/lounge/getOtherLounges";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
 import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
-
-export type ChartData = { name: string; value: number; live?: number }[];
+import TrafficExample from "@/public/traffic-example.jpg";
+export type ChartData = { name: string; value: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const { userId } = auth();
@@ -47,46 +47,54 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     lounge.data?.[0].id as number
   );
 
-  const trafficData = await getTrafficData({
-    name: String(loungeData?.name),
-    address: String(placeDetails.formattedAddress),
-  });
+  let filteredChartData: ChartData = [];
 
-  const liveTrafficData = await getLiveTrafficData({
-    name: String(loungeData?.name),
-    address: String(placeDetails.formattedAddress),
-  });
-
-  console.log(liveTrafficData);
-  // The endpoint returns hourly data starting at 6AM for the current day, and ending
-  // at 5AM the next day.  Unfortunate, but we will just use tomorrow's 5AM hour for today
-  // in order to prevent two fetches for one day, and 5AM shouldn't matter too much day-to-day
-  const hoursData = trafficData.analysis.day_raw;
-  const fiveAm = hoursData.pop() as number;
-
-  // take tomorrow's 5AM data and put it at the beginning of the today
-  hoursData.unshift(fiveAm);
-  const chartData: ChartData = [];
-
-  hoursData.map((value, i) => {
-    const hour = i + todaysOpen;
-
-    // if hour is "now", fetch the live data and append it to the chartData
-    chartData.push({
-      name: `${hour}:00`,
-      value,
+  // only fetch traffic data if the user is logged in
+  if (userId) {
+    const trafficData = await getTrafficData({
+      name: String(loungeData?.name),
+      address: String(placeDetails.formattedAddress),
     });
 
-    if (dayjs().hour() == hour) {
-      chartData.push({
-        name: `${hour}:00`,
-        value,
-        live: liveTrafficData.analysis.venue_live_busyness,
-      });
-    }
-  });
+    const liveTrafficData = await getLiveTrafficData({
+      name: String(loungeData?.name),
+      address: String(placeDetails.formattedAddress),
+    });
 
-  const filteredChartData = chartData.filter((hour) => hour.value !== 0);
+    // The endpoint returns hourly data starting at 6AM for the current day, and ending
+    // at 5AM the next day.  Unfortunate, but we will just use tomorrow's 5AM hour for today
+    // in order to prevent two fetches for one day, and 5AM shouldn't matter too much day-to-day
+    const hoursData = trafficData.analysis.day_raw;
+    const fiveAm = hoursData.pop() as number;
+
+    // take tomorrow's 5AM data and put it at the beginning of the today
+    hoursData.unshift(fiveAm);
+    const chartData: ChartData = [];
+
+    hoursData.map((value, i) => {
+      const hour = i + todaysOpen;
+
+      // if hour is "now", fetch the live data and append it to the chartData
+
+      if (dayjs().hour() == hour) {
+        chartData.push({
+          name: `${hour}:00`,
+          value,
+          live: liveTrafficData.analysis.venue_live_busyness
+            ? liveTrafficData.analysis.venue_live_busyness
+            : liveTrafficData.analysis.venue_forecasted_busyness,
+        });
+      } else {
+        chartData.push({
+          name: `${hour}:00`,
+          value,
+          live: 0,
+        });
+      }
+    });
+
+    filteredChartData = chartData.filter((hour) => hour.value !== 0);
+  }
 
   // add support for additional photos added via strapi, if there are any
   const placeImages = placeDetails.photos;
@@ -164,11 +172,24 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           )}
 
           {userId ? (
-            <div>
-              <h3 className="mb-2">Live Foot Traffic:</h3>
+            <>
+              <h3 className="mb-4">Live Foot Traffic:</h3>
               <TrafficChart chartData={filteredChartData} />
-            </div>
-          ) : null}
+            </>
+          ) : (
+            <>
+              <Link className="mb-2" color="secondary" href="/go-pro">
+                <h3>Unlock Live Foot Traffic with a Pro Account!</h3>
+              </Link>
+
+              <Tooltip
+                closeDelay={100}
+                content="This is just a visual representation of live foot traffic.  Unlock for every lounge with a Pro membership!"
+              >
+                <Image src={TrafficExample.src} />
+              </Tooltip>
+            </>
+          )}
 
           <Divider className="my-5" />
 

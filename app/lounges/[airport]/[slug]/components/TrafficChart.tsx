@@ -9,11 +9,45 @@ import {
   Area,
   Bar,
 } from "recharts";
+import { Chip } from "@nextui-org/react";
+import { Broadcast } from "@phosphor-icons/react/dist/ssr";
 
 import { ChartData } from "../page";
 
 type TrafficChartProps = {
   chartData: ChartData;
+};
+
+type CustomTooltipProps = {
+  active?: boolean;
+  payload?: any[];
+  label?: string;
+};
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+  if (active && payload && payload.length) {
+    const busyness =
+      payload[0].payload.value > payload[0].payload.live ? "less" : "more";
+
+    return (
+      <div className="custom-tooltip max-w-[250px] dark:bg-black dark:text-white p-2 rounded light light:bg-white light:text-black">
+        {payload[0].payload.live > 0 && (
+          <div className="flex flex-col gap-2 mt-4 mb-8">
+            <Chip
+              className="animate-bounce"
+              color="danger"
+              startContent={<Broadcast size={18} />}
+            >
+              LIVE!
+            </Chip>
+            <p className="label">{`This lounge is currently a ${payload[0].payload.live}/100 in busyness at around ${label} local time.  It is ${busyness} busy than normal right now.`}</p>
+          </div>
+        )}
+        <p className="label text-sm">{`⏱️ This lounge is typically an estimated ${payload[0].payload.value}/100 busyness at around ${label} local time.`}</p>
+      </div>
+    );
+  }
+
+  return null;
 };
 
 const TrafficChart = ({ chartData }: TrafficChartProps) => {
@@ -33,16 +67,16 @@ const TrafficChart = ({ chartData }: TrafficChartProps) => {
         <XAxis
           allowDuplicatedCategory={false}
           dataKey="name"
-          interval={0}
+          interval={1}
           tick={{ fontSize: ".8rem" }}
         />
 
-        {/* <YAxis dataKey="value" /> */}
         <YAxis dataKey="live" domain={[0, 100]} />
+        <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 1000 }} />
 
-        <Tooltip />
-        <Area dataKey="value" fill="#8884d8" />
-        <Bar dataKey="live" fill="#83d422" opacity={0.75} />
+        <Area className="-z-10" dataKey="value" fill="#8884d8" />
+
+        <Bar className="z-50" dataKey="live" fill="#83d422" opacity={0.9} />
       </ComposedChart>
     </ResponsiveContainer>
   );
