@@ -58,8 +58,8 @@ const TrafficChart = ({ chartData }: TrafficChartProps) => {
         height={300}
         margin={{
           top: 0,
-          right: 20,
-          left: 20,
+          right: 0,
+          left: 15,
           bottom: 0,
         }}
         width={500}
@@ -68,14 +68,20 @@ const TrafficChart = ({ chartData }: TrafficChartProps) => {
           allowDuplicatedCategory={false}
           dataKey="name"
           interval={1}
+          scale="point"
           tick={{ fontSize: ".8rem" }}
+          tickMargin={6}
         />
 
-        <YAxis dataKey="live" domain={[0, 100]} />
+        <YAxis
+          dataKey="live"
+          domain={[0, 100]}
+          tick={{ fontSize: ".8rem" }}
+          width={15}
+        />
         <Tooltip content={<CustomTooltip />} wrapperStyle={{ zIndex: 1000 }} />
 
         <Area className="-z-10" dataKey="value" fill="#8884d8" />
-
         <Bar className="z-50" dataKey="live" fill="#83d422" opacity={0.9} />
       </ComposedChart>
     </ResponsiveContainer>
