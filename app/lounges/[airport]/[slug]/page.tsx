@@ -15,8 +15,9 @@ import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
 import getOtherLounges from "@/data/lounge/getOtherLounges";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
+import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
 
-export type ChartData = { name: string; value: number }[];
+export type ChartData = { name: string; value: number; live?: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const { userId } = auth();
@@ -32,11 +33,14 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
   // starts the week on Monday (0), so we need to subtract 1
-  const dayOfWeek = dayjs().day() - 1;
+  let dayOfWeek = dayjs().day() - 1;
+
+  if (dayOfWeek === -1) {
+    dayOfWeek = 6;
+  }
+
   const todaysOpen =
     placeDetails.currentOpeningHours.periods[dayOfWeek].open.hour;
-  const todaysClose =
-    placeDetails.currentOpeningHours.periods[dayOfWeek].close.hour;
 
   const otherLounges = await getOtherLounges(
     loungeData?.airport?.data?.attributes?.code as string,
@@ -47,6 +51,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     name: String(loungeData?.name),
     address: String(placeDetails.formattedAddress),
   });
+
+  const liveTrafficData = await getLiveTrafficData({
+    name: String(loungeData?.name),
+    address: String(placeDetails.formattedAddress),
+  });
+
+  console.log(liveTrafficData);
   // The endpoint returns hourly data starting at 6AM for the current day, and ending
   // at 5AM the next day.  Unfortunate, but we will just use tomorrow's 5AM hour for today
   // in order to prevent two fetches for one day, and 5AM shouldn't matter too much day-to-day
@@ -57,11 +68,22 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   hoursData.unshift(fiveAm);
   const chartData: ChartData = [];
 
-  hoursData.map((hour, i) => {
+  hoursData.map((value, i) => {
+    const hour = i + todaysOpen;
+
+    // if hour is "now", fetch the live data and append it to the chartData
     chartData.push({
-      name: `${i + todaysOpen}:00`,
-      value: hour,
+      name: `${hour}:00`,
+      value,
     });
+
+    if (dayjs().hour() == hour) {
+      chartData.push({
+        name: `${hour}:00`,
+        value,
+        live: liveTrafficData.analysis.venue_live_busyness,
+      });
+    }
   });
 
   const filteredChartData = chartData.filter((hour) => hour.value !== 0);
@@ -109,36 +131,41 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           {loungeData?.guest && (
             <>
               <Divider className="my-5" />
-              <h3>👫 Guest Access:</h3>
+              <h3 className="mb-2">👫 Guest Access:</h3>
               <p>{loungeData?.guest}</p>
             </>
           )}
 
           <Divider className="my-5" />
 
-          <h3>🚶 Walking Directions:</h3>
-          <p>{loungeData?.directions}</p>
+          {loungeData?.directions ? (
+            <>
+              <h3 className="mb-2">🚶 Walking Directions:</h3>
+              <p>{loungeData?.directions}</p>
 
-          <Divider className="my-5" />
+              <Divider className="my-5" />
+            </>
+          ) : null}
 
           {amenities && amenities.length > 0 && (
-            <div className="grid grid-cols-2">
-              <div className="col-span-1">
-                <h3>🌟 Amenities:</h3>
-                <IconList items={amenities} />
+            <>
+              <div className="grid grid-cols-2">
+                <div className="col-span-1">
+                  <h3>🌟 Amenities:</h3>
+                  <IconList items={amenities} />
+                </div>
+                <div className="col-span-1">
+                  <h3>☔ Detriments:</h3>
+                  <IconList items={detriments} />
+                </div>
               </div>
-              <div className="col-span-1">
-                <h3>☔ Detriments:</h3>
-                <IconList items={detriments} />
-              </div>
-            </div>
+              <Divider className="my-5" />
+            </>
           )}
-
-          <Divider className="my-5" />
 
           {userId ? (
             <div>
-              <h3>Live Foot Traffic:</h3>
+              <h3 className="mb-2">Live Foot Traffic:</h3>
               <TrafficChart chartData={filteredChartData} />
             </div>
           ) : null}
