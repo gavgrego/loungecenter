@@ -3,8 +3,11 @@
 import { CheckboxGroup, Checkbox, Switch } from "@nextui-org/react";
 import { useUser } from "@clerk/nextjs";
 
+import { useToast } from "@/components/ui/use-toast";
+
 const Settings = () => {
   const { user } = useUser();
+  const { toast } = useToast();
   const unsafeMetadata = user?.unsafeMetadata;
 
   if (!user) return null;
@@ -14,30 +17,66 @@ const Settings = () => {
   const hasPriorityPass = user?.unsafeMetadata?.hasPriorityPass;
 
   const togglePriorityPass = async () => {
-    await user.update({
-      unsafeMetadata: {
-        ...unsafeMetadata,
-        hasPriorityPass: !hasPriorityPass,
-      },
-    });
+    try {
+      await user.update({
+        unsafeMetadata: {
+          ...unsafeMetadata,
+          hasPriorityPass: !hasPriorityPass,
+        },
+      });
+      toast({
+        title:
+          "Success!  You've successfully updated your Priority Pass status",
+        variant: "success",
+      });
+    } catch {
+      toast({
+        title:
+          "Sorry, something went wrong.  Please refresh the page and try again.",
+      });
+    }
   };
 
   const handleCardSelections = async (value: string[]) => {
-    await user.update({
-      unsafeMetadata: {
-        ...unsafeMetadata,
-        cardSelections: value,
-      },
-    });
+    try {
+      await user.update({
+        unsafeMetadata: {
+          ...unsafeMetadata,
+          cardSelections: value,
+        },
+      });
+      toast({
+        title:
+          "Success!  You've successfully updated your credit card selections",
+        variant: "success",
+      });
+    } catch {
+      toast({
+        title:
+          "Sorry, something went wrong.  Please refresh the page and try again.",
+      });
+    }
   };
 
   const handleLoungeMemberships = async (value: string[]) => {
-    await user.update({
-      unsafeMetadata: {
-        ...unsafeMetadata,
-        loungeMemberships: value,
-      },
-    });
+    try {
+      await user.update({
+        unsafeMetadata: {
+          ...unsafeMetadata,
+          loungeMemberships: value,
+        },
+      });
+
+      toast({
+        variant: "success",
+        title: "Success!  You've successfully updated your lounge memberships",
+      });
+    } catch {
+      toast({
+        title:
+          "Sorry, something went wrong.  Please refresh the page and try again.",
+      });
+    }
   };
 
   return (

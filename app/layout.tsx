@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: {
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <main className="container mx-auto max-w-7xl py-10 md:py-16 px-6 flex-grow">
               {children}
             </main>
+            <Toaster />
             <Footer />
           </div>
         </Providers>
