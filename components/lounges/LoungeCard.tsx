@@ -45,7 +45,7 @@ const LoungeCard = async ({ lounge }: LoungeCardProps) => {
         </div>
       </CardHeader>
       <ImageCarousel
-        className="my-3  [&_img]:max-h-[250px]"
+        className="my-3 [&_img]:max-h-[250px]"
         placeImages={placeDetails.photos}
       />
       {/* if lounge has card access */}

@@ -3,6 +3,7 @@
 import {
   Accordion,
   AccordionItem,
+  Image,
   Link,
   Table,
   TableBody,
@@ -13,9 +14,11 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { Info } from "@phosphor-icons/react/dist/ssr/Info";
+import { useMemo } from "react";
 
 import Hours from "./components/Hours";
 
+import PriortyPass from "@/public/priority-pass.jpg";
 import { Lounge } from "@/data/api/documentation";
 import { GooglePlace } from "@/types/googlePlaces/types";
 type LoungeSidebarProps = {
@@ -24,10 +27,18 @@ type LoungeSidebarProps = {
   userId: string | null;
 };
 
-const LoungeSidebar = ({ placeDetails, userId }: LoungeSidebarProps) => {
+const LoungeSidebar = ({
+  placeDetails,
+  userId,
+  loungeData,
+}: LoungeSidebarProps) => {
   const phone = placeDetails.internationalPhoneNumber
     ? placeDetails.internationalPhoneNumber
     : placeDetails.nationalPhoneNumber;
+
+  const cards = useMemo(() => {
+    return loungeData?.cards?.data;
+  }, [loungeData?.cards?.data]);
 
   return (
     <div className="flex flex-col gap-3">
@@ -39,7 +50,43 @@ const LoungeSidebar = ({ placeDetails, userId }: LoungeSidebarProps) => {
       ) : null}
       <div className="flex flex-row gap-2 items-center">
         <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
-        {userId ? <div>AMEX Plat</div> : <div>VIEW W/ A PRO MEMBERSHIP</div>}
+        {userId ? (
+          <>
+            {cards?.map((card) => {
+              return (
+                <Tooltip
+                  key={card.id}
+                  closeDelay={100}
+                  content={card.attributes?.name}
+                >
+                  <Image
+                    height={24}
+                    radius="sm"
+                    src={card.attributes?.icon?.data?.attributes?.url}
+                    width={48}
+                  />
+                </Tooltip>
+              );
+            })}
+            {loungeData?.priorityPass ? (
+              <Tooltip
+                closeDelay={100}
+                content={"Priority Pass (if lounge currently accepting)"}
+              >
+                <Image
+                  height={25}
+                  radius="sm"
+                  src={PriortyPass.src}
+                  width={50}
+                />
+              </Tooltip>
+            ) : null}
+          </>
+        ) : (
+          <Link color="secondary" href="/go-pro">
+            VIEW W/ A PRO MEMBERSHIP
+          </Link>
+        )}
       </div>
       <Accordion className="p-0" defaultExpandedKeys={["1"]}>
         <AccordionItem

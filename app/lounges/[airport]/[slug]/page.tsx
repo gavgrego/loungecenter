@@ -17,7 +17,7 @@ import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
 import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
 import TrafficExample from "@/public/traffic-example.jpg";
-export type ChartData = { name: string; value: number; live: number }[];
+export type ChartData = { name: string; average: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const { userId } = auth();
@@ -79,7 +79,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
       if (dayjs().hour() == hour) {
         chartData.push({
           name: `${hour}:00`,
-          value,
+          average: value,
           live: liveTrafficData.analysis.venue_live_busyness
             ? liveTrafficData.analysis.venue_live_busyness
             : liveTrafficData.analysis.venue_forecasted_busyness,
@@ -87,13 +87,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
       } else {
         chartData.push({
           name: `${hour}:00`,
-          value,
+          average: value,
           live: 0,
         });
       }
     });
 
-    filteredChartData = chartData.filter((hour) => hour.value !== 0);
+    filteredChartData = chartData.filter((hour) => hour.average !== 0);
   }
 
   // add support for additional photos added via strapi, if there are any

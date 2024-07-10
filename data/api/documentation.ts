@@ -240,6 +240,30 @@ export type LoungeLocalizations = {
   data?: LoungeListResponseDataItemLocalized[];
 };
 
+export interface Lounge {
+  airport?: LoungeAirport;
+  amenities?: LoungeAmenities;
+  cards?: LoungeCards;
+  createdAt?: string;
+  createdBy?: LoungeCreatedBy;
+  description: string;
+  detriments?: LoungeDetriments;
+  directions?: string;
+  featured?: boolean;
+  googlePlaceId: string;
+  guest?: string;
+  locale?: string;
+  localizations?: LoungeLocalizations;
+  location?: string;
+  moreInfo?: string;
+  name?: string;
+  notes?: string;
+  priorityPass?: boolean;
+  slug?: string;
+  updatedAt?: string;
+  updatedBy?: LoungeUpdatedBy;
+}
+
 export type LoungeDetrimentsDataItemAttributes = { [key: string]: any };
 
 export type LoungeDetrimentsDataItem = {
@@ -262,40 +286,16 @@ export type LoungeCreatedBy = {
   data?: LoungeCreatedByData;
 };
 
-export type LoungeCardDataAttributes = { [key: string]: any };
+export type LoungeCardsDataItemAttributes = { [key: string]: any };
 
-export type LoungeCardData = {
-  attributes?: LoungeCardDataAttributes;
+export type LoungeCardsDataItem = {
+  attributes?: LoungeCardsDataItemAttributes;
   id?: number;
 };
 
-export type LoungeCard = {
-  data?: LoungeCardData;
+export type LoungeCards = {
+  data?: LoungeCardsDataItem[];
 };
-
-export interface Lounge {
-  airport?: LoungeAirport;
-  amenities?: LoungeAmenities;
-  card?: LoungeCard;
-  createdAt?: string;
-  createdBy?: LoungeCreatedBy;
-  description: string;
-  detriments?: LoungeDetriments;
-  directions?: string;
-  featured?: boolean;
-  googlePlaceId: string;
-  guest?: string;
-  locale?: string;
-  localizations?: LoungeLocalizations;
-  location?: string;
-  moreInfo?: string;
-  name?: string;
-  notes?: string;
-  priorityPass?: boolean;
-  slug?: string;
-  updatedAt?: string;
-  updatedBy?: LoungeUpdatedBy;
-}
 
 export type LoungeAmenitiesDataItemAttributes = { [key: string]: any };
 
@@ -306,6 +306,30 @@ export type LoungeAmenitiesDataItem = {
 
 export type LoungeAmenities = {
   data?: LoungeAmenitiesDataItem[];
+};
+
+export type LoungeAirportDataAttributesUpdatedBy = {
+  data?: LoungeAirportDataAttributesUpdatedByData;
+};
+
+export type LoungeAirportDataAttributes = {
+  accessDetails?: string;
+  city?: string;
+  code?: string;
+  country?: LoungeAirportDataAttributesCountry;
+  createdAt?: string;
+  createdBy?: LoungeAirportDataAttributesCreatedBy;
+  dayPass?: string;
+  lounges?: LoungeAirportDataAttributesLounges;
+  name?: string;
+  state?: LoungeAirportDataAttributesState;
+  updatedAt?: string;
+  updatedBy?: LoungeAirportDataAttributesUpdatedBy;
+};
+
+export type LoungeAirportData = {
+  attributes?: LoungeAirportDataAttributes;
+  id?: number;
 };
 
 export type LoungeAirport = {
@@ -319,10 +343,6 @@ export type LoungeAirportDataAttributesUpdatedByDataAttributes = {
 export type LoungeAirportDataAttributesUpdatedByData = {
   attributes?: LoungeAirportDataAttributesUpdatedByDataAttributes;
   id?: number;
-};
-
-export type LoungeAirportDataAttributesUpdatedBy = {
-  data?: LoungeAirportDataAttributesUpdatedByData;
 };
 
 export type LoungeAirportDataAttributesState =
@@ -386,26 +406,6 @@ export type LoungeAirportDataAttributesLounges = {
   data?: LoungeAirportDataAttributesLoungesDataItem[];
 };
 
-export type LoungeAirportDataAttributes = {
-  accessDetails?: string;
-  city?: string;
-  code?: string;
-  country?: LoungeAirportDataAttributesCountry;
-  createdAt?: string;
-  createdBy?: LoungeAirportDataAttributesCreatedBy;
-  dayPass?: string;
-  lounges?: LoungeAirportDataAttributesLounges;
-  name?: string;
-  state?: LoungeAirportDataAttributesState;
-  updatedAt?: string;
-  updatedBy?: LoungeAirportDataAttributesUpdatedBy;
-};
-
-export type LoungeAirportData = {
-  attributes?: LoungeAirportDataAttributes;
-  id?: number;
-};
-
 export type LoungeAirportDataAttributesLoungesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -424,34 +424,10 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesLocalizations =
     data?: unknown[];
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributes =
-  {
-    createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedBy;
-    icon?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIcon;
-    name?: string;
-    updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedBy;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItem =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesDetriments = {
-  data?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItem[];
-};
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenities = {
-  data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItem[];
-};
-
 export type LoungeAirportDataAttributesLoungesDataItemAttributes = {
   airport?: LoungeAirportDataAttributesLoungesDataItemAttributesAirport;
   amenities?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenities;
-  card?: LoungeAirportDataAttributesLoungesDataItemAttributesCard;
+  cards?: LoungeAirportDataAttributesLoungesDataItemAttributesCards;
   createdAt?: string;
   createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCreatedBy;
   description?: string;
@@ -477,6 +453,16 @@ export type LoungeAirportDataAttributesLoungesDataItem = {
   id?: number;
 };
 
+export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItem =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributes;
+    id?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesDetriments = {
+  data?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItem[];
+};
+
 export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -491,40 +477,19 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataIt
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedBy;
-    ext?: string;
-    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedBy;
-    url?: string;
-    width?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconData =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes;
-    id?: number;
-  };
-
 export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIcon =
   {
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconData;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributes =
+  {
+    createdAt?: string;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedBy;
+    icon?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIcon;
+    name?: string;
+    updatedAt?: string;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedBy;
   };
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
@@ -583,6 +548,37 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataIt
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedByData;
   };
 
+export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes =
+  {
+    alternativeText?: string;
+    caption?: string;
+    createdAt?: string;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedBy;
+    ext?: string;
+    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolder;
+    folderPath?: string;
+    formats?: unknown;
+    hash?: string;
+    height?: number;
+    mime?: string;
+    name?: string;
+    previewUrl?: string;
+    provider?: string;
+    provider_metadata?: unknown;
+    related?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelated;
+    size?: number;
+    updatedAt?: string;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedBy;
+    url?: string;
+    width?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconData =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes;
+    id?: number;
+  };
+
 export type LoungeAirportDataAttributesLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -610,140 +606,98 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesCreatedBy = {
   data?: LoungeAirportDataAttributesLoungesDataItemAttributesCreatedByData;
 };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardData = {
-  attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributes;
-  id?: number;
-};
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCard = {
-  data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardData;
-};
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor =
-  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor];
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributes =
+  {
+    annualFee?: number;
+    bank?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank;
+    createdAt?: string;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedBy;
+    icon?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIcon;
+    name?: string;
+    personalOrBiz?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz;
+    processor?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor;
+    updatedAt?: string;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItem =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributes;
+    id?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCards = {
+  data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItem[];
+};
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor =
+  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor =
+export const LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesProcessor =
   {
     Visa: "Visa",
     Amex: "Amex",
     Mastercard: "Mastercard",
   } as const;
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
-  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz];
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
+  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
+export const LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
   {
     Personal: "Personal",
     Business: "Business",
   } as const;
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconData =
   {
-    annualFee?: number;
-    bank?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank;
-    createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedBy;
-    icon?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIcon;
-    lounges?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLounges;
-    name?: string;
-    personalOrBiz?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesPersonalOrBiz;
-    processor?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesProcessor;
-    updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesUpdatedBy;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes;
+    id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIcon =
+  {
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconData;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItem =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLounges =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesLoungesDataItem[];
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconData =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIcon =
-  {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconData;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy =
-  {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes =
-  { [key: string]: any };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated =
-  {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem[];
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes =
-  { [key: string]: any };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder =
-  {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes =
   {
     alternativeText?: string;
     caption?: string;
     createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy;
     ext?: string;
-    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder;
+    folder?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder;
     folderPath?: string;
     formats?: unknown;
     hash?: string;
@@ -753,47 +707,75 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttribut
     previewUrl?: string;
     provider?: string;
     provider_metadata?: unknown;
-    related?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated;
+    related?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated;
     size?: number;
     updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy;
     url?: string;
     width?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem[];
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByData =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedBy =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesCreatedByData;
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank =
-  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank];
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy =
+  {
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByData =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedBy =
+  {
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesCreatedByData;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank =
+  (typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank)[keyof typeof LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttributesBank =
+export const LoungeAirportDataAttributesLoungesDataItemAttributesCardsDataItemAttributesBank =
   {
     Chase: "Chase",
     Amex: "Amex",
@@ -803,6 +785,10 @@ export const LoungeAirportDataAttributesLoungesDataItemAttributesCardDataAttribu
     Capital_One: "Capital One",
     Wells_Fargo: "Wells Fargo",
   } as const;
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenities = {
+  data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItem[];
+};
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -816,12 +802,6 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedBy =
   {
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedByData;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconData =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributes;
-    id?: number;
   };
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIcon =
@@ -859,6 +839,20 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedByData;
   };
 
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
+  { [key: string]: any };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItem =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
+    id?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelated =
+  {
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItem[];
+  };
+
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributes =
   {
     alternativeText?: string;
@@ -884,18 +878,21 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
     width?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
-  { [key: string]: any };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItem =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconData =
   {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributes;
     id?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelated =
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData =
   {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItem[];
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedBy =
+  {
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData;
   };
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributes =
@@ -926,17 +923,6 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedBy =
-  {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByData;
-  };
-
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesParentDataAttributes =
   { [key: string]: any };
 
@@ -949,6 +935,12 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesParent =
   {
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesParentData;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
+    id?: number;
   };
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFiles =
@@ -1034,12 +1026,6 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
     width?: number;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
-    id?: number;
-  };
-
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -1052,6 +1038,17 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesUpdatedBy =
   {
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesUpdatedByData;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItem =
+  {
+    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
+    id?: number;
+  };
+
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRoles =
+  {
+    data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItem[];
   };
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
@@ -1099,17 +1096,6 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
     users?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItem =
-  {
-    attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
-    id?: number;
-  };
-
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRoles =
-  {
-    data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItem[];
-  };
-
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -1149,6 +1135,20 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -1163,9 +1163,6 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData =
   {
     attributes?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
@@ -1177,19 +1174,8 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataIte
     data?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
-export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
+export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
+  { [key: string]: any };
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
@@ -1473,7 +1459,7 @@ export interface LoungeRequest {
 
 export type LoungeRequestDataDetrimentsItem = number | string;
 
-export type LoungeRequestDataCard = number | string;
+export type LoungeRequestDataCardsItem = number | string;
 
 export type LoungeRequestDataAmenitiesItem = number | string;
 
@@ -1482,7 +1468,7 @@ export type LoungeRequestDataAirport = number | string;
 export type LoungeRequestData = {
   airport?: LoungeRequestDataAirport;
   amenities?: LoungeRequestDataAmenitiesItem[];
-  card?: LoungeRequestDataCard;
+  cards?: LoungeRequestDataCardsItem[];
   description: string;
   detriments?: LoungeRequestDataDetrimentsItem[];
   directions?: string;
@@ -1500,7 +1486,7 @@ export type LoungeRequestData = {
 
 export type LoungeLocalizationRequestDetrimentsItem = number | string;
 
-export type LoungeLocalizationRequestCard = number | string;
+export type LoungeLocalizationRequestCardsItem = number | string;
 
 export type LoungeLocalizationRequestAmenitiesItem = number | string;
 
@@ -1509,7 +1495,7 @@ export type LoungeLocalizationRequestAirport = number | string;
 export interface LoungeLocalizationRequest {
   airport?: LoungeLocalizationRequestAirport;
   amenities?: LoungeLocalizationRequestAmenitiesItem[];
-  card?: LoungeLocalizationRequestCard;
+  cards?: LoungeLocalizationRequestCardsItem[];
   description: string;
   detriments?: LoungeLocalizationRequestDetrimentsItem[];
   directions?: string;
@@ -1526,15 +1512,6 @@ export interface LoungeLocalizationRequest {
 }
 
 export type DetrimentResponseMeta = { [key: string]: any };
-
-export interface Detriment {
-  createdAt?: string;
-  createdBy?: DetrimentCreatedBy;
-  icon?: DetrimentIcon;
-  name?: string;
-  updatedAt?: string;
-  updatedBy?: DetrimentUpdatedBy;
-}
 
 export interface DetrimentResponseDataObject {
   attributes?: Detriment;
@@ -1556,6 +1533,15 @@ export type DetrimentUpdatedByData = {
 export type DetrimentUpdatedBy = {
   data?: DetrimentUpdatedByData;
 };
+
+export interface Detriment {
+  createdAt?: string;
+  createdBy?: DetrimentCreatedBy;
+  icon?: DetrimentIcon;
+  name?: string;
+  updatedAt?: string;
+  updatedBy?: DetrimentUpdatedBy;
+}
 
 export type DetrimentIconDataAttributes = {
   alternativeText?: string;
@@ -1616,19 +1602,6 @@ export type DetrimentIconDataAttributesRelated = {
   data?: DetrimentIconDataAttributesRelatedDataItem[];
 };
 
-export type DetrimentIconDataAttributesFolderDataAttributes = {
-  children?: DetrimentIconDataAttributesFolderDataAttributesChildren;
-  createdAt?: string;
-  createdBy?: DetrimentIconDataAttributesFolderDataAttributesCreatedBy;
-  files?: DetrimentIconDataAttributesFolderDataAttributesFiles;
-  name?: string;
-  parent?: DetrimentIconDataAttributesFolderDataAttributesParent;
-  path?: string;
-  pathId?: number;
-  updatedAt?: string;
-  updatedBy?: DetrimentIconDataAttributesFolderDataAttributesUpdatedBy;
-};
-
 export type DetrimentIconDataAttributesFolderData = {
   attributes?: DetrimentIconDataAttributesFolderDataAttributes;
   id?: number;
@@ -1650,6 +1623,19 @@ export type DetrimentIconDataAttributesFolderDataAttributesUpdatedBy = {
   data?: DetrimentIconDataAttributesFolderDataAttributesUpdatedByData;
 };
 
+export type DetrimentIconDataAttributesFolderDataAttributes = {
+  children?: DetrimentIconDataAttributesFolderDataAttributesChildren;
+  createdAt?: string;
+  createdBy?: DetrimentIconDataAttributesFolderDataAttributesCreatedBy;
+  files?: DetrimentIconDataAttributesFolderDataAttributesFiles;
+  name?: string;
+  parent?: DetrimentIconDataAttributesFolderDataAttributesParent;
+  path?: string;
+  pathId?: number;
+  updatedAt?: string;
+  updatedBy?: DetrimentIconDataAttributesFolderDataAttributesUpdatedBy;
+};
+
 export type DetrimentIconDataAttributesFolderDataAttributesParentDataAttributes =
   { [key: string]: any };
 
@@ -1661,6 +1647,29 @@ export type DetrimentIconDataAttributesFolderDataAttributesParentData = {
 export type DetrimentIconDataAttributesFolderDataAttributesParent = {
   data?: DetrimentIconDataAttributesFolderDataAttributesParentData;
 };
+
+export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItem = {
+  attributes?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
+  id?: number;
+};
+
+export type DetrimentIconDataAttributesFolderDataAttributesFiles = {
+  data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItem[];
+};
+
+export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
+  {
+    attributes?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
+  {
+    data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
+  };
 
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
   {
@@ -1687,29 +1696,6 @@ export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttribut
     width?: number;
   };
 
-export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItem = {
-  attributes?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
-  id?: number;
-};
-
-export type DetrimentIconDataAttributesFolderDataAttributesFiles = {
-  data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItem[];
-};
-
-export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
-  {
-    attributes?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
-  {
-    data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
-  };
-
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
@@ -1724,9 +1710,6 @@ export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttribut
     data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
   };
 
-export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
-  { [key: string]: any };
-
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData =
   {
     attributes?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes;
@@ -1736,6 +1719,15 @@ export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttribut
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
   {
     data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
+  };
+
+export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
+  { [key: string]: any };
+
+export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData =
+  {
+    attributes?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes;
+    id?: number;
   };
 
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy =
@@ -1786,12 +1778,6 @@ export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttribut
     username?: string;
   };
 
-export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData =
-  {
-    attributes?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
   { [key: string]: any };
 
@@ -1831,20 +1817,6 @@ export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttribut
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy =
   {
     data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
-  };
-
-export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
@@ -1900,6 +1872,20 @@ export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttribut
     data?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
+export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type DetrimentIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -1952,10 +1938,6 @@ export type DetrimentIconDataAttributesFolderDataAttributesChildren = {
   data?: DetrimentIconDataAttributesFolderDataAttributesChildrenDataItem[];
 };
 
-export type DetrimentIconDataAttributesCreatedByDataAttributes = {
-  [key: string]: any;
-};
-
 export type DetrimentIconDataAttributesCreatedByData = {
   attributes?: DetrimentIconDataAttributesCreatedByDataAttributes;
   id?: number;
@@ -1963,6 +1945,10 @@ export type DetrimentIconDataAttributesCreatedByData = {
 
 export type DetrimentIconDataAttributesCreatedBy = {
   data?: DetrimentIconDataAttributesCreatedByData;
+};
+
+export type DetrimentIconDataAttributesCreatedByDataAttributes = {
+  [key: string]: any;
 };
 
 export type DetrimentCreatedByDataAttributes = { [key: string]: any };
@@ -2012,11 +1998,6 @@ export interface DetrimentRequest {
 
 export type CardResponseMeta = { [key: string]: any };
 
-export interface CardResponseDataObject {
-  attributes?: Card;
-  id?: number;
-}
-
 export interface CardResponse {
   data?: CardResponseDataObject;
   meta?: CardResponseMeta;
@@ -2051,765 +2032,6 @@ export const CardPersonalOrBiz = {
   Business: "Business",
 } as const;
 
-export type CardLoungesDataItem = {
-  attributes?: CardLoungesDataItemAttributes;
-  id?: number;
-};
-
-export type CardLounges = {
-  data?: CardLoungesDataItem[];
-};
-
-export interface Card {
-  annualFee?: number;
-  bank?: CardBank;
-  createdAt?: string;
-  createdBy?: CardCreatedBy;
-  icon?: CardIcon;
-  lounges?: CardLounges;
-  name?: string;
-  personalOrBiz?: CardPersonalOrBiz;
-  processor?: CardProcessor;
-  updatedAt?: string;
-  updatedBy?: CardUpdatedBy;
-}
-
-export type CardLoungesDataItemAttributesUpdatedByDataAttributes = {
-  [key: string]: any;
-};
-
-export type CardLoungesDataItemAttributesUpdatedByData = {
-  attributes?: CardLoungesDataItemAttributesUpdatedByDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesUpdatedBy = {
-  data?: CardLoungesDataItemAttributesUpdatedByData;
-};
-
-export type CardLoungesDataItemAttributesLocalizations = {
-  data?: unknown[];
-};
-
-export type CardLoungesDataItemAttributes = {
-  airport?: CardLoungesDataItemAttributesAirport;
-  amenities?: CardLoungesDataItemAttributesAmenities;
-  card?: CardLoungesDataItemAttributesCard;
-  createdAt?: string;
-  createdBy?: CardLoungesDataItemAttributesCreatedBy;
-  description?: string;
-  detriments?: CardLoungesDataItemAttributesDetriments;
-  directions?: string;
-  featured?: boolean;
-  googlePlaceId?: string;
-  guest?: string;
-  locale?: string;
-  localizations?: CardLoungesDataItemAttributesLocalizations;
-  location?: string;
-  moreInfo?: string;
-  name?: string;
-  notes?: string;
-  priorityPass?: boolean;
-  slug?: string;
-  updatedAt?: string;
-  updatedBy?: CardLoungesDataItemAttributesUpdatedBy;
-};
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedBy =
-  {
-    data?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedByData;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconData =
-  {
-    attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIcon = {
-  data?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconData;
-};
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributes = {
-  createdAt?: string;
-  createdBy?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedBy;
-  icon?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIcon;
-  name?: string;
-  updatedAt?: string;
-  updatedBy?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedBy;
-};
-
-export type CardLoungesDataItemAttributesDetrimentsDataItem = {
-  attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesDetriments = {
-  data?: CardLoungesDataItemAttributesDetrimentsDataItem[];
-};
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedBy =
-  {
-    data?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedByData;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelatedDataItem =
-  {
-    attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelated =
-  {
-    data?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelatedDataItem[];
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolderDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolderData =
-  {
-    attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolderDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolder =
-  {
-    data?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolderData;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedBy;
-    ext?: string;
-    folder?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedBy;
-    url?: string;
-    width?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedBy =
-  {
-    data?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedByData;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedBy =
-  {
-    data?: CardLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedByData;
-  };
-
-export type CardLoungesDataItemAttributesCreatedBy = {
-  data?: CardLoungesDataItemAttributesCreatedByData;
-};
-
-export type CardLoungesDataItemAttributesCreatedByDataAttributes = {
-  [key: string]: any;
-};
-
-export type CardLoungesDataItemAttributesCreatedByData = {
-  attributes?: CardLoungesDataItemAttributesCreatedByDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesCard = {
-  data?: CardLoungesDataItemAttributesCardData;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesCardDataAttributesUpdatedByData = {
-  attributes?: CardLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesUpdatedBy = {
-  data?: CardLoungesDataItemAttributesCardDataAttributesUpdatedByData;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesProcessor =
-  (typeof CardLoungesDataItemAttributesCardDataAttributesProcessor)[keyof typeof CardLoungesDataItemAttributesCardDataAttributesProcessor];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesCardDataAttributesProcessor = {
-  Visa: "Visa",
-  Amex: "Amex",
-  Mastercard: "Mastercard",
-} as const;
-
-export type CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
-  (typeof CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz)[keyof typeof CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz = {
-  Personal: "Personal",
-  Business: "Business",
-} as const;
-
-export type CardLoungesDataItemAttributesCardDataAttributes = {
-  annualFee?: number;
-  bank?: CardLoungesDataItemAttributesCardDataAttributesBank;
-  createdAt?: string;
-  createdBy?: CardLoungesDataItemAttributesCardDataAttributesCreatedBy;
-  icon?: CardLoungesDataItemAttributesCardDataAttributesIcon;
-  lounges?: CardLoungesDataItemAttributesCardDataAttributesLounges;
-  name?: string;
-  personalOrBiz?: CardLoungesDataItemAttributesCardDataAttributesPersonalOrBiz;
-  processor?: CardLoungesDataItemAttributesCardDataAttributesProcessor;
-  updatedAt?: string;
-  updatedBy?: CardLoungesDataItemAttributesCardDataAttributesUpdatedBy;
-};
-
-export type CardLoungesDataItemAttributesCardData = {
-  attributes?: CardLoungesDataItemAttributesCardDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesCardDataAttributesLoungesDataItem = {
-  attributes?: CardLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesLounges = {
-  data?: CardLoungesDataItemAttributesCardDataAttributesLoungesDataItem[];
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconData = {
-  attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesIcon = {
-  data?: CardLoungesDataItemAttributesCardDataAttributesIconData;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy =
-  {
-    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem =
-  {
-    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated =
-  {
-    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem[];
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData =
-  {
-    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder =
-  {
-    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy;
-    ext?: string;
-    folder?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy;
-    url?: string;
-    width?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy =
-  {
-    data?: CardLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData;
-  };
-
-export type CardLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesCardDataAttributesCreatedByData = {
-  attributes?: CardLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesCreatedBy = {
-  data?: CardLoungesDataItemAttributesCardDataAttributesCreatedByData;
-};
-
-export type CardLoungesDataItemAttributesCardDataAttributesBank =
-  (typeof CardLoungesDataItemAttributesCardDataAttributesBank)[keyof typeof CardLoungesDataItemAttributesCardDataAttributesBank];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesCardDataAttributesBank = {
-  Chase: "Chase",
-  Amex: "Amex",
-  Barclays: "Barclays",
-  Citi: "Citi",
-  Bank_of_America: "Bank of America",
-  Capital_One: "Capital One",
-  Wells_Fargo: "Wells Fargo",
-} as const;
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributes = {
-  createdAt?: string;
-  createdBy?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedBy;
-  icon?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIcon;
-  name?: string;
-  updatedAt?: string;
-  updatedBy?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedBy;
-};
-
-export type CardLoungesDataItemAttributesAmenitiesDataItem = {
-  attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesAmenities = {
-  data?: CardLoungesDataItemAttributesAmenitiesDataItem[];
-};
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedBy =
-  {
-    data?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesUpdatedByData;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedBy;
-    ext?: string;
-    folder?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedBy;
-    url?: string;
-    width?: number;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconData = {
-  attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIcon = {
-  data?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconData;
-};
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedBy =
-  {
-    data?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedByData;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItem =
-  {
-    attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelated =
-  {
-    data?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItem[];
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolder =
-  {
-    data?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderData;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderData =
-  {
-    attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedBy =
-  {
-    data?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedByData;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedByData =
-  {
-    attributes?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedBy =
-  {
-    data?: CardLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedByData;
-  };
-
-export type CardLoungesDataItemAttributesAirportData = {
-  attributes?: CardLoungesDataItemAttributesAirportDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesAirport = {
-  data?: CardLoungesDataItemAttributesAirportData;
-};
-
-export type CardLoungesDataItemAttributesAirportDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAirportDataAttributesUpdatedByData = {
-  attributes?: CardLoungesDataItemAttributesAirportDataAttributesUpdatedByDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesAirportDataAttributesUpdatedBy = {
-  data?: CardLoungesDataItemAttributesAirportDataAttributesUpdatedByData;
-};
-
-export type CardLoungesDataItemAttributesAirportDataAttributesState =
-  (typeof CardLoungesDataItemAttributesAirportDataAttributesState)[keyof typeof CardLoungesDataItemAttributesAirportDataAttributesState];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesAirportDataAttributesState = {
-  AL: "AL",
-  AK: "AK",
-  AZ: "AZ",
-  AR: "AR",
-  CA: "CA",
-  CO: "CO",
-  CT: "CT",
-  DE: "DE",
-  FL: "FL",
-  GA: "GA",
-  HI: "HI",
-  ID: "ID",
-  IL: "IL",
-  IN: "IN",
-  IA: "IA",
-  KS: "KS",
-  KY: "KY",
-  LA: "LA",
-  ME: "ME",
-  MD: "MD",
-  MA: "MA",
-  MI: "MI",
-  MN: "MN",
-  MS: "MS",
-  MO: "MO",
-  MT: "MT",
-  NE: "NE",
-  NV: "NV",
-  NH: "NH",
-  NJ: "NJ",
-  NM: "NM",
-  NY: "NY",
-  NC: "NC",
-  ND: "ND",
-  OH: "OH",
-  OK: "OK",
-  OR: "OR",
-  PA: "PA",
-  RI: "RI",
-  SC: "SC",
-  SD: "SD",
-  TN: "TN",
-  TX: "TX",
-  UT: "UT",
-  VT: "VT",
-  VA: "VA",
-  WA: "WA",
-  WV: "WV",
-  WI: "WI",
-  WY: "WY",
-} as const;
-
-export type CardLoungesDataItemAttributesAirportDataAttributesLoungesDataItemAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAirportDataAttributesLoungesDataItem =
-  {
-    attributes?: CardLoungesDataItemAttributesAirportDataAttributesLoungesDataItemAttributes;
-    id?: number;
-  };
-
-export type CardLoungesDataItemAttributesAirportDataAttributesLounges = {
-  data?: CardLoungesDataItemAttributesAirportDataAttributesLoungesDataItem[];
-};
-
-export type CardLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardLoungesDataItemAttributesAirportDataAttributesCreatedByData = {
-  attributes?: CardLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributes;
-  id?: number;
-};
-
-export type CardLoungesDataItemAttributesAirportDataAttributesCreatedBy = {
-  data?: CardLoungesDataItemAttributesAirportDataAttributesCreatedByData;
-};
-
-export type CardLoungesDataItemAttributesAirportDataAttributesCountry =
-  (typeof CardLoungesDataItemAttributesAirportDataAttributesCountry)[keyof typeof CardLoungesDataItemAttributesAirportDataAttributesCountry];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CardLoungesDataItemAttributesAirportDataAttributesCountry = {
-  Argentina: "Argentina",
-  Australia: "Australia",
-  Austria: "Austria",
-  Bahamas: "Bahamas",
-  Bahrain: "Bahrain",
-  Bangladesh: "Bangladesh",
-  Belgium: "Belgium",
-  Belize: "Belize",
-  Brazil: "Brazil",
-  Bulgaria: "Bulgaria",
-  Cambodia: "Cambodia",
-  Canada: "Canada",
-  Chile: "Chile",
-  China: "China",
-  Colombia: "Colombia",
-  Costa_Rica: "Costa Rica",
-  Croatia: "Croatia",
-  Cuba: "Cuba",
-  Cyprus: "Cyprus",
-  Czech_Republic: "Czech Republic",
-  Denmark: "Denmark",
-  Dominican_Republic: "Dominican Republic",
-  Ecuador: "Ecuador",
-  Egypt: "Egypt",
-  El_Salvador: "El Salvador",
-  Estonia: "Estonia",
-  Fiji: "Fiji",
-  Finland: "Finland",
-  France: "France",
-  Germany: "Germany",
-  Greece: "Greece",
-  Guatemala: "Guatemala",
-  Honduras: "Honduras",
-  Hungary: "Hungary",
-  Iceland: "Iceland",
-  India: "India",
-  Indonesia: "Indonesia",
-  Ireland: "Ireland",
-  Israel: "Israel",
-  Italy: "Italy",
-  Jamaica: "Jamaica",
-  Japan: "Japan",
-  Jordan: "Jordan",
-  Kenya: "Kenya",
-  Kuwait: "Kuwait",
-  Latvia: "Latvia",
-  Lebanon: "Lebanon",
-  Lithuania: "Lithuania",
-  Luxembourg: "Luxembourg",
-  Malaysia: "Malaysia",
-  Malta: "Malta",
-  Mauritius: "Mauritius",
-  Mexico: "Mexico",
-  Monaco: "Monaco",
-  Montenegro: "Montenegro",
-  Morocco: "Morocco",
-  Myanmar: "Myanmar",
-  Nepal: "Nepal",
-  Netherlands: "Netherlands",
-  New_Zealand: "New Zealand",
-  Nicaragua: "Nicaragua",
-  Nigeria: "Nigeria",
-  Norway: "Norway",
-  Oman: "Oman",
-  Pakistan: "Pakistan",
-  Panama: "Panama",
-  Paraguay: "Paraguay",
-  Peru: "Peru",
-  Philippines: "Philippines",
-  Poland: "Poland",
-  Portugal: "Portugal",
-  Qatar: "Qatar",
-  Romania: "Romania",
-  Russia: "Russia",
-  Saint_Kitts_and_Nevis: "Saint Kitts and Nevis",
-  Saint_Lucia: "Saint Lucia",
-  Saudi_Arabia: "Saudi Arabia",
-  Serbia: "Serbia",
-  Singapore: "Singapore",
-  Slovakia: "Slovakia",
-  Slovenia: "Slovenia",
-  South_Africa: "South Africa",
-  South_Korea: "South Korea",
-  Spain: "Spain",
-  Sri_Lanka: "Sri Lanka",
-  Sweden: "Sweden",
-  Switzerland: "Switzerland",
-  Taiwan: "Taiwan",
-  Tanzania: "Tanzania",
-  Thailand: "Thailand",
-  Trinidad_and_Tobago: "Trinidad and Tobago",
-  Turkey: "Turkey",
-  Uganda: "Uganda",
-  Ukraine: "Ukraine",
-  United_Arab_Emirates: "United Arab Emirates",
-  United_Kingdom: "United Kingdom",
-  United_States: "United States",
-  Uruguay: "Uruguay",
-  Venezuela: "Venezuela",
-  Vietnam: "Vietnam",
-  Zambia: "Zambia",
-  Zimbabwe: "Zimbabwe",
-} as const;
-
-export type CardLoungesDataItemAttributesAirportDataAttributes = {
-  accessDetails?: string;
-  city?: string;
-  code?: string;
-  country?: CardLoungesDataItemAttributesAirportDataAttributesCountry;
-  createdAt?: string;
-  createdBy?: CardLoungesDataItemAttributesAirportDataAttributesCreatedBy;
-  dayPass?: string;
-  lounges?: CardLoungesDataItemAttributesAirportDataAttributesLounges;
-  name?: string;
-  state?: CardLoungesDataItemAttributesAirportDataAttributesState;
-  updatedAt?: string;
-  updatedBy?: CardLoungesDataItemAttributesAirportDataAttributesUpdatedBy;
-};
-
 export type CardIconData = {
   attributes?: CardIconDataAttributes;
   id?: number;
@@ -2818,6 +2040,24 @@ export type CardIconData = {
 export type CardIcon = {
   data?: CardIconData;
 };
+
+export interface Card {
+  annualFee?: number;
+  bank?: CardBank;
+  createdAt?: string;
+  createdBy?: CardCreatedBy;
+  icon?: CardIcon;
+  name?: string;
+  personalOrBiz?: CardPersonalOrBiz;
+  processor?: CardProcessor;
+  updatedAt?: string;
+  updatedBy?: CardUpdatedBy;
+}
+
+export interface CardResponseDataObject {
+  attributes?: Card;
+  id?: number;
+}
 
 export type CardIconDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
@@ -2830,28 +2070,6 @@ export type CardIconDataAttributesUpdatedByData = {
 
 export type CardIconDataAttributesUpdatedBy = {
   data?: CardIconDataAttributesUpdatedByData;
-};
-
-export type CardIconDataAttributesRelatedDataItemAttributes = {
-  [key: string]: any;
-};
-
-export type CardIconDataAttributesRelatedDataItem = {
-  attributes?: CardIconDataAttributesRelatedDataItemAttributes;
-  id?: number;
-};
-
-export type CardIconDataAttributesRelated = {
-  data?: CardIconDataAttributesRelatedDataItem[];
-};
-
-export type CardIconDataAttributesFolderData = {
-  attributes?: CardIconDataAttributesFolderDataAttributes;
-  id?: number;
-};
-
-export type CardIconDataAttributesFolder = {
-  data?: CardIconDataAttributesFolderData;
 };
 
 export type CardIconDataAttributes = {
@@ -2876,6 +2094,28 @@ export type CardIconDataAttributes = {
   updatedBy?: CardIconDataAttributesUpdatedBy;
   url?: string;
   width?: number;
+};
+
+export type CardIconDataAttributesRelatedDataItemAttributes = {
+  [key: string]: any;
+};
+
+export type CardIconDataAttributesRelatedDataItem = {
+  attributes?: CardIconDataAttributesRelatedDataItemAttributes;
+  id?: number;
+};
+
+export type CardIconDataAttributesRelated = {
+  data?: CardIconDataAttributesRelatedDataItem[];
+};
+
+export type CardIconDataAttributesFolderData = {
+  attributes?: CardIconDataAttributesFolderDataAttributes;
+  id?: number;
+};
+
+export type CardIconDataAttributesFolder = {
+  data?: CardIconDataAttributesFolderData;
 };
 
 export type CardIconDataAttributesFolderDataAttributesUpdatedByDataAttributes =
@@ -2903,15 +2143,6 @@ export type CardIconDataAttributesFolderDataAttributesParent = {
   data?: CardIconDataAttributesFolderDataAttributesParentData;
 };
 
-export type CardIconDataAttributesFolderDataAttributesFilesDataItem = {
-  attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
-  id?: number;
-};
-
-export type CardIconDataAttributesFolderDataAttributesFiles = {
-  data?: CardIconDataAttributesFolderDataAttributesFilesDataItem[];
-};
-
 export type CardIconDataAttributesFolderDataAttributes = {
   children?: CardIconDataAttributesFolderDataAttributesChildren;
   createdAt?: string;
@@ -2925,29 +2156,9 @@ export type CardIconDataAttributesFolderDataAttributes = {
   updatedBy?: CardIconDataAttributesFolderDataAttributesUpdatedBy;
 };
 
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
-  {
-    attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
   {
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
-  };
-
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem =
-  {
-    attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes;
-    id?: number;
-  };
-
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated =
-  {
-    data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
   };
 
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
@@ -2975,8 +2186,37 @@ export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
     width?: number;
   };
 
+export type CardIconDataAttributesFolderDataAttributesFilesDataItem = {
+  attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
+  id?: number;
+};
+
+export type CardIconDataAttributesFolderDataAttributesFiles = {
+  data?: CardIconDataAttributesFolderDataAttributesFilesDataItem[];
+};
+
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData =
+  {
+    attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
   { [key: string]: any };
+
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem =
+  {
+    attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes;
+    id?: number;
+  };
+
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated =
+  {
+    data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
+  };
 
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
   { [key: string]: any };
@@ -2990,6 +2230,24 @@ export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesFol
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
   {
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
+  };
+
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
+  {
+    blocked?: boolean;
+    createdAt?: string;
+    createdBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesCreatedBy;
+    email?: string;
+    firstname?: string;
+    isActive?: boolean;
+    lastname?: string;
+    preferedLanguage?: string;
+    registrationToken?: string;
+    resetPasswordToken?: string;
+    roles?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRoles;
+    updatedAt?: string;
+    updatedBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesUpdatedBy;
+    username?: string;
   };
 
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData =
@@ -3017,27 +2275,28 @@ export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCre
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesUpdatedByData;
   };
 
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
+  };
+
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItem =
+  {
+    attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
+    id?: number;
+  };
+
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRoles =
   {
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItem[];
-  };
-
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
-  {
-    blocked?: boolean;
-    createdAt?: string;
-    createdBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesCreatedBy;
-    email?: string;
-    firstname?: string;
-    isActive?: boolean;
-    lastname?: string;
-    preferedLanguage?: string;
-    registrationToken?: string;
-    resetPasswordToken?: string;
-    roles?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRoles;
-    updatedAt?: string;
-    updatedBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesUpdatedBy;
-    username?: string;
   };
 
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -3068,20 +2327,6 @@ export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCre
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
   };
 
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
   {
     attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
@@ -3091,25 +2336,6 @@ export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCre
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
   {
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
-  };
-
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
-  };
-
-export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItem =
-  {
-    attributes?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
-    id?: number;
   };
 
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -3154,6 +2380,20 @@ export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCre
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
+export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -3182,16 +2422,16 @@ export type CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCre
     data?: CardIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesCreatedByData;
   };
 
+export type CardIconDataAttributesFolderDataAttributesCreatedBy = {
+  data?: CardIconDataAttributesFolderDataAttributesCreatedByData;
+};
+
 export type CardIconDataAttributesFolderDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
 export type CardIconDataAttributesFolderDataAttributesCreatedByData = {
   attributes?: CardIconDataAttributesFolderDataAttributesCreatedByDataAttributes;
   id?: number;
-};
-
-export type CardIconDataAttributesFolderDataAttributesCreatedBy = {
-  data?: CardIconDataAttributesFolderDataAttributesCreatedByData;
 };
 
 export type CardIconDataAttributesFolderDataAttributesChildrenDataItemAttributes =
@@ -3219,6 +2459,8 @@ export type CardIconDataAttributesCreatedBy = {
   data?: CardIconDataAttributesCreatedByData;
 };
 
+export type CardCreatedByDataAttributes = { [key: string]: any };
+
 export type CardCreatedByData = {
   attributes?: CardCreatedByDataAttributes;
   id?: number;
@@ -3227,8 +2469,6 @@ export type CardCreatedByData = {
 export type CardCreatedBy = {
   data?: CardCreatedByData;
 };
-
-export type CardCreatedByDataAttributes = { [key: string]: any };
 
 export type CardBank = (typeof CardBank)[keyof typeof CardBank];
 
@@ -3266,6 +2506,10 @@ export interface CardListResponse {
   meta?: CardListResponseMeta;
 }
 
+export interface CardRequest {
+  data: CardRequestData;
+}
+
 export type CardRequestDataProcessor =
   (typeof CardRequestDataProcessor)[keyof typeof CardRequestDataProcessor];
 
@@ -3284,8 +2528,6 @@ export const CardRequestDataPersonalOrBiz = {
   Personal: "Personal",
   Business: "Business",
 } as const;
-
-export type CardRequestDataLoungesItem = number | string;
 
 export type CardRequestDataIcon = number | string;
 
@@ -3307,26 +2549,12 @@ export type CardRequestData = {
   annualFee?: number;
   bank?: CardRequestDataBank;
   icon?: CardRequestDataIcon;
-  lounges?: CardRequestDataLoungesItem[];
   name?: string;
   personalOrBiz?: CardRequestDataPersonalOrBiz;
   processor?: CardRequestDataProcessor;
 };
 
-export interface CardRequest {
-  data: CardRequestData;
-}
-
 export type AmenityResponseMeta = { [key: string]: any };
-
-export interface Amenity {
-  createdAt?: string;
-  createdBy?: AmenityCreatedBy;
-  icon?: AmenityIcon;
-  name: string;
-  updatedAt?: string;
-  updatedBy?: AmenityUpdatedBy;
-}
 
 export interface AmenityResponseDataObject {
   attributes?: Amenity;
@@ -3349,30 +2577,6 @@ export type AmenityUpdatedBy = {
   data?: AmenityUpdatedByData;
 };
 
-export type AmenityIconDataAttributes = {
-  alternativeText?: string;
-  caption?: string;
-  createdAt?: string;
-  createdBy?: AmenityIconDataAttributesCreatedBy;
-  ext?: string;
-  folder?: AmenityIconDataAttributesFolder;
-  folderPath?: string;
-  formats?: unknown;
-  hash?: string;
-  height?: number;
-  mime?: string;
-  name?: string;
-  previewUrl?: string;
-  provider?: string;
-  provider_metadata?: unknown;
-  related?: AmenityIconDataAttributesRelated;
-  size?: number;
-  updatedAt?: string;
-  updatedBy?: AmenityIconDataAttributesUpdatedBy;
-  url?: string;
-  width?: number;
-};
-
 export type AmenityIconData = {
   attributes?: AmenityIconDataAttributes;
   id?: number;
@@ -3381,6 +2585,15 @@ export type AmenityIconData = {
 export type AmenityIcon = {
   data?: AmenityIconData;
 };
+
+export interface Amenity {
+  createdAt?: string;
+  createdBy?: AmenityCreatedBy;
+  icon?: AmenityIcon;
+  name: string;
+  updatedAt?: string;
+  updatedBy?: AmenityUpdatedBy;
+}
 
 export type AmenityIconDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
@@ -3408,6 +2621,47 @@ export type AmenityIconDataAttributesRelated = {
   data?: AmenityIconDataAttributesRelatedDataItem[];
 };
 
+export type AmenityIconDataAttributes = {
+  alternativeText?: string;
+  caption?: string;
+  createdAt?: string;
+  createdBy?: AmenityIconDataAttributesCreatedBy;
+  ext?: string;
+  folder?: AmenityIconDataAttributesFolder;
+  folderPath?: string;
+  formats?: unknown;
+  hash?: string;
+  height?: number;
+  mime?: string;
+  name?: string;
+  previewUrl?: string;
+  provider?: string;
+  provider_metadata?: unknown;
+  related?: AmenityIconDataAttributesRelated;
+  size?: number;
+  updatedAt?: string;
+  updatedBy?: AmenityIconDataAttributesUpdatedBy;
+  url?: string;
+  width?: number;
+};
+
+export type AmenityIconDataAttributesFolderDataAttributesUpdatedBy = {
+  data?: AmenityIconDataAttributesFolderDataAttributesUpdatedByData;
+};
+
+export type AmenityIconDataAttributesFolderDataAttributes = {
+  children?: AmenityIconDataAttributesFolderDataAttributesChildren;
+  createdAt?: string;
+  createdBy?: AmenityIconDataAttributesFolderDataAttributesCreatedBy;
+  files?: AmenityIconDataAttributesFolderDataAttributesFiles;
+  name?: string;
+  parent?: AmenityIconDataAttributesFolderDataAttributesParent;
+  path?: string;
+  pathId?: number;
+  updatedAt?: string;
+  updatedBy?: AmenityIconDataAttributesFolderDataAttributesUpdatedBy;
+};
+
 export type AmenityIconDataAttributesFolderData = {
   attributes?: AmenityIconDataAttributesFolderDataAttributes;
   id?: number;
@@ -3425,10 +2679,6 @@ export type AmenityIconDataAttributesFolderDataAttributesUpdatedByData = {
   id?: number;
 };
 
-export type AmenityIconDataAttributesFolderDataAttributesUpdatedBy = {
-  data?: AmenityIconDataAttributesFolderDataAttributesUpdatedByData;
-};
-
 export type AmenityIconDataAttributesFolderDataAttributesParentDataAttributes =
   { [key: string]: any };
 
@@ -3441,31 +2691,6 @@ export type AmenityIconDataAttributesFolderDataAttributesParent = {
   data?: AmenityIconDataAttributesFolderDataAttributesParentData;
 };
 
-export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
-    ext?: string;
-    folder?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
-    url?: string;
-    width?: number;
-  };
-
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItem = {
   attributes?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
   id?: number;
@@ -3473,19 +2698,6 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItem = {
 
 export type AmenityIconDataAttributesFolderDataAttributesFiles = {
   data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItem[];
-};
-
-export type AmenityIconDataAttributesFolderDataAttributes = {
-  children?: AmenityIconDataAttributesFolderDataAttributesChildren;
-  createdAt?: string;
-  createdBy?: AmenityIconDataAttributesFolderDataAttributesCreatedBy;
-  files?: AmenityIconDataAttributesFolderDataAttributesFiles;
-  name?: string;
-  parent?: AmenityIconDataAttributesFolderDataAttributesParent;
-  path?: string;
-  pathId?: number;
-  updatedAt?: string;
-  updatedBy?: AmenityIconDataAttributesFolderDataAttributesUpdatedBy;
 };
 
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
@@ -3516,11 +2728,6 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes
     data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItem[];
   };
 
-export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
-  {
-    data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
-  };
-
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderDataAttributes =
   { [key: string]: any };
 
@@ -3530,9 +2737,34 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes
     id?: number;
   };
 
-export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy =
+export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder =
   {
-    data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData;
+    data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
+  };
+
+export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes =
+  {
+    alternativeText?: string;
+    caption?: string;
+    createdAt?: string;
+    createdBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
+    ext?: string;
+    folder?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
+    folderPath?: string;
+    formats?: unknown;
+    hash?: string;
+    height?: number;
+    mime?: string;
+    name?: string;
+    previewUrl?: string;
+    provider?: string;
+    provider_metadata?: unknown;
+    related?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
+    size?: number;
+    updatedAt?: string;
+    updatedBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
+    url?: string;
+    width?: number;
   };
 
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
@@ -3584,6 +2816,11 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes
     id?: number;
   };
 
+export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy =
+  {
+    data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData;
+  };
+
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
   { [key: string]: any };
 
@@ -3596,19 +2833,6 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers =
   {
     data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
-  };
-
-export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
@@ -3650,6 +2874,19 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes
     data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
   };
 
+export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
+  };
+
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -3678,6 +2915,11 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes
     data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
   };
 
+export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -3685,11 +2927,6 @@ export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributes
   {
     attributes?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
     id?: number;
-  };
-
-export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
 export type AmenityIconDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -3768,11 +3005,6 @@ export type AmenityCreatedBy = {
   data?: AmenityCreatedByData;
 };
 
-export interface AmenityListResponse {
-  data?: AmenityListResponseDataItem[];
-  meta?: AmenityListResponseMeta;
-}
-
 export type AmenityListResponseMetaPagination = {
   page?: number;
   /** @maximum 1 */
@@ -3791,6 +3023,11 @@ export interface AmenityListResponseDataItem {
   id?: number;
 }
 
+export interface AmenityListResponse {
+  data?: AmenityListResponseDataItem[];
+  meta?: AmenityListResponseMeta;
+}
+
 export type AmenityRequestDataIcon = number | string;
 
 export type AmenityRequestData = {
@@ -3803,11 +3040,6 @@ export interface AmenityRequest {
 }
 
 export type AirportResponseMeta = { [key: string]: any };
-
-export interface AirportResponseDataObject {
-  attributes?: Airport;
-  id?: number;
-}
 
 export interface AirportResponse {
   data?: AirportResponseDataObject;
@@ -3881,6 +3113,11 @@ export const AirportState = {
   WY: "WY",
 } as const;
 
+export type AirportLoungesDataItem = {
+  attributes?: AirportLoungesDataItemAttributes;
+  id?: number;
+};
+
 export type AirportLounges = {
   data?: AirportLoungesDataItem[];
 };
@@ -3900,6 +3137,11 @@ export interface Airport {
   updatedBy?: AirportUpdatedBy;
 }
 
+export interface AirportResponseDataObject {
+  attributes?: Airport;
+  id?: number;
+}
+
 export type AirportLoungesDataItemAttributesUpdatedByDataAttributes = {
   [key: string]: any;
 };
@@ -3917,10 +3159,14 @@ export type AirportLoungesDataItemAttributesLocalizations = {
   data?: unknown[];
 };
 
+export type AirportLoungesDataItemAttributesDetriments = {
+  data?: AirportLoungesDataItemAttributesDetrimentsDataItem[];
+};
+
 export type AirportLoungesDataItemAttributes = {
   airport?: AirportLoungesDataItemAttributesAirport;
   amenities?: AirportLoungesDataItemAttributesAmenities;
-  card?: AirportLoungesDataItemAttributesCard;
+  cards?: AirportLoungesDataItemAttributesCards;
   createdAt?: string;
   createdBy?: AirportLoungesDataItemAttributesCreatedBy;
   description?: string;
@@ -3939,29 +3185,6 @@ export type AirportLoungesDataItemAttributes = {
   slug?: string;
   updatedAt?: string;
   updatedBy?: AirportLoungesDataItemAttributesUpdatedBy;
-};
-
-export type AirportLoungesDataItem = {
-  attributes?: AirportLoungesDataItemAttributes;
-  id?: number;
-};
-
-export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributes = {
-  createdAt?: string;
-  createdBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedBy;
-  icon?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIcon;
-  name?: string;
-  updatedAt?: string;
-  updatedBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedBy;
-};
-
-export type AirportLoungesDataItemAttributesDetrimentsDataItem = {
-  attributes?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributes;
-  id?: number;
-};
-
-export type AirportLoungesDataItemAttributesDetriments = {
-  data?: AirportLoungesDataItemAttributesDetrimentsDataItem[];
 };
 
 export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedByDataAttributes =
@@ -3988,6 +3211,20 @@ export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIcon = {
   data?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconData;
 };
 
+export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributes = {
+  createdAt?: string;
+  createdBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesCreatedBy;
+  icon?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIcon;
+  name?: string;
+  updatedAt?: string;
+  updatedBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesUpdatedBy;
+};
+
+export type AirportLoungesDataItemAttributesDetrimentsDataItem = {
+  attributes?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributes;
+  id?: number;
+};
+
 export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -4000,31 +3237,6 @@ export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconData
 export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedBy =
   {
     data?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedByData;
-  };
-
-export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedBy;
-    ext?: string;
-    folder?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedBy;
-    url?: string;
-    width?: number;
   };
 
 export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
@@ -4053,6 +3265,31 @@ export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconData
 export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolder =
   {
     data?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolderData;
+  };
+
+export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributes =
+  {
+    alternativeText?: string;
+    caption?: string;
+    createdAt?: string;
+    createdBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedBy;
+    ext?: string;
+    folder?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesFolder;
+    folderPath?: string;
+    formats?: unknown;
+    hash?: string;
+    height?: number;
+    mime?: string;
+    name?: string;
+    previewUrl?: string;
+    provider?: string;
+    provider_metadata?: unknown;
+    related?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesRelated;
+    size?: number;
+    updatedAt?: string;
+    updatedBy?: AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesUpdatedBy;
+    url?: string;
+    width?: number;
   };
 
 export type AirportLoungesDataItemAttributesDetrimentsDataItemAttributesIconDataAttributesCreatedByDataAttributes =
@@ -4096,146 +3333,98 @@ export type AirportLoungesDataItemAttributesCreatedBy = {
   data?: AirportLoungesDataItemAttributesCreatedByData;
 };
 
-export type AirportLoungesDataItemAttributesCard = {
-  data?: AirportLoungesDataItemAttributesCardData;
-};
-
-export type AirportLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesUpdatedByData = {
-  attributes?: AirportLoungesDataItemAttributesCardDataAttributesUpdatedByDataAttributes;
+export type AirportLoungesDataItemAttributesCardsDataItem = {
+  attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributes;
   id?: number;
 };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesUpdatedBy = {
-  data?: AirportLoungesDataItemAttributesCardDataAttributesUpdatedByData;
+export type AirportLoungesDataItemAttributesCards = {
+  data?: AirportLoungesDataItemAttributesCardsDataItem[];
 };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesProcessor =
-  (typeof AirportLoungesDataItemAttributesCardDataAttributesProcessor)[keyof typeof AirportLoungesDataItemAttributesCardDataAttributesProcessor];
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData =
+  {
+    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy = {
+  data?: AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedByData;
+};
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor =
+  (typeof AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor)[keyof typeof AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const AirportLoungesDataItemAttributesCardDataAttributesProcessor = {
-  Visa: "Visa",
-  Amex: "Amex",
-  Mastercard: "Mastercard",
-} as const;
+export const AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor =
+  {
+    Visa: "Visa",
+    Amex: "Amex",
+    Mastercard: "Mastercard",
+  } as const;
 
-export type AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz =
-  (typeof AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz)[keyof typeof AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz];
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
+  (typeof AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz)[keyof typeof AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz = {
-  Personal: "Personal",
-  Business: "Business",
-} as const;
+export const AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz =
+  {
+    Personal: "Personal",
+    Business: "Business",
+  } as const;
 
-export type AirportLoungesDataItemAttributesCardDataAttributes = {
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconData = {
+  attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes;
+  id?: number;
+};
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIcon = {
+  data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconData;
+};
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributes = {
   annualFee?: number;
-  bank?: AirportLoungesDataItemAttributesCardDataAttributesBank;
+  bank?: AirportLoungesDataItemAttributesCardsDataItemAttributesBank;
   createdAt?: string;
-  createdBy?: AirportLoungesDataItemAttributesCardDataAttributesCreatedBy;
-  icon?: AirportLoungesDataItemAttributesCardDataAttributesIcon;
-  lounges?: AirportLoungesDataItemAttributesCardDataAttributesLounges;
+  createdBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedBy;
+  icon?: AirportLoungesDataItemAttributesCardsDataItemAttributesIcon;
   name?: string;
-  personalOrBiz?: AirportLoungesDataItemAttributesCardDataAttributesPersonalOrBiz;
-  processor?: AirportLoungesDataItemAttributesCardDataAttributesProcessor;
+  personalOrBiz?: AirportLoungesDataItemAttributesCardsDataItemAttributesPersonalOrBiz;
+  processor?: AirportLoungesDataItemAttributesCardsDataItemAttributesProcessor;
   updatedAt?: string;
-  updatedBy?: AirportLoungesDataItemAttributesCardDataAttributesUpdatedBy;
+  updatedBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesUpdatedBy;
 };
 
-export type AirportLoungesDataItemAttributesCardData = {
-  attributes?: AirportLoungesDataItemAttributesCardDataAttributes;
-  id?: number;
-};
-
-export type AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes =
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItem =
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData =
   {
-    attributes?: AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItemAttributes;
+    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesLounges = {
-  data?: AirportLoungesDataItemAttributesCardDataAttributesLoungesDataItem[];
-};
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconData = {
-  attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributes;
-  id?: number;
-};
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIcon = {
-  data?: AirportLoungesDataItemAttributesCardDataAttributesIconData;
-};
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData =
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy =
   {
-    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByDataAttributes;
-    id?: number;
+    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedByData;
   };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy =
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated =
   {
-    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedByData;
+    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem[];
   };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes =
-  { [key: string]: any };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem =
-  {
-    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItemAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated =
-  {
-    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelatedDataItem[];
-  };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes =
-  { [key: string]: any };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData =
-  {
-    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderDataAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder =
-  {
-    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolderData;
-  };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData =
-  {
-    attributes?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy =
-  {
-    data?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedByData;
-  };
-
-export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributes =
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributes =
   {
     alternativeText?: string;
     caption?: string;
     createdAt?: string;
-    createdBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesCreatedBy;
+    createdBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy;
     ext?: string;
-    folder?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesFolder;
+    folder?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder;
     folderPath?: string;
     formats?: unknown;
     hash?: string;
@@ -4245,31 +3434,69 @@ export type AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributes
     previewUrl?: string;
     provider?: string;
     provider_metadata?: unknown;
-    related?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesRelated;
+    related?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelated;
     size?: number;
     updatedAt?: string;
-    updatedBy?: AirportLoungesDataItemAttributesCardDataAttributesIconDataAttributesUpdatedBy;
+    updatedBy?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesUpdatedBy;
     url?: string;
     width?: number;
   };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes =
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesCreatedByData = {
-  attributes?: AirportLoungesDataItemAttributesCardDataAttributesCreatedByDataAttributes;
-  id?: number;
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItem =
+  {
+    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesRelatedDataItemAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes =
+  { [key: string]: any };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData =
+  {
+    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderDataAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolder =
+  {
+    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesFolderData;
+  };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData =
+  {
+    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedBy =
+  {
+    data?: AirportLoungesDataItemAttributesCardsDataItemAttributesIconDataAttributesCreatedByData;
+  };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByData =
+  {
+    attributes?: AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedBy = {
+  data?: AirportLoungesDataItemAttributesCardsDataItemAttributesCreatedByData;
 };
 
-export type AirportLoungesDataItemAttributesCardDataAttributesCreatedBy = {
-  data?: AirportLoungesDataItemAttributesCardDataAttributesCreatedByData;
-};
-
-export type AirportLoungesDataItemAttributesCardDataAttributesBank =
-  (typeof AirportLoungesDataItemAttributesCardDataAttributesBank)[keyof typeof AirportLoungesDataItemAttributesCardDataAttributesBank];
+export type AirportLoungesDataItemAttributesCardsDataItemAttributesBank =
+  (typeof AirportLoungesDataItemAttributesCardsDataItemAttributesBank)[keyof typeof AirportLoungesDataItemAttributesCardsDataItemAttributesBank];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const AirportLoungesDataItemAttributesCardDataAttributesBank = {
+export const AirportLoungesDataItemAttributesCardsDataItemAttributesBank = {
   Chase: "Chase",
   Amex: "Amex",
   Barclays: "Barclays",
@@ -4335,31 +3562,6 @@ export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataA
     data?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedByData;
   };
 
-export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedBy;
-    ext?: string;
-    folder?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedBy;
-    url?: string;
-    width?: number;
-  };
-
 export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
@@ -4399,6 +3601,31 @@ export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataA
     data?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderData;
   };
 
+export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributes =
+  {
+    alternativeText?: string;
+    caption?: string;
+    createdAt?: string;
+    createdBy?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesCreatedBy;
+    ext?: string;
+    folder?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolder;
+    folderPath?: string;
+    formats?: unknown;
+    hash?: string;
+    height?: number;
+    mime?: string;
+    name?: string;
+    previewUrl?: string;
+    provider?: string;
+    provider_metadata?: unknown;
+    related?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesRelated;
+    size?: number;
+    updatedAt?: string;
+    updatedBy?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesUpdatedBy;
+    url?: string;
+    width?: number;
+  };
+
 export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -4425,17 +3652,6 @@ export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataA
 export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesParent =
   {
     data?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesParentData;
-  };
-
-export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
-  {
-    attributes?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFiles =
-  {
-    data?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem[];
   };
 
 export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
@@ -4475,6 +3691,17 @@ export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataA
     updatedBy?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
     url?: string;
     width?: number;
+  };
+
+export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem =
+  {
+    attributes?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFiles =
+  {
+    data?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItem[];
   };
 
 export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesIconDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
@@ -4575,15 +3802,6 @@ export type AirportLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedBy
     data?: AirportLoungesDataItemAttributesAmenitiesDataItemAttributesCreatedByData;
   };
 
-export type AirportLoungesDataItemAttributesAirportData = {
-  attributes?: AirportLoungesDataItemAttributesAirportDataAttributes;
-  id?: number;
-};
-
-export type AirportLoungesDataItemAttributesAirport = {
-  data?: AirportLoungesDataItemAttributesAirportData;
-};
-
 export type AirportLoungesDataItemAttributesAirportDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -4654,19 +3872,6 @@ export const AirportLoungesDataItemAttributesAirportDataAttributesState = {
   WY: "WY",
 } as const;
 
-export type AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItemAttributes =
-  { [key: string]: any };
-
-export type AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItem =
-  {
-    attributes?: AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItemAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesAirportDataAttributesLounges = {
-  data?: AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItem[];
-};
-
 export type AirportLoungesDataItemAttributesAirportDataAttributes = {
   accessDetails?: string;
   city?: string;
@@ -4681,6 +3886,41 @@ export type AirportLoungesDataItemAttributesAirportDataAttributes = {
   updatedAt?: string;
   updatedBy?: AirportLoungesDataItemAttributesAirportDataAttributesUpdatedBy;
 };
+
+export type AirportLoungesDataItemAttributesAirportData = {
+  attributes?: AirportLoungesDataItemAttributesAirportDataAttributes;
+  id?: number;
+};
+
+export type AirportLoungesDataItemAttributesAirport = {
+  data?: AirportLoungesDataItemAttributesAirportData;
+};
+
+export type AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItemAttributes =
+  { [key: string]: any };
+
+export type AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItem =
+  {
+    attributes?: AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItemAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesAirportDataAttributesLounges = {
+  data?: AirportLoungesDataItemAttributesAirportDataAttributesLoungesDataItem[];
+};
+
+export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByData =
+  {
+    attributes?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedBy = {
+  data?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByData;
+};
+
+export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
 
 export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesUpdatedByData =
   {
@@ -4711,18 +3951,29 @@ export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAt
     username?: string;
   };
 
-export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByData =
+export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem =
   {
-    attributes?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributes;
+    attributes?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes;
     id?: number;
   };
 
-export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedBy = {
-  data?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByData;
-};
+export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsers =
+  {
+    data?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
+  };
 
-export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
+export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
+  };
 
 export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItem =
   {
@@ -4737,17 +3988,6 @@ export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAt
 
 export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
   { [key: string]: any };
-
-export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem =
-  {
-    attributes?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes;
-    id?: number;
-  };
-
-export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsers =
-  {
-    data?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
-  };
 
 export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -4766,19 +4006,6 @@ export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAt
 export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
   {
     data?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
-  };
-
-export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type AirportLoungesDataItemAttributesAirportDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
