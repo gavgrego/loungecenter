@@ -69,6 +69,8 @@ const GoProContent = () => {
           </TableRow>
         </TableBody>
       </Table>
+      {/* TODO: Add Lounge Card Example */}
+      {/* TODO: Add Foot Traffic Example */}
       <div>
         <h3>FAQ</h3>
         <Accordion selectionMode="multiple">

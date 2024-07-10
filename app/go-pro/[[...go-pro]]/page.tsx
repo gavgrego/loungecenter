@@ -1,12 +1,13 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import { Card } from "@nextui-org/react";
 
 import GoProContent from "./content";
 import SignUp from "./sign-up";
 
 const GoProPage = () => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   return (
     <div className="flex flex-col md:flex-row gap-10 items-start">
@@ -19,7 +20,15 @@ const GoProPage = () => {
         <GoProContent />
       </div>
       <aside className="md:basis-1/3 md:sticky md:top-0">
-        {!user ? <SignUp /> : "Thanks for being a Pro member!"}
+        {!user && isLoaded ? (
+          <SignUp />
+        ) : (
+          <Card className="p-4">
+            <h2 className="font-semibold text-center">
+              Thanks for being a Pro member! 🙏
+            </h2>
+          </Card>
+        )}
       </aside>
     </div>
   );

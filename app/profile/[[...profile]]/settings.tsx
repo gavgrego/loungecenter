@@ -1,11 +1,14 @@
 "use client";
 
-import { CheckboxGroup, Checkbox, Switch } from "@nextui-org/react";
+import { CheckboxGroup, Checkbox, Switch, Tooltip } from "@nextui-org/react";
 import { useUser } from "@clerk/nextjs";
 
 import { useToast } from "@/components/ui/use-toast";
-
-const Settings = () => {
+import { CardListResponse } from "@/data/api/documentation";
+type SettingsProps = {
+  cards: CardListResponse;
+};
+const Settings = ({ cards }: SettingsProps) => {
   const { user } = useUser();
   const { toast } = useToast();
   const unsafeMetadata = user?.unsafeMetadata;
@@ -87,21 +90,13 @@ const Settings = () => {
         value={cardsSelected}
         onChange={(value) => handleCardSelections(value)}
       >
-        {/* Maybe group these if the list gets out of hand? */}
-        {/* pull these in from strapi */}
-        <Checkbox value="amex-plat">
-          American Express Platinum (Personal or Business)
-        </Checkbox>
-        <Checkbox value="amex-delta-reserve">
-          American Express Delta Skymiles Reserve (Personal or Business)
-        </Checkbox>
-        <Checkbox value="cap1-vx">Capital One Venture X</Checkbox>
-        <Checkbox value="cap1-venture">Capital One Venture</Checkbox>
-        <Checkbox value="cap1-spark-miles">Capital One Spark Miles</Checkbox>
-        <Checkbox value="chase-reserve">Chase Sapphire Reserve</Checkbox>
-        <Checkbox value="united-club">
-          Chase United Club (Business or Infinite)
-        </Checkbox>
+        {cards.data?.map((card) => {
+          return (
+            <Checkbox key={card.id} value={String(card.id)}>
+              {card.attributes?.name}
+            </Checkbox>
+          );
+        })}
       </CheckboxGroup>
 
       <CheckboxGroup
@@ -124,13 +119,35 @@ const Settings = () => {
 
       {/* TODO: Flesh this out, organize by airline alliance in 3 columns */}
       <CheckboxGroup
-        isDisabled
         color="secondary"
         label="Select airline alliance status you have:"
       >
-        <Checkbox value="amex-plat">Oneworld Emerald</Checkbox>
-        <Checkbox value="cap1-vx">Capital One Venture X</Checkbox>
-        <Checkbox value="chase-reserve">Chase Sapphire Reserve</Checkbox>
+        <Checkbox value="oneworld-emerald">
+          <Tooltip
+            closeDelay={100}
+            content={
+              <ul className="list-disc pl-4 [&>li]:pb-1 px-3 pt-3 pb-2">
+                <li>Alaska MVP Gold 75k/100k</li>
+                <li>AAdvantage Platinum Pro/Executive Platinum</li>
+                <li>BA Executive Club Gold</li>
+                <li>Cathay Diamond</li>
+                <li>Finnair Plus Platinum/Lumo</li>
+              </ul>
+            }
+          >
+            Oneworld Emerald
+          </Tooltip>
+        </Checkbox>
+        <Checkbox value="oneworld-sapphire">
+          <Tooltip
+            closeDelay={100}
+            content="Alaska MVP Gold, AAdvantage Platinum, BA Executive Club Silver, Cathay Gold, Finnair Plus Gold"
+          >
+            Oneworld Sapphire
+          </Tooltip>
+        </Checkbox>
+        <Checkbox value="cap1-vx">Skyteam Elite Plus</Checkbox>
+        <Checkbox value="chase-reserve">Star Alliance Gold</Checkbox>
       </CheckboxGroup>
     </div>
   );

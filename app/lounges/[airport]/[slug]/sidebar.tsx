@@ -61,7 +61,7 @@ const LoungeSidebar = ({
                 >
                   <Image
                     height={24}
-                    radius="sm"
+                    radius="none"
                     src={card.attributes?.icon?.data?.attributes?.url}
                     width={48}
                   />
@@ -75,7 +75,7 @@ const LoungeSidebar = ({
               >
                 <Image
                   height={25}
-                  radius="sm"
+                  radius="none"
                   src={PriortyPass.src}
                   width={50}
                 />

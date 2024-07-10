@@ -51,7 +51,7 @@ const LoungeCard = async ({ lounge }: LoungeCardProps) => {
       {/* if lounge has card access */}
       <CardFooter>
         {placeDetails.currentOpeningHours.openNow ? (
-          <div className="flex flex-row gap-3 items-center">
+          <div className="flex flex-row gap-3 items-center animate-bounce">
             <div className="w-3 h-3 bg-green-600 rounded-full" />
             Open Now!
           </div>

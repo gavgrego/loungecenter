@@ -20,16 +20,19 @@ import TrafficExample from "@/public/traffic-example.jpg";
 export type ChartData = { name: string; average: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
-  const { userId } = auth();
+  const { userId, sessionClaims } = auth();
 
   const lounge = await getLoungeBySlug(params.slug);
   const loungeData = lounge.data?.[0].attributes;
   const amenities = loungeData?.amenities?.data || [];
   const detriments = loungeData?.detriments?.data || [];
+  const cards = loungeData?.cards?.data || [];
 
   const placeDetails = await getGooglePlaceDetails(
     loungeData?.googlePlaceId as string
   );
+
+  console.log(sessionClaims);
 
   // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
   // starts the week on Monday (0), so we need to subtract 1

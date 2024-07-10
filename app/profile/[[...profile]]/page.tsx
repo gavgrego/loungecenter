@@ -5,12 +5,16 @@ import { Divider } from "@nextui-org/react";
 import Settings from "./settings";
 import ManageAccount from "./manage-account";
 
+import getCards from "@/data/card/getCards";
+
 const ProfilePage = async () => {
   const { userId } = auth();
 
   if (!userId) {
     redirect("/");
   }
+
+  const cards = await getCards();
 
   return (
     // this page will contain the user's profile information
@@ -27,7 +31,7 @@ const ProfilePage = async () => {
         have, making finding accessible lounges a breeze.
       </p>
 
-      <Settings />
+      <Settings cards={cards} />
       <Divider className="my-6" />
       <ManageAccount />
     </div>
