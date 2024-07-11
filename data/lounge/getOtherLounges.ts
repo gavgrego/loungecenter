@@ -5,7 +5,7 @@ const getOtherLounges = async (
   currentLounge: number
 ): Promise<LoungeResponseDataObject[]> => {
   const response = await fetch(
-    `${process.env.STRAPI_BASE_URL}/api/lounges?populate=airport&filters[airport][code][$eq]=${airportCode}&filters[id][$ne]=${currentLounge}&pagination[pageSize]=3`,
+    `${process.env.STRAPI_BASE_URL}/api/lounges?populate[cards][populate]=*&populate=airport&filters[airport][code][$eq]=${airportCode}&filters[id][$ne]=${currentLounge}&pagination[pageSize]=3`,
     {
       method: "GET",
       cache: "no-cache",

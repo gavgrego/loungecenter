@@ -5,5 +5,9 @@ declare global {
     publicMetadata: {
       stripeCustomerId: string;
     };
+    unsafeMetadata: {
+      cardSelections: [];
+      hasPriorityPass: boolean;
+    };
   }
 }

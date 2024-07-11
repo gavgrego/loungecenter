@@ -27,7 +27,7 @@ type CustomTooltipProps = {
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const busyness =
-      payload[0].payload.va > payload[0].payload.live ? "less" : "more";
+      payload[0].payload.average > payload[0].payload.live ? "less" : "more";
 
     return (
       <div className="custom-tooltip max-w-[250px] dark:bg-black dark:text-white p-2 rounded light light:bg-white light:text-black">

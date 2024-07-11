@@ -7,26 +7,37 @@ import ImageCarousel from "@/app/lounges/[airport]/[slug]/components/ImageCarous
 
 type LoungeCardProps = {
   lounge: LoungeResponseDataObject;
+  userCards: string[];
 };
 
-const LoungeCard = async ({ lounge }: LoungeCardProps) => {
+const LoungeCard = async ({ lounge, userCards }: LoungeCardProps) => {
   const airportData = lounge.attributes?.airport?.data?.attributes;
   const location = lounge.attributes?.location;
+  const cards = lounge.attributes?.cards?.data || [];
 
   const slug = lounge.attributes?.slug;
   const googlePlaceId = lounge.attributes?.googlePlaceId;
   const placeDetails = await getGooglePlaceDetails(googlePlaceId as string);
 
+  const hasMatchingCard = userCards?.some((userCard) =>
+    cards.find((card) => String(card.id) == userCard)
+  );
+
+  const hasLoungeAccess = hasMatchingCard;
+
   return (
     <Card isFooterBlurred className="max-w-[400px] relative overflow-visible">
-      <Tooltip closeDelay={100} content="You have access to this lounge!">
-        <SealCheck
-          className="absolute -right-4 -top-4 z-10"
-          color="green"
-          size={40}
-          weight="fill"
-        />
-      </Tooltip>
+      {hasLoungeAccess ? (
+        <Tooltip closeDelay={100} content="You have access to this lounge!">
+          <SealCheck
+            className="absolute -right-4 -top-4 z-10"
+            color="green"
+            size={40}
+            weight="fill"
+          />
+        </Tooltip>
+      ) : null}
+
       <CardHeader className="flex flex-col gap-2">
         <Link color="secondary" href={`/lounges/${airportData?.code}/${slug}`}>
           <h2 className="text-xl text-center font-semibold w-full">

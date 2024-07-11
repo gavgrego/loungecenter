@@ -27,12 +27,19 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const amenities = loungeData?.amenities?.data || [];
   const detriments = loungeData?.detriments?.data || [];
   const cards = loungeData?.cards?.data || [];
+  // if card.id in cards exists in metadata, then card is available
+  const userCards = sessionClaims?.unsafeMetadata?.cardSelections || [];
+
+  const hasMatchingCard = userCards.some((userCard) =>
+    cards.find((card) => card.id == userCard)
+  );
+  const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
+
+  const hasLoungeAccess = hasMatchingCard || hasPriorityPass;
 
   const placeDetails = await getGooglePlaceDetails(
     loungeData?.googlePlaceId as string
   );
-
-  console.log(sessionClaims);
 
   // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
   // starts the week on Monday (0), so we need to subtract 1
@@ -109,9 +116,14 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
         <div className="basis-full md:basis-2/3">
           <div className="flex flex-row gap-4 items-center">
             <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
-            <Tooltip closeDelay={100} content="You have access to this lounge!">
-              <SealCheck color="green" size={50} weight="fill" />
-            </Tooltip>
+            {hasLoungeAccess ? (
+              <Tooltip
+                closeDelay={100}
+                content="You have access to this lounge!"
+              >
+                <SealCheck color="green" size={50} weight="fill" />
+              </Tooltip>
+            ) : null}
           </div>
           <h2 className="text-xl font-semibold mb-1">
             {airportData?.code} - 📍{loungeData?.location}
@@ -203,6 +215,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
               airport={airportData?.code as string}
               className="mt-14"
               lounges={otherLounges}
+              userCards={userCards}
             />
           )}
         </div>

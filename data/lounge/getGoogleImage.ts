@@ -6,7 +6,6 @@ const getGoogleImage = async (
       `https://places.googleapis.com/v1/${imageId}/media?key=${process.env.GOOGLE_API_KEY}&maxWidthPx=500&maxHeightPx=500&skipHttpRedirect=true`,
       {
         method: "GET",
-        cache: "no-cache",
       }
     );
 

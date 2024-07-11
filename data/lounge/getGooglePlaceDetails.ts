@@ -6,7 +6,6 @@ const getGooglePlaceDetails = async (placeId: string): Promise<GooglePlace> => {
       `https://places.googleapis.com/v1/places/${placeId}?fields=photos,rating,formatted_address,nationalPhoneNumber,editorial_summary,internationalPhoneNumber,current_opening_hours&key=${process.env.GOOGLE_API_KEY}`,
       {
         method: "GET",
-        cache: "no-cache",
       }
     );
 
