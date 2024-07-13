@@ -161,11 +161,12 @@ const GoProContent = () => {
           </TableRow>
         </TableBody>
       </Table>
-      {/* TODO: Add Lounge Card Example */}
       <h2 className="my-4">Live and Historical Foot Traffic Data!</h2>
       <p className="mb-2">
         With a Pro membership you have live foot traffic data available for most
         lounges. See how busy lounges are before you trek through the terminal!
+        Each lounge page will show the average foot traffic for the current time
+        of day, as well as the live foot traffic data.
       </p>
       <h3 className="text-xs font-regular italic mb-4">
         * Live data from the Amex Centurion Lounge at SFO
