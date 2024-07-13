@@ -21,14 +21,11 @@ type TrafficChartProps = {
 
 type CustomTooltipProps = {
   active?: boolean;
-  payload?: any[];
+  payload?: { payload: { average: number; live: number } }[];
   label?: string;
 };
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
-    // const busyness =
-    //   payload[0].payload.average > payload[0].payload.live ? "less" : "more";
-
     const busyness = () => {
       if (payload[0].payload.average == payload[0].payload.live) {
         return (

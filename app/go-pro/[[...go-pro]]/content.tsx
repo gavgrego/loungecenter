@@ -3,13 +3,106 @@
 import {
   Accordion,
   AccordionItem,
+  Card,
+  CardFooter,
+  Checkbox,
+  CheckboxGroup,
+  Divider,
+  Switch,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
+  Tooltip,
 } from "@nextui-org/react";
+import { SealCheck } from "@phosphor-icons/react/dist/ssr";
+
+import TrafficChart from "@/app/lounges/[airport]/[slug]/components/TrafficChart";
+
+const dummyTrafficChartData = [
+  {
+    name: "6:00",
+    average: 20,
+    live: 0,
+  },
+  {
+    name: "7:00",
+    average: 35,
+    live: 0,
+  },
+  {
+    name: "8:00",
+    average: 45,
+    live: 0,
+  },
+  {
+    name: "9:00",
+    average: 45,
+    live: 0,
+  },
+  {
+    name: "10:00",
+    average: 45,
+    live: 95,
+  },
+  {
+    name: "11:00",
+    average: 55,
+    live: 0,
+  },
+  {
+    name: "12:00",
+    average: 70,
+    live: 0,
+  },
+  {
+    name: "13:00",
+    average: 100,
+    live: 0,
+  },
+  {
+    name: "14:00",
+    average: 75,
+    live: 0,
+  },
+  {
+    name: "15:00",
+    average: 50,
+    live: 0,
+  },
+  {
+    name: "16:00",
+    average: 40,
+    live: 0,
+  },
+  {
+    name: "17:00",
+    average: 50,
+    live: 0,
+  },
+  {
+    name: "18:00",
+    average: 55,
+    live: 0,
+  },
+  {
+    name: "19:00",
+    average: 60,
+    live: 0,
+  },
+  {
+    name: "20:00",
+    average: 75,
+    live: 0,
+  },
+  {
+    name: "21:00",
+    average: 50,
+    live: 0,
+  },
+];
 
 const GoProContent = () => {
   return (
@@ -24,6 +117,11 @@ const GoProContent = () => {
           <TableRow>
             <TableCell>Basic lounge information</TableCell>
             <TableCell>✅</TableCell>
+            <TableCell>✅</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Remove Ads</TableCell>
+            <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>
           <TableRow>
@@ -48,13 +146,7 @@ const GoProContent = () => {
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>
-          <TableRow>
-            <TableCell>
-              Save and view what lounges you&apos;ve visited
-            </TableCell>
-            <TableCell>❌</TableCell>
-            <TableCell>✅</TableCell>
-          </TableRow>
+
           <TableRow>
             <TableCell>Pro Discord channels</TableCell>
             <TableCell>❌</TableCell>
@@ -70,7 +162,69 @@ const GoProContent = () => {
         </TableBody>
       </Table>
       {/* TODO: Add Lounge Card Example */}
-      {/* TODO: Add Foot Traffic Example */}
+      <h2 className="my-4">Live and Historical Foot Traffic Data!</h2>
+      <p className="mb-2">
+        With a Pro membership you have live foot traffic data available for most
+        lounges. See how busy lounges are before you trek through the terminal!
+      </p>
+      <h3 className="text-xs font-regular italic mb-4">
+        * Live data from the Amex Centurion Lounge at SFO
+      </h3>
+      <TrafficChart chartData={dummyTrafficChartData} />
+      <Divider />
+      <div className="my-4">
+        <h2 className="my-4">Save Your Card and Alliance Status!</h2>
+        <p className="mb-2">
+          Save your credit cards/alliance status/Priority Pass membership and
+          automatically see if you have access to a lounge.
+        </p>
+        <div className="flex flex-row gap-8 justify-between ">
+          <div className="flex flex-col gap-6 basis-2/3">
+            <CheckboxGroup
+              color="secondary"
+              label="Select credit cards you have to save them to your profile:"
+            >
+              <Checkbox value="Capital One Venture X">
+                Capital One Venture X
+              </Checkbox>
+              <Checkbox value="American Express Platinum">
+                American Express Platinum
+              </Checkbox>
+              <Checkbox value="United Club Infinite">
+                United Club Infinite
+              </Checkbox>
+              <Checkbox value="Delta Skymiles Reserve">
+                Delta Skymiles Reserve
+              </Checkbox>
+            </CheckboxGroup>
+            <Switch color="secondary">Do you have Priority Pass?</Switch>
+            <p>
+              ❗ This is just a preview of access methods. Lounge memberships,
+              fare class/airline, and airline alliance status are also
+              included...
+            </p>
+          </div>
+          <div className="basis-1/3">
+            <Card
+              isBlurred
+              className="flex flex-col gap-2 items-center px-1 pb-1 pt-3"
+            >
+              <Tooltip
+                closeDelay={100}
+                content="You have access to this lounge!"
+              >
+                <SealCheck color="green" size={60} weight="fill" />
+              </Tooltip>
+              <CardFooter className="text-sm italic">
+                Immediately know if you have access to a lounge based on your
+                saved access methods, signified on every lounge&apos;s detail
+                page and preview card.
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </div>
+      <Divider className="my-4" />
       <div>
         <h3>FAQ</h3>
         <Accordion selectionMode="multiple">
