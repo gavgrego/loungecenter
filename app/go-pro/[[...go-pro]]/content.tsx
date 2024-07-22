@@ -168,9 +168,7 @@ const GoProContent = () => {
         Each lounge page will show the average foot traffic for the current time
         of day, as well as the live foot traffic data.
       </p>
-      <h3 className="text-xs font-regular italic mb-4">
-        * Live data from the Amex Centurion Lounge at SFO
-      </h3>
+      <h3 className="text-xs font-regular italic mb-4">* Dummy data</h3>
       <TrafficChart chartData={dummyTrafficChartData} />
       <Divider />
       <div className="my-4">
@@ -199,10 +197,11 @@ const GoProContent = () => {
               </Checkbox>
             </CheckboxGroup>
             <Switch color="secondary">Do you have Priority Pass?</Switch>
+
             <p>
               ❗ This is just a preview of access methods. Lounge memberships,
-              fare class/airline, and airline alliance status are also
-              included...
+              fare class/airline, and airline alliance status are also included
+              with a Pro membership.
             </p>
           </div>
           <div className="basis-1/3">
@@ -216,10 +215,10 @@ const GoProContent = () => {
               >
                 <SealCheck color="green" size={60} weight="fill" />
               </Tooltip>
-              <CardFooter className="text-sm italic">
+              <CardFooter className="text-sm text-center">
                 Immediately know if you have access to a lounge based on your
                 saved access methods, signified on every lounge&apos;s detail
-                page and preview card.
+                page and preview card with this badge.
               </CardFooter>
             </Card>
           </div>

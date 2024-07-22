@@ -109,13 +109,19 @@ const Settings = ({ cards }: SettingsProps) => {
         <Checkbox value="alaska-plus">Alaska Lounge+</Checkbox>
       </CheckboxGroup>
 
-      <Switch
-        color="secondary"
-        isSelected={Boolean(hasPriorityPass)}
-        onClick={() => togglePriorityPass()}
+      <Tooltip
+        closeDelay={100}
+        content="Note: Depending on your Priority Pass tier entrance fees may apply"
+        offset={20}
       >
-        Do you have Priority Pass?
-      </Switch>
+        <Switch
+          color="secondary"
+          isSelected={Boolean(hasPriorityPass)}
+          onClick={() => togglePriorityPass()}
+        >
+          Do you have Priority Pass?
+        </Switch>
+      </Tooltip>
 
       {/* TODO: Flesh this out, organize by airline alliance in 3 columns */}
       <CheckboxGroup

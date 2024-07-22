@@ -125,9 +125,17 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
               </Tooltip>
             ) : null}
           </div>
-          <h2 className="text-xl font-semibold mb-1">
-            {airportData?.code} - 📍{loungeData?.location}
-          </h2>
+          <div className="flex flex-row gap-2">
+            <Link color="secondary" href={`/lounges/${airportData?.code}`}>
+              <h2 className="text-xl font-semibold mb-1">
+                {airportData?.code}
+              </h2>
+            </Link>
+            <h2 className="text-xl font-semibold mb-1">
+              - 📍{loungeData?.location}
+            </h2>
+          </div>
+
           <h2 className="flex flex-row text-sm">
             <span>
               {airportData?.name} &mdash; {airportData?.city},&nbsp;
@@ -144,9 +152,10 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
           <div>{loungeData?.description}</div>
 
-          <Divider className="my-5" />
           {loungeData?.notes ? (
             <>
+              <Divider className="my-5" />
+
               <h3 className="mb-2">❗ Important Info:</h3>
               <Notes markdown={loungeData?.notes} />
             </>
