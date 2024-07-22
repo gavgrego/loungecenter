@@ -92,7 +92,7 @@ const LoungeSidebar = ({
         <AccordionItem
           key={1}
           aria-label="Open Hours"
-          title={<Hours open={placeDetails.currentOpeningHours.openNow} />}
+          title={<Hours open={placeDetails.currentOpeningHours?.openNow} />}
         >
           <Table hideHeader isStriped>
             <TableHeader>

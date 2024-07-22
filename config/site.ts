@@ -38,24 +38,35 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Lounges",
+      href: "/lounges",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Airports",
+      href: "/airports",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
+      label: "Blog",
+      href: "/blog",
     },
     {
-      label: "Settings",
-      href: "/settings",
+      label: "About",
+      href: "/about",
     },
     {
-      label: "Logout",
-      href: "/logout",
+      label: "GO PRO",
+      href: "/go-pro",
+      bold: true,
+      bounce: true,
+      hideIfPro: true,
+      color: "secondary" as
+        | "success"
+        | "secondary"
+        | "foreground"
+        | "primary"
+        | "warning"
+        | "danger"
+        | undefined,
     },
   ],
   links: {
