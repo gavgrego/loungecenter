@@ -50,7 +50,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   }
 
   const todaysOpen =
-    placeDetails.currentOpeningHours.periods[dayOfWeek].open.hour;
+    placeDetails.currentOpeningHours?.periods[dayOfWeek].open.hour;
 
   const otherLounges = await getOtherLounges(
     loungeData?.airport?.data?.attributes?.code as string,

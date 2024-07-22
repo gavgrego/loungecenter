@@ -21,7 +21,7 @@ const ImageCarousel = ({ placeImages, className }: ImageCarouselProps) => {
       >
         <CarouselContent className="-ml-3 ">
           {placeImages?.map(async (image) => {
-            const fetchedImage = await getGoogleImage(image.name);
+            const fetchedImage = await getGoogleImage(image?.name);
 
             return (
               <CarouselItem

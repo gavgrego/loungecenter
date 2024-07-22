@@ -99,7 +99,7 @@ const LoungeSidebar = ({
               <TableColumn>Weekly Hours</TableColumn>
             </TableHeader>
             <TableBody>
-              {placeDetails.currentOpeningHours.weekdayDescriptions.map(
+              {placeDetails.currentOpeningHours?.weekdayDescriptions.map(
                 (day) => {
                   return (
                     <TableRow key={day} className="mb-2">
