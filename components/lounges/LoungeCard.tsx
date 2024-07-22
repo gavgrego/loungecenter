@@ -57,11 +57,11 @@ const LoungeCard = async ({ lounge, userCards }: LoungeCardProps) => {
       </CardHeader>
       <ImageCarousel
         className="my-3 [&_img]:max-h-[250px]"
-        placeImages={placeDetails.photos}
+        placeImages={placeDetails?.photos}
       />
       {/* if lounge has card access */}
       <CardFooter>
-        {placeDetails.currentOpeningHours?.openNow ? (
+        {placeDetails?.currentOpeningHours?.openNow ? (
           <div className="flex flex-row gap-3 items-center animate-bounce">
             <div className="w-3 h-3 bg-green-600 rounded-full" />
             Open Now!
