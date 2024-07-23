@@ -1,18 +1,19 @@
 "use client";
 
-import SearchInput from "./searchInput";
 import algoliasearch from "algoliasearch/lite";
-import { InstantSearch, SearchBox } from "react-instantsearch";
+import { InstantSearch } from "react-instantsearch";
+
+import SearchInput from "./searchInput";
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || "",
   process.env.NEXT_PUBLIC_ALGOLIA_API_KEY || ""
 );
 
-const Search = () => {
+const Search = ({ ...props }) => {
   return (
-    <InstantSearch indexName="YourIndexName" searchClient={searchClient}>
-      <SearchInput />
+    <InstantSearch indexName="lounge" searchClient={searchClient}>
+      <SearchInput {...props} />
     </InstantSearch>
   );
 };

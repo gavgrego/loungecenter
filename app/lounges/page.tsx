@@ -1,8 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 
 import LoungeCard from "@/components/lounges/LoungeCard";
-import SearchInput from "@/components/search/searchInput";
 import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
+import Search from "@/components/search/Search";
 
 const LoungesPage = async () => {
   const { userId, sessionClaims } = auth();
@@ -17,7 +17,7 @@ const LoungesPage = async () => {
   return (
     <div>
       <div className="mb-10  flex justify-center">
-        <SearchInput
+        <Search
           className="max-w-[800px]"
           placeholder="Find a lounge or airport..."
         />
