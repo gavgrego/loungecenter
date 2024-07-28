@@ -84,7 +84,7 @@ const LoungeSidebar = ({
           </>
         ) : (
           <Link color="secondary" href="/go-pro">
-            VIEW W/ A PRO MEMBERSHIP
+            🔒
           </Link>
         )}
       </div>

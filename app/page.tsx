@@ -1,4 +1,4 @@
-import SearchInput from "@/components/search/searchInput";
+import Search from "@/components/search/Search";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
         it is before you even get there. */}
       </h3>
       <div className="max-w-[800px] w-full">
-        <SearchInput />
+        <Search />
       </div>
       {/* NEWSLETTER SIGN UP */}
     </section>

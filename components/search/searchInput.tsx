@@ -1,5 +1,5 @@
 "use client";
-import { Input } from "@nextui-org/input";
+import { Input, InputProps } from "@nextui-org/input";
 import {
   useInstantSearch,
   useSearchBox,
@@ -9,7 +9,7 @@ import { useState, useRef } from "react";
 
 import { SearchIcon } from "../icons";
 
-type SearchInputProps = UseSearchBoxProps;
+type SearchInputProps = UseSearchBoxProps & InputProps;
 
 const SearchInput = ({ ...props }: SearchInputProps) => {
   const { refine, query } = useSearchBox();
