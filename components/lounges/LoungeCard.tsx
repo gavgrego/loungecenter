@@ -3,7 +3,6 @@ import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
-import ImageCarousel from "@/app/lounges/[airport]/[slug]/components/ImageCarousel";
 
 type LoungeCardProps = {
   lounge: LoungeResponseDataObject;
@@ -55,10 +54,10 @@ const LoungeCard = async ({ lounge, userCards }: LoungeCardProps) => {
           </h3>
         </div>
       </CardHeader>
-      <ImageCarousel
+      {/* <ImageCarousel
         className="my-3 [&_img]:max-h-[250px]"
         placeImages={placeDetails?.photos}
-      />
+      /> */}
       {/* if lounge has card access */}
       <CardFooter>
         {placeDetails?.currentOpeningHours?.openNow ? (
