@@ -1,4 +1,4 @@
-import { Divider, Image, Link, Tooltip } from "@nextui-org/react";
+import { Divider, Link, Tooltip } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
 import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 import dayjs from "dayjs";
@@ -16,7 +16,7 @@ import getOtherLounges from "@/data/lounge/getOtherLounges";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
 import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
-import TrafficExample from "@/public/traffic-example.jpg";
+import { dummyTrafficChartData } from "@/data/dummy";
 export type ChartData = { name: string; average: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
@@ -105,7 +105,6 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
     filteredChartData = chartData.filter((hour) => hour.average !== 0);
   }
-
   // add support for additional photos added via strapi, if there are any
   const placeImages = placeDetails.photos;
   const airportData = loungeData?.airport?.data?.attributes;
@@ -206,12 +205,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
                 <h3>Unlock Live Foot Traffic with a Pro Account!</h3>
               </Link>
 
-              <Tooltip
-                closeDelay={100}
-                content="This is just a visual representation of live foot traffic.  Unlock for every lounge with a Pro membership!"
-              >
-                <Image src={TrafficExample.src} />
-              </Tooltip>
+              <h3 className="text-xs font-regular italic mb-4 max-w-96">
+                * What you see below is a visual representation using dummy
+                data. With a pro membership, you can see live and average foot
+                traffic data for this lounge!
+              </h3>
+
+              <TrafficChart chartData={dummyTrafficChartData} />
             </>
           )}
 
