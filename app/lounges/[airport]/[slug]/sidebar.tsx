@@ -83,9 +83,14 @@ const LoungeSidebar = ({
             ) : null}
           </>
         ) : (
-          <Link color="secondary" href="/go-pro">
-            🔒
-          </Link>
+          <Tooltip
+            closeDelay={100}
+            content={"Unlock this feature with a Pro Membership!"}
+          >
+            <Link color="secondary" href="/go-pro">
+              🔒
+            </Link>
+          </Tooltip>
         )}
       </div>
       <Accordion className="p-0" defaultExpandedKeys={["1"]}>
