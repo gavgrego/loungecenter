@@ -1,10 +1,6 @@
 "use client";
 import { Input, InputProps } from "@nextui-org/input";
-import {
-  useInstantSearch,
-  useSearchBox,
-  UseSearchBoxProps,
-} from "react-instantsearch";
+import { UseSearchBoxProps } from "react-instantsearch";
 import { useState, useRef } from "react";
 
 import { SearchIcon } from "../icons";
@@ -12,16 +8,8 @@ import { SearchIcon } from "../icons";
 type SearchInputProps = UseSearchBoxProps & InputProps;
 
 const SearchInput = ({ ...props }: SearchInputProps) => {
-  const { refine, query } = useSearchBox();
-  const { status } = useInstantSearch();
-  const [inputValue, setInputValue] = useState(query);
+  const [inputValue, setInputValue] = useState();
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const setQuery = (newQuery: string) => {
-    setInputValue(newQuery);
-
-    refine(newQuery);
-  };
 
   return (
     <Input
@@ -41,7 +29,7 @@ const SearchInput = ({ ...props }: SearchInputProps) => {
       type="search"
       value={inputValue}
       onChange={(event) => {
-        setQuery(event.currentTarget.value);
+        console.log(event.currentTarget.value);
       }}
       {...props}
     />

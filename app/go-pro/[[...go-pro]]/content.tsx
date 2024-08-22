@@ -48,12 +48,12 @@ const GoProContent = () => {
             <TableCell>✅</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Advanced filtering</TableCell>
+            <TableCell>Save and view lounges by access method</TableCell>
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Save and view lounges by access method</TableCell>
+            <TableCell>Advanced filtering</TableCell>
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>
@@ -64,7 +64,6 @@ const GoProContent = () => {
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>
-
           <TableRow>
             <TableCell>Pro Discord channels</TableCell>
             <TableCell>❌</TableCell>

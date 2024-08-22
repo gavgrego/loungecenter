@@ -13,7 +13,7 @@ import SearchInput from "./searchInput";
 
 const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   server: {
-    apiKey: "", //still need to generate this
+    apiKey: `${process.env.TYPESENSE_SEARCH_API_KEY}`, //still need to generate this
     nodes: [
       {
         host: "localhost",
