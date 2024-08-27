@@ -10,6 +10,7 @@ import {
   ModalFooter,
   useDisclosure,
   CircularProgress,
+  Checkbox,
 } from "@nextui-org/react";
 import { useState } from "react";
 
@@ -17,6 +18,8 @@ const ManageAccount = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
   const cancelSubscription = async () => {
     setIsLoading(true);
     await fetch("/api/user", {
@@ -32,7 +35,7 @@ const ManageAccount = () => {
   return (
     <div>
       <h1>Manage Account</h1>
-      <Button className="mt-2" color="secondary" onPress={onOpen}>
+      <Button className="mt-4" color="secondary" onPress={onOpen}>
         Cancel Your Pro Membership
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -44,17 +47,30 @@ const ManageAccount = () => {
                 <p>
                   Upon cancellation,{" "}
                   <strong>your account will be deleted</strong> along with your
-                  subscription being cancelled. Please reach out to support for
-                  a prorated refund.
+                  subscription being cancelled.
+                </p>
+                <p>
+                  If you would like to resubscribe, you will need to create a
+                  new account.
                 </p>
               </ModalBody>
               <ModalFooter>
                 {isLoading ? (
                   <CircularProgress />
                 ) : (
-                  <Button color="secondary" onPress={cancelSubscription}>
-                    Confirm
-                  </Button>
+                  <>
+                    <Checkbox onChange={() => setIsConfirmed(!isConfirmed)}>
+                      I understand that my account will be deleted in addition
+                      to my subscription being cancelled.
+                    </Checkbox>
+                    <Button
+                      color="secondary"
+                      isDisabled={!isConfirmed}
+                      onPress={cancelSubscription}
+                    >
+                      Confirm
+                    </Button>
+                  </>
                 )}
               </ModalFooter>
             </>

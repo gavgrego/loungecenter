@@ -31,6 +31,7 @@ const ProfilePage = async () => {
         have, making finding accessible lounges a breeze.
       </p>
 
+      {/* TODO: better loading state for this */}
       <Settings cards={cards} />
       <Divider className="my-6" />
       <ManageAccount />
