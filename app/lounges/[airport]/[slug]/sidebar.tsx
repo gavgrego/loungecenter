@@ -93,43 +93,46 @@ const LoungeSidebar = ({
           </Tooltip>
         )}
       </div>
-      <Accordion className="p-0" defaultExpandedKeys={["1"]}>
-        <AccordionItem
-          key={1}
-          aria-label="Open Hours"
-          title={<Hours open={placeDetails.currentOpeningHours?.openNow} />}
-        >
-          <Table hideHeader isStriped>
-            <TableHeader>
-              <TableColumn>Weekly Hours</TableColumn>
-            </TableHeader>
-            <TableBody>
-              {placeDetails.currentOpeningHours?.weekdayDescriptions.map(
-                (day) => {
-                  return (
-                    <TableRow key={day} className="mb-2">
-                      <TableCell className="font-semibold">{day}</TableCell>
-                    </TableRow>
-                  );
-                }
-              )}
-            </TableBody>
-          </Table>
-        </AccordionItem>
-      </Accordion>
-
-      <div className="flex flex-row gap-3 items-center">
-        <div className="flex items-center flex-row gap-1">
-          <Tooltip closeDelay={100} content="Live ratings from Google!">
-            <Info size={20} />
-          </Tooltip>
-          <h3>Overall Rating:</h3>
+      {placeDetails.currentOpeningHours ? (
+        <Accordion className="p-0" defaultExpandedKeys={["1"]}>
+          <AccordionItem
+            key={1}
+            aria-label="Open Hours"
+            title={<Hours open={placeDetails.currentOpeningHours?.openNow} />}
+          >
+            <Table hideHeader isStriped>
+              <TableHeader>
+                <TableColumn>Weekly Hours</TableColumn>
+              </TableHeader>
+              <TableBody>
+                {placeDetails.currentOpeningHours?.weekdayDescriptions.map(
+                  (day) => {
+                    return (
+                      <TableRow key={day} className="mb-2">
+                        <TableCell className="font-semibold">{day}</TableCell>
+                      </TableRow>
+                    );
+                  }
+                )}
+              </TableBody>
+            </Table>
+          </AccordionItem>
+        </Accordion>
+      ) : null}
+      {placeDetails.rating ? (
+        <div className="flex flex-row gap-3 items-center">
+          <div className="flex items-center flex-row gap-1">
+            <Tooltip closeDelay={100} content="Live ratings from Google!">
+              <Info size={20} />
+            </Tooltip>
+            <h3>Overall Rating:</h3>
+          </div>
+          <div className="flex flex-row font-bold text-xl">
+            <span className="text-yellow-400">{placeDetails.rating}</span>
+            &nbsp;/&nbsp;5
+          </div>
         </div>
-        <div className="flex flex-row font-bold text-xl">
-          <span className="text-yellow-400">{placeDetails.rating}</span>
-          &nbsp;/&nbsp;5
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 };
