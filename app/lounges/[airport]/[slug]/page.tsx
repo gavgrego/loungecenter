@@ -30,15 +30,25 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const alliances = loungeData?.alliance_access?.data || [];
 
   // if card.id in cards exists in metadata, then card is available
-  const userCards = sessionClaims?.unsafeMetadata?.cardSelections || [];
-  const userAlliances = sessionClaims?.unsafeMetadata?.alliances || [];
+  const userCards: string[] =
+    sessionClaims?.unsafeMetadata?.cardSelections || [];
+  const userAlliances: string[] =
+    sessionClaims?.unsafeMetadata?.alliances || [];
 
   const hasMatchingCard = userCards.some((userCard) =>
-    cards.find((card) => card.id == userCard)
+    cards.find((card) => card.id == parseInt(userCard))
+  );
+
+  const matchingCards = cards.filter((card) =>
+    userCards.includes(String(card.id))
   );
 
   const hasMatchingAlliance = userAlliances.some((userAlliance) =>
     alliances.find((alliance) => alliance.attributes?.value == userAlliance)
+  );
+
+  const matchingAlliances = alliances.filter((alliance) =>
+    userAlliances.includes(alliance?.attributes?.value)
   );
 
   const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
@@ -136,13 +146,16 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
                       {hasMatchingCard ? (
                         <li className="font-medium">
                           <p className="underline">
-                            via your saved credit cards
+                            via your {matchingCards[0]?.attributes?.name} card
                           </p>
                         </li>
                       ) : null}
                       {hasMatchingAlliance ? (
                         <li className="font-medium">
-                          <p className="underline">via your saved alliances</p>
+                          <p className="underline">
+                            via your {matchingAlliances[0]?.attributes?.name}{" "}
+                            status
+                          </p>
                         </li>
                       ) : null}
                       {hasPriorityPass ? (
