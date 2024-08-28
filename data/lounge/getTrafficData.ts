@@ -14,6 +14,9 @@ const getTrafficData = async ({
   });
   const response = await fetch(`${process.env.BEST_TIME_ENDPOINT}?${params}`, {
     method: "POST",
+    next: {
+      revalidate: 60 + 60 + 24,
+    },
   });
 
   const data = await response.json();
