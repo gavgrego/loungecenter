@@ -1,6 +1,8 @@
+"use client";
+
 import { Checkbox, Tooltip } from "@nextui-org/react";
 import { Info } from "@phosphor-icons/react/dist/ssr/Info";
-import { PropsWithChildren, useMemo } from "react";
+import { PropsWithChildren } from "react";
 
 type AllianceCheckProps = {
   name: string;
@@ -10,10 +12,7 @@ const AllianceCheck = ({
   name,
   children,
 }: PropsWithChildren<AllianceCheckProps>) => {
-  const kebabedName = useMemo(
-    () => name.toLowerCase().replace(" ", "-"),
-    [name]
-  );
+  const kebabedName = name.toLowerCase().replaceAll(" ", "-");
 
   return (
     <Checkbox value={kebabedName}>

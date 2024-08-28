@@ -7,9 +7,10 @@ import AllianceCheck from "./alliance-check";
 
 type AlliancesListProps = {
   onChange: (value: string[]) => void;
+  value: string[];
 };
 
-const AlliancesList = ({ onChange }: AlliancesListProps) => {
+const AlliancesList = ({ onChange, value }: AlliancesListProps) => {
   // Not sure if these would be best to live in Strapi or not
   const alliancesList = useMemo(
     () => [
@@ -157,6 +158,7 @@ const AlliancesList = ({ onChange }: AlliancesListProps) => {
     <CheckboxGroup
       color="secondary"
       label="Select all airline alliance statuses you have:"
+      value={value}
       onChange={(value) => onChange(value)}
     >
       {alliancesList.map((alliance) => (

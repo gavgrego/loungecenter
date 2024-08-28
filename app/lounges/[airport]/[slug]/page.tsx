@@ -27,15 +27,24 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const amenities = loungeData?.amenities?.data || [];
   const detriments = loungeData?.detriments?.data || [];
   const cards = loungeData?.cards?.data || [];
+  const alliances = loungeData?.alliance_access?.data || [];
+
   // if card.id in cards exists in metadata, then card is available
   const userCards = sessionClaims?.unsafeMetadata?.cardSelections || [];
+  const userAlliances = sessionClaims?.unsafeMetadata?.alliances || [];
 
   const hasMatchingCard = userCards.some((userCard) =>
     cards.find((card) => card.id == userCard)
   );
+
+  const hasMatchingAlliance = userAlliances.some((userAlliance) =>
+    alliances.find((alliance) => alliance.attributes?.value == userAlliance)
+  );
+
   const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
 
-  const hasLoungeAccess = hasMatchingCard || hasPriorityPass;
+  const hasLoungeAccess =
+    hasMatchingCard || hasPriorityPass || hasMatchingAlliance;
 
   const placeDetails = await getGooglePlaceDetails(
     loungeData?.googlePlaceId as string
@@ -118,7 +127,38 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             {hasLoungeAccess ? (
               <Tooltip
                 closeDelay={100}
-                content="You have access to this lounge!"
+                content={
+                  <div className="text-center">
+                    <p className="font-medium">
+                      You have access to this lounge:
+                    </p>
+                    <ul>
+                      {hasMatchingCard ? (
+                        <li className="font-medium">
+                          <p className="underline">
+                            via your saved credit cards
+                          </p>
+                        </li>
+                      ) : null}
+                      {hasMatchingAlliance ? (
+                        <li className="font-medium">
+                          <p className="underline">via your saved alliances</p>
+                        </li>
+                      ) : null}
+                      {hasPriorityPass ? (
+                        <li className="font-medium">
+                          <p className="underline">via Priority Pass</p>
+                        </li>
+                      ) : null}
+                    </ul>
+                    <div className="flex justify-center">
+                      <p className="text-xs italic max-w-40">
+                        This is based on the information you provided in your
+                        profile settings.
+                      </p>
+                    </div>
+                  </div>
+                }
               >
                 <SealCheck color="green" size={50} weight="fill" />
               </Tooltip>

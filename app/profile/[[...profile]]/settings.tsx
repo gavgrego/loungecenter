@@ -20,6 +20,8 @@ const Settings = ({ cards }: SettingsProps) => {
 
   const cardsSelected = user?.unsafeMetadata?.cardSelections as string[];
   const loungeMemberships = user?.unsafeMetadata?.loungeMemberships as string[];
+  const alliances = user?.unsafeMetadata?.alliances as string[];
+
   const hasPriorityPass = user?.unsafeMetadata?.hasPriorityPass;
 
   const togglePriorityPass = async () => {
@@ -157,7 +159,7 @@ const Settings = ({ cards }: SettingsProps) => {
       </Tooltip>
 
       {/* TODO: Flesh this out, organize by airline alliance in 3 columns */}
-      <AlliancesList onChange={handleAlliances} />
+      <AlliancesList value={alliances} onChange={handleAlliances} />
     </div>
   );
 };

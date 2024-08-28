@@ -7,6 +7,7 @@ declare global {
     };
     unsafeMetadata: {
       cardSelections: [];
+      alliances: [];
       hasPriorityPass: boolean;
     };
   }
