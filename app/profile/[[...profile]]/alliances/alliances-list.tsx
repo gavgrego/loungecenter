@@ -18,13 +18,16 @@ const AlliancesList = ({ onChange, value }: AlliancesListProps) => {
         name: "Oneworld Emerald",
         value: (
           <>
-            <li>Alaska - MVP Gold 75k/100k</li>
-            <li>
-              American Airlines - AAdvantage Platinum Pro/Executive Platinum
-            </li>
+            <li>American Airlines - AAdvantage Executive Platinum</li>
             <li>British Airways - Executive Club Gold</li>
-            <li>Cathay Pacific - Diamond</li>
-            <li>Finnair - Plus Platinum/Lumo</li>
+            <li>Cathay Pacific - Marco Polo Club Diamond</li>
+            <li>Finnair - Finnair Plus Platinum/Platinum Lumo</li>
+            <li>Iberia - Iberia Plus Oro/Platinum</li>
+            <li>Japan Airlines - JMB Diamond/Sapphire</li>
+            <li>Qantas - Qantas Frequent Flyer Platinum/Platinum One</li>
+            <li>Qatar Airways - Privilege Club Platinum</li>
+            <li>Royal Jordanian - Royal Club Platinum</li>
+            <li>SriLankan Airlines - FlySmiLes Platinum</li>
           </>
         ),
       },
@@ -32,11 +35,16 @@ const AlliancesList = ({ onChange, value }: AlliancesListProps) => {
         name: "Oneworld Sapphire",
         value: (
           <>
-            <li>Alaska - MVP Gold </li>
-            <li>American Airlines - AAdvantage Platinum</li>
+            <li>American Airlines - AAdvantage Platinum/Platinum Pro</li>
             <li>British Airways - Executive Club Silver</li>
-            <li>Cathay Pacific - Gold</li>
-            <li>Finnair - Plus Gold</li>
+            <li>Cathay Pacific - Marco Polo Club Gold</li>
+            <li>Finnair - Finnair Plus Gold</li>
+            <li>Iberia - Iberia Plus Plata</li>
+            <li>Japan Airlines - JMB Sapphire</li>
+            <li>Qantas - Qantas Frequent Flyer Gold</li>
+            <li>Qatar Airways - Privilege Club Gold</li>
+            <li>Royal Jordanian - Royal Club Gold</li>
+            <li>SriLankan Airlines - FlySmiLes Gold</li>
           </>
         ),
       },
