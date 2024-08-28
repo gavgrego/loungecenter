@@ -153,8 +153,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
                     </ul>
                     <div className="flex justify-center">
                       <p className="text-xs italic max-w-40">
-                        This is based on the information you provided in your
-                        profile settings.
+                        As always, please check with the lounge to confirm.
                       </p>
                     </div>
                   </div>
