@@ -2,6 +2,7 @@ export type GooglePlace = {
   formattedAddress: string;
   rating: number;
   internationalPhoneNumber: string;
+  businessStatus: "OPERATIONAL" | "CLOSED_TEMPORARILY" | "CLOSED_PERMANENTLY";
   nationalPhoneNumber: string;
   currentOpeningHours: {
     openNow: boolean;

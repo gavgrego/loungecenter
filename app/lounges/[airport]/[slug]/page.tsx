@@ -166,7 +166,8 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
                     </ul>
                     <div className="flex justify-center">
                       <p className="text-xs italic max-w-40">
-                        As always, please check with the lounge to confirm.
+                        As always, please check with the lounge to confirm
+                        access.
                       </p>
                     </div>
                   </div>
@@ -201,8 +202,6 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           />
           <Divider className="my-4" />
 
-          <div>{loungeData?.description}</div>
-
           {loungeData?.notes ? (
             <>
               <Divider className="my-5" />
@@ -230,21 +229,25 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             </>
           ) : null}
 
-          {amenities && amenities.length > 0 && (
-            <>
-              <div className="grid grid-cols-2">
+          <>
+            <div className="grid grid-cols-2">
+              {amenities && amenities.length > 0 && (
                 <div className="col-span-1">
                   <h3>🌟 Amenities:</h3>
                   <IconList items={amenities} />
                 </div>
+              )}
+              {detriments && detriments.length > 0 && (
                 <div className="col-span-1">
                   <h3>☔ Detriments:</h3>
                   <IconList items={detriments} />
                 </div>
-              </div>
+              )}
+            </div>
+            {amenities && amenities.length > 0 ? (
               <Divider className="my-5" />
-            </>
-          )}
+            ) : null}
+          </>
 
           {userId ? (
             <>

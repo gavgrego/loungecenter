@@ -583,6 +583,7 @@ export type LoungeLocalizations = {
 export interface Lounge {
   airport?: LoungeAirport;
   alliance_access?: LoungeAllianceAccess;
+  ambiguous_access: boolean;
   amenities?: LoungeAmenities;
   cards?: LoungeCards;
   createdAt?: string;
@@ -790,6 +791,7 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesLocalizations =
 export type LoungeAirportDataAttributesLoungesDataItemAttributes = {
   airport?: LoungeAirportDataAttributesLoungesDataItemAttributesAirport;
   alliance_access?: LoungeAirportDataAttributesLoungesDataItemAttributesAllianceAccess;
+  ambiguous_access?: boolean;
   amenities?: LoungeAirportDataAttributesLoungesDataItemAttributesAmenities;
   cards?: LoungeAirportDataAttributesLoungesDataItemAttributesCards;
   createdAt?: string;
@@ -1653,7 +1655,7 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributesAllianceAccessDa
     name?: string;
     updatedAt?: string;
     updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesAllianceAccessDataItemAttributesUpdatedBy;
-    Value?: string;
+    value?: string;
   };
 
 export type LoungeAirportDataAttributesLoungesDataItemAttributesAllianceAccessDataItemAttributesCreatedByDataAttributes =
@@ -1879,6 +1881,7 @@ export type LoungeRequestDataAirport = number | string;
 export type LoungeRequestData = {
   airport?: LoungeRequestDataAirport;
   alliance_access?: LoungeRequestDataAllianceAccessItem[];
+  ambiguous_access: boolean;
   amenities?: LoungeRequestDataAmenitiesItem[];
   cards?: LoungeRequestDataCardsItem[];
   daypass?: string;
@@ -1910,6 +1913,7 @@ export type LoungeLocalizationRequestAirport = number | string;
 export interface LoungeLocalizationRequest {
   airport?: LoungeLocalizationRequestAirport;
   alliance_access?: LoungeLocalizationRequestAllianceAccessItem[];
+  ambiguous_access: boolean;
   amenities?: LoungeLocalizationRequestAmenitiesItem[];
   cards?: LoungeLocalizationRequestCardsItem[];
   daypass?: string;
@@ -3494,7 +3498,7 @@ export interface AllianceTier {
   name: string;
   updatedAt?: string;
   updatedBy?: AllianceTierUpdatedBy;
-  Value: string;
+  value: string;
 }
 
 export type AllianceTierCreatedByDataAttributesUpdatedByDataAttributes = {
@@ -3694,7 +3698,7 @@ export interface AllianceTierListResponseDataItem {
 
 export type AllianceTierRequestData = {
   name: string;
-  Value: string;
+  value: string;
 };
 
 export interface AllianceTierRequest {
@@ -3819,6 +3823,7 @@ export type AirportLoungesDataItemAttributesLocalizations = {
 export type AirportLoungesDataItemAttributes = {
   airport?: AirportLoungesDataItemAttributesAirport;
   alliance_access?: AirportLoungesDataItemAttributesAllianceAccess;
+  ambiguous_access?: boolean;
   amenities?: AirportLoungesDataItemAttributesAmenities;
   cards?: AirportLoungesDataItemAttributesCards;
   createdAt?: string;
@@ -4509,7 +4514,7 @@ export type AirportLoungesDataItemAttributesAllianceAccessDataItemAttributes = {
   name?: string;
   updatedAt?: string;
   updatedBy?: AirportLoungesDataItemAttributesAllianceAccessDataItemAttributesUpdatedBy;
-  Value?: string;
+  value?: string;
 };
 
 export type AirportLoungesDataItemAttributesAirportData = {

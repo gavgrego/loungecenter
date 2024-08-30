@@ -50,6 +50,7 @@ const LoungeSidebar = ({
       ) : null}
       <div className="flex flex-row gap-2 items-center">
         <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
+
         {userId ? (
           <>
             {cards?.map((card) => {
@@ -71,7 +72,7 @@ const LoungeSidebar = ({
             {loungeData?.priorityPass ? (
               <Tooltip
                 closeDelay={100}
-                content={"Priority Pass (if lounge currently accepting)"}
+                content={"Priority Pass (double check access rules)"}
               >
                 <Image
                   height={25}
@@ -93,7 +94,22 @@ const LoungeSidebar = ({
           </Tooltip>
         )}
       </div>
-      {placeDetails.currentOpeningHours ? (
+      {loungeData?.ambiguous_access ? (
+        <div>
+          ⁉️{" "}
+          <em className="text-sm">
+            This lounge has peculiar access rules/methods, please double check
+            before visiting!
+          </em>
+        </div>
+      ) : null}
+
+      {/* don't nest ternaries, kids */}
+      {placeDetails.businessStatus !== "CLOSED_TEMPORARILY" ? (
+        <h3 className="text-red-600">
+          ⛔ Unfortunately, this lounge is temporarily closed.
+        </h3>
+      ) : placeDetails.currentOpeningHours ? (
         <Accordion className="p-0" defaultExpandedKeys={["1"]}>
           <AccordionItem
             key={1}
@@ -119,6 +135,7 @@ const LoungeSidebar = ({
           </AccordionItem>
         </Accordion>
       ) : null}
+
       {placeDetails.rating ? (
         <div className="flex flex-row gap-3 items-center">
           <div className="flex items-center flex-row gap-1">

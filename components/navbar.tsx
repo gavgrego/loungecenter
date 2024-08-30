@@ -14,6 +14,7 @@ import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 
 import SearchInput from "./search/searchInput";
 
@@ -49,6 +50,7 @@ export const Navbar = () => {
                 )}
                 color={item.color ? item.color : "foreground"}
                 href={item.href}
+                onClick={() => revalidatePath(item.href)}
               >
                 {item.label}
               </NextLink>

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-08-27T20:06:03.483Z"
+    "x-generation-date": "2024-08-29T16:09:30.034Z"
   },
   "x-strapi-config": {
     "plugins": [],
@@ -1783,7 +1783,7 @@
                                       "name": {
                                         "type": "string"
                                       },
-                                      "Value": {
+                                      "value": {
                                         "type": "string"
                                       },
                                       "createdAt": {
@@ -1834,6 +1834,9 @@
                               }
                             }
                           }
+                        },
+                        "ambiguous_access": {
+                          "type": "boolean"
                         },
                         "createdAt": {
                           "type": "string",
@@ -2141,13 +2144,13 @@
         "required": ["data"],
         "properties": {
           "data": {
-            "required": ["name", "Value"],
+            "required": ["name", "value"],
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "Value": {
+              "value": {
                 "type": "string"
               }
             }
@@ -2202,12 +2205,12 @@
       },
       "AllianceTier": {
         "type": "object",
-        "required": ["name", "Value"],
+        "required": ["name", "value"],
         "properties": {
           "name": {
             "type": "string"
           },
-          "Value": {
+          "value": {
             "type": "string"
           },
           "createdAt": {
@@ -4874,7 +4877,12 @@
         }
       },
       "LoungeLocalizationRequest": {
-        "required": ["googlePlaceId", "description", "locale"],
+        "required": [
+          "googlePlaceId",
+          "description",
+          "ambiguous_access",
+          "locale"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -4980,6 +4988,9 @@
               "example": "string or id"
             }
           },
+          "ambiguous_access": {
+            "type": "boolean"
+          },
           "locale": {
             "type": "string"
           }
@@ -4990,7 +5001,7 @@
         "required": ["data"],
         "properties": {
           "data": {
-            "required": ["googlePlaceId", "description"],
+            "required": ["googlePlaceId", "description", "ambiguous_access"],
             "type": "object",
             "properties": {
               "name": {
@@ -5095,6 +5106,9 @@
                   ],
                   "example": "string or id"
                 }
+              },
+              "ambiguous_access": {
+                "type": "boolean"
               },
               "locale": {
                 "type": "string"
@@ -5219,7 +5233,7 @@
       },
       "Lounge": {
         "type": "object",
-        "required": ["googlePlaceId", "description"],
+        "required": ["googlePlaceId", "description", "ambiguous_access"],
         "properties": {
           "name": {
             "type": "string"
@@ -6452,7 +6466,7 @@
                                                   "name": {
                                                     "type": "string"
                                                   },
-                                                  "Value": {
+                                                  "value": {
                                                     "type": "string"
                                                   },
                                                   "createdAt": {
@@ -6503,6 +6517,9 @@
                                           }
                                         }
                                       }
+                                    },
+                                    "ambiguous_access": {
+                                      "type": "boolean"
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -6899,6 +6916,9 @@
                 }
               }
             }
+          },
+          "ambiguous_access": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",

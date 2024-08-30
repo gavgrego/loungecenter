@@ -7,7 +7,6 @@ import AlliancesList from "./alliances/alliances-list";
 
 import { useToast } from "@/components/ui/use-toast";
 import { CardListResponse } from "@/data/api/documentation";
-
 type SettingsProps = {
   cards: CardListResponse;
 };
