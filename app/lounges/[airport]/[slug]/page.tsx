@@ -36,19 +36,19 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     sessionClaims?.unsafeMetadata?.alliances || [];
 
   const hasMatchingCard = userCards.some((userCard) =>
-    cards.find((card) => card.id == parseInt(userCard))
+    cards.find((card) => card.id == parseInt(userCard)),
   );
 
   const matchingCards = cards.filter((card) =>
-    userCards.includes(String(card.id))
+    userCards.includes(String(card.id)),
   );
 
   const hasMatchingAlliance = userAlliances.some((userAlliance) =>
-    alliances.find((alliance) => alliance.attributes?.value == userAlliance)
+    alliances.find((alliance) => alliance.attributes?.value == userAlliance),
   );
 
   const matchingAlliances = alliances.filter((alliance) =>
-    userAlliances.includes(alliance?.attributes?.value)
+    userAlliances.includes(alliance?.attributes?.value),
   );
 
   const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
@@ -57,7 +57,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     hasMatchingCard || hasPriorityPass || hasMatchingAlliance;
 
   const placeDetails = await getGooglePlaceDetails(
-    loungeData?.googlePlaceId as string
+    loungeData?.googlePlaceId as string,
   );
 
   // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
@@ -73,7 +73,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   const otherLounges = await getOtherLounges(
     loungeData?.airport?.data?.attributes?.code as string,
-    lounge.data?.[0].id as number
+    lounge.data?.[0].id as number,
   );
 
   let filteredChartData: ChartData = [];
@@ -184,7 +184,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
               </h2>
             </Link>
             <h2 className="text-xl font-semibold mb-1">
-              - 📍{loungeData?.location}
+              - 📍{loungeData?.terminal}
             </h2>
           </div>
 

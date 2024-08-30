@@ -11,7 +11,7 @@ type LoungeCardProps = {
 
 const LoungeCard = async ({ lounge, userCards }: LoungeCardProps) => {
   const airportData = lounge.attributes?.airport?.data?.attributes;
-  const location = lounge.attributes?.location;
+  const location = lounge.attributes?.terminal;
   const cards = lounge.attributes?.cards?.data || [];
 
   const slug = lounge.attributes?.slug;

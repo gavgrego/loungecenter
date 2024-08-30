@@ -597,12 +597,12 @@ export interface Lounge {
   guest?: string;
   locale?: string;
   localizations?: LoungeLocalizations;
-  location?: string;
   moreInfo?: string;
   name?: string;
   notes?: string;
   priorityPass?: boolean;
   slug?: string;
+  terminal: string;
   updatedAt?: string;
   updatedBy?: LoungeUpdatedBy;
 }
@@ -805,12 +805,12 @@ export type LoungeAirportDataAttributesLoungesDataItemAttributes = {
   guest?: string;
   locale?: string;
   localizations?: LoungeAirportDataAttributesLoungesDataItemAttributesLocalizations;
-  location?: string;
   moreInfo?: string;
   name?: string;
   notes?: string;
   priorityPass?: boolean;
   slug?: string;
+  terminal?: string;
   updatedAt?: string;
   updatedBy?: LoungeAirportDataAttributesLoungesDataItemAttributesUpdatedBy;
 };
@@ -1892,12 +1892,12 @@ export type LoungeRequestData = {
   googlePlaceId: string;
   guest?: string;
   locale?: string;
-  location?: string;
   moreInfo?: string;
   name?: string;
   notes?: string;
   priorityPass?: boolean;
   slug?: string;
+  terminal: string;
 };
 
 export type LoungeLocalizationRequestDetrimentsItem = number | string;
@@ -1924,12 +1924,12 @@ export interface LoungeLocalizationRequest {
   googlePlaceId: string;
   guest?: string;
   locale: string;
-  location?: string;
   moreInfo?: string;
   name?: string;
   notes?: string;
   priorityPass?: boolean;
   slug?: string;
+  terminal: string;
 }
 
 export type DetrimentResponseMeta = { [key: string]: any };
@@ -3837,12 +3837,12 @@ export type AirportLoungesDataItemAttributes = {
   guest?: string;
   locale?: string;
   localizations?: AirportLoungesDataItemAttributesLocalizations;
-  location?: string;
   moreInfo?: string;
   name?: string;
   notes?: string;
   priorityPass?: boolean;
   slug?: string;
+  terminal?: string;
   updatedAt?: string;
   updatedBy?: AirportLoungesDataItemAttributesUpdatedBy;
 };

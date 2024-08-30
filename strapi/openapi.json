@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-08-29T16:09:30.034Z"
+    "x-generation-date": "2024-08-30T18:22:02.329Z"
   },
   "x-strapi-config": {
     "plugins": [],
@@ -1308,7 +1308,7 @@
                         "description": {
                           "type": "string"
                         },
-                        "location": {
+                        "terminal": {
                           "type": "string"
                         },
                         "notes": {
@@ -4880,6 +4880,7 @@
         "required": [
           "googlePlaceId",
           "description",
+          "terminal",
           "ambiguous_access",
           "locale"
         ],
@@ -4922,7 +4923,7 @@
           "description": {
             "type": "string"
           },
-          "location": {
+          "terminal": {
             "type": "string"
           },
           "notes": {
@@ -5001,7 +5002,12 @@
         "required": ["data"],
         "properties": {
           "data": {
-            "required": ["googlePlaceId", "description", "ambiguous_access"],
+            "required": [
+              "googlePlaceId",
+              "description",
+              "terminal",
+              "ambiguous_access"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -5041,7 +5047,7 @@
               "description": {
                 "type": "string"
               },
-              "location": {
+              "terminal": {
                 "type": "string"
               },
               "notes": {
@@ -5233,7 +5239,12 @@
       },
       "Lounge": {
         "type": "object",
-        "required": ["googlePlaceId", "description", "ambiguous_access"],
+        "required": [
+          "googlePlaceId",
+          "description",
+          "terminal",
+          "ambiguous_access"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -5984,7 +5995,7 @@
                                     "description": {
                                       "type": "string"
                                     },
-                                    "location": {
+                                    "terminal": {
                                       "type": "string"
                                     },
                                     "notes": {
@@ -6833,7 +6844,7 @@
           "description": {
             "type": "string"
           },
-          "location": {
+          "terminal": {
             "type": "string"
           },
           "notes": {
