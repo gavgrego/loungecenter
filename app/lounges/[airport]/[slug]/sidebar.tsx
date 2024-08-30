@@ -105,7 +105,7 @@ const LoungeSidebar = ({
       ) : null}
 
       {/* don't nest ternaries, kids */}
-      {placeDetails.businessStatus !== "CLOSED_TEMPORARILY" ? (
+      {placeDetails.businessStatus === "CLOSED_TEMPORARILY" ? (
         <h3 className="text-red-600">
           ⛔ Unfortunately, this lounge is temporarily closed.
         </h3>
