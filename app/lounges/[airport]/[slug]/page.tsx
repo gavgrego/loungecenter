@@ -17,6 +17,7 @@ import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
 import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
 import { dummyTrafficChartData } from "@/data/dummy";
+import HasLoungeAccess from "./components/HasLoungeAccess";
 export type ChartData = { name: string; average: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
@@ -51,7 +52,9 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     userAlliances.includes(alliance?.attributes?.value)
   );
 
-  const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
+  const hasPriorityPass = Boolean(
+    sessionClaims?.unsafeMetadata?.hasPriorityPass
+  );
 
   const hasLoungeAccess =
     hasMatchingCard || hasPriorityPass || hasMatchingAlliance;
@@ -135,51 +138,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           <div className="flex flex-row gap-4 items-center">
             <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
             {hasLoungeAccess ? (
-              <Tooltip
-                closeDelay={100}
-                content={
-                  <div className="text-center">
-                    <p className="font-medium">
-                      You have access to this lounge:
-                    </p>
-                    <ul>
-                      {hasMatchingCard ? (
-                        <li className="font-medium">
-                          <p className="underline">
-                            via your {matchingCards[0]?.attributes?.name} card
-                          </p>
-                        </li>
-                      ) : null}
-                      {hasMatchingAlliance ? (
-                        <li className="font-medium">
-                          <p className="underline">
-                            via your {matchingAlliances[0]?.attributes?.name}{" "}
-                            status
-                          </p>
-                        </li>
-                      ) : null}
-                      {hasPriorityPass ? (
-                        <li className="font-medium">
-                          <p className="underline">via Priority Pass</p>
-                        </li>
-                      ) : null}
-                    </ul>
-                    <div className="flex justify-center">
-                      <p className="text-xs italic max-w-40">
-                        As always, please check with the lounge to confirm
-                        access.
-                      </p>
-                    </div>
-                  </div>
-                }
-              >
-                <SealCheck
-                  className="shrink-0"
-                  color="green"
-                  size={50}
-                  weight="fill"
-                />
-              </Tooltip>
+              <HasLoungeAccess
+                hasMatchingCard={hasMatchingCard}
+                matchingCards={matchingCards}
+                hasMatchingAlliance={hasMatchingAlliance}
+                matchingAlliances={matchingAlliances}
+                hasPriorityPass={hasPriorityPass}
+              />
             ) : null}
           </div>
           <div className="flex flex-row gap-2">
