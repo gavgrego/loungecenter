@@ -7,9 +7,14 @@ import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 type LoungeCardProps = {
   lounge: LoungeResponseDataObject;
   userCards: string[];
+  className?: string;
 };
 
-const LoungeCard = async ({ lounge, userCards }: LoungeCardProps) => {
+const LoungeCard = async ({
+  lounge,
+  userCards,
+  className,
+}: LoungeCardProps) => {
   const airportData = lounge.attributes?.airport?.data?.attributes;
   const location = lounge.attributes?.terminal;
   const cards = lounge.attributes?.cards?.data || [];
@@ -25,7 +30,10 @@ const LoungeCard = async ({ lounge, userCards }: LoungeCardProps) => {
   const hasLoungeAccess = hasMatchingCard;
 
   return (
-    <Card isFooterBlurred className="max-w-[400px] relative overflow-visible">
+    <Card
+      isFooterBlurred
+      className={`max-w-[400px] relative overflow-visible ${className}`}
+    >
       {hasLoungeAccess ? (
         <Tooltip closeDelay={100} content="You have access to this lounge!">
           <SealCheck

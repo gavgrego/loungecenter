@@ -45,6 +45,7 @@
         "argsIgnorePattern": "^_.*?$"
       }
     ],
+    "comma-dangle": ["never"],
     "import/order": [
       "warn",
       {

@@ -21,7 +21,7 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
   return (
     <div>
       {airportData?.name}
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-8">
         {airportLounges?.data?.map((lounge) => {
           return (
             <div key={lounge.id} className="">

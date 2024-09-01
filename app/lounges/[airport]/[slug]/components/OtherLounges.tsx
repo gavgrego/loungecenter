@@ -18,10 +18,15 @@ const OtherLounges = ({
   return (
     <div {...props}>
       <h2>Other Lounges at {airport}:</h2>
-      <div className="flex flex-row gap-4 items-start mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 justify-evenly content-evenly justify-items-center items-center mt-6">
         {lounges.map((lounge) => {
           return (
-            <LoungeCard key={lounge.id} lounge={lounge} userCards={userCards} />
+            <LoungeCard
+              key={lounge.id}
+              className="w-full"
+              lounge={lounge}
+              userCards={userCards}
+            />
           );
         })}
       </div>

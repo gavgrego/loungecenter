@@ -137,14 +137,14 @@ const LoungeSidebar = ({
       ) : null}
 
       {placeDetails.rating ? (
-        <div className="flex flex-row gap-3 items-center">
+        <div className="flex flex-row gap-2 items-center">
           <div className="flex items-center flex-row gap-1">
             <Tooltip closeDelay={100} content="Live ratings from Google!">
               <Info size={20} />
             </Tooltip>
-            <h3>Overall Rating:</h3>
+            <h3 className="text-medium">Overall Rating:</h3>
           </div>
-          <div className="flex flex-row font-bold text-xl">
+          <div className="flex flex-row font-bold text-md">
             <span className="text-yellow-400">{placeDetails.rating}</span>
             &nbsp;/&nbsp;5
           </div>

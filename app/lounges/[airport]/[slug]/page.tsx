@@ -36,19 +36,19 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     sessionClaims?.unsafeMetadata?.alliances || [];
 
   const hasMatchingCard = userCards.some((userCard) =>
-    cards.find((card) => card.id == parseInt(userCard)),
+    cards.find((card) => card.id == parseInt(userCard))
   );
 
   const matchingCards = cards.filter((card) =>
-    userCards.includes(String(card.id)),
+    userCards.includes(String(card.id))
   );
 
   const hasMatchingAlliance = userAlliances.some((userAlliance) =>
-    alliances.find((alliance) => alliance.attributes?.value == userAlliance),
+    alliances.find((alliance) => alliance.attributes?.value == userAlliance)
   );
 
   const matchingAlliances = alliances.filter((alliance) =>
-    userAlliances.includes(alliance?.attributes?.value),
+    userAlliances.includes(alliance?.attributes?.value)
   );
 
   const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
@@ -57,7 +57,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     hasMatchingCard || hasPriorityPass || hasMatchingAlliance;
 
   const placeDetails = await getGooglePlaceDetails(
-    loungeData?.googlePlaceId as string,
+    loungeData?.googlePlaceId as string
   );
 
   // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
@@ -73,7 +73,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   const otherLounges = await getOtherLounges(
     loungeData?.airport?.data?.attributes?.code as string,
-    lounge.data?.[0].id as number,
+    lounge.data?.[0].id as number
   );
 
   let filteredChartData: ChartData = [];
@@ -82,12 +82,12 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   if (userId) {
     const trafficData = await getTrafficData({
       name: String(loungeData?.name),
-      address: String(placeDetails.formattedAddress),
+      address: String(placeDetails.formattedAddress)
     });
 
     const liveTrafficData = await getLiveTrafficData({
       name: String(loungeData?.name),
-      address: String(placeDetails.formattedAddress),
+      address: String(placeDetails.formattedAddress)
     });
 
     // The endpoint returns hourly data starting at 6AM for the current day, and ending
@@ -111,13 +111,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           average: value,
           live: liveTrafficData.analysis.venue_live_busyness
             ? liveTrafficData.analysis.venue_live_busyness
-            : liveTrafficData.analysis.venue_forecasted_busyness,
+            : liveTrafficData.analysis.venue_forecasted_busyness
         });
       } else {
         chartData.push({
           name: `${hour}:00`,
           average: value,
-          live: 0,
+          live: 0
         });
       }
     });
@@ -131,7 +131,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-10 items-start">
-        <div className="basis-full md:basis-2/3">
+        <div className="basis-full md:basis-2/3 max-md:order-2">
           <div className="flex flex-row gap-4 items-center">
             <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
             {hasLoungeAccess ? (
@@ -173,7 +173,12 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
                   </div>
                 }
               >
-                <SealCheck color="green" size={50} weight="fill" />
+                <SealCheck
+                  className="shrink-0"
+                  color="green"
+                  size={50}
+                  weight="fill"
+                />
               </Tooltip>
             ) : null}
           </div>
@@ -188,13 +193,21 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             </h2>
           </div>
 
-          <h2 className="flex flex-row text-sm">
-            <span>
-              {airportData?.name} &mdash; {airportData?.city},&nbsp;
-            </span>
-            <span>{airportData?.state ? airportData?.state : ""},&nbsp;</span>
-            <span>{airportData?.country}</span>
-          </h2>
+          <div className="flex flex-row text-sm">
+            <h2 className="text-sm">
+              {airportData?.name} &mdash; {airportData?.city},{" "}
+              {airportData?.state ? airportData?.state : ""},{" "}
+              {airportData?.country}
+            </h2>
+          </div>
+
+          <span className="basis-full max-md:block hidden mt-4">
+            <LoungeSidebar
+              loungeData={loungeData}
+              placeDetails={placeDetails}
+              userId={userId}
+            />
+          </span>
 
           <ImageCarousel
             className="my-8 [&_img]:max-h-[500px]"
@@ -284,7 +297,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           )}
         </div>
 
-        <aside className="basis-full md:basis-1/3 md:sticky md:top-16">
+        <aside className="basis-full md:basis-1/3 max-md:hidden block md:sticky md:top-16">
           <LoungeSidebar
             loungeData={loungeData}
             placeDetails={placeDetails}
