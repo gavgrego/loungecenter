@@ -11,7 +11,7 @@ import {
   Input,
   RadioGroup,
   Radio,
-  CircularProgress,
+  CircularProgress
 } from "@nextui-org/react";
 import { useForm, Controller } from "react-hook-form";
 
@@ -29,7 +29,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   );
 
   const { register, handleSubmit, getValues, control, formState } = useForm({
-    shouldUseNativeValidation: true,
+    shouldUseNativeValidation: true
   });
 
   const onSubmit = async () => {
@@ -53,8 +53,8 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
         emailAddress: getValues("emailAddress"),
         unsafeMetadata: {
           cardToken,
-          priceId: subscription,
-        },
+          priceId: subscription
+        }
       });
 
       await signUp.prepareEmailAddressVerification();
@@ -159,7 +159,6 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
             <strong>
               Your card will not be charged until you confirm via email.
             </strong>
-            .
           </p>
         </div>
       </Card>

@@ -3,12 +3,17 @@ import { auth } from "@clerk/nextjs/server";
 import LoungeCard from "@/components/lounges/LoungeCard";
 import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
 import Search from "@/components/search/Search";
+import getAllLounges from "@/data/lounge/getAllLounges";
+import AllLoungesTable from "./components/AllLoungesTable";
+import { Suspense } from "react";
+import { CircularProgress } from "@nextui-org/react";
 
 const LoungesPage = async () => {
   const { userId, sessionClaims } = auth();
 
   // not sure how to best approach
   const lounges = await getFeaturedLounges();
+  const allLounges = await getAllLounges();
 
   // if card.id in cards exists in metadata, then card is available
   const userCards: string[] =
@@ -32,8 +37,9 @@ const LoungesPage = async () => {
           );
         })}
       </div>
-      {/* ALL LOUNGES TABLE */}
-      {/* ALLOW FILTERING */}
+      <Suspense fallback={<CircularProgress />}>
+        <AllLoungesTable lounges={allLounges!} />
+      </Suspense>
     </div>
   );
 };
