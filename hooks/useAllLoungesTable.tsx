@@ -16,7 +16,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
 
   enum ColAccessors {
     name = "attributes.name",
-    airport = "attributes.airport.data.attributes.name"
+    airport = "attributes.airport.data.attributes.code"
     // hasAccess = "attributes.amount",
     // isOpen = "attributes.isOpen"
   }
@@ -40,6 +40,9 @@ const useAllLoungesTable = <T,>(data: T[]) => {
   const columns: ColumnDef<T>[] = [
     {
       id: ColAccessors.name,
+      meta: {
+        name: "Name"
+      },
       accessorKey: ColAccessors.name,
       enableSorting: true,
       header: ({ column }) => {
@@ -59,6 +62,9 @@ const useAllLoungesTable = <T,>(data: T[]) => {
     {
       id: ColAccessors.airport,
       accessorKey: ColAccessors.airport,
+      meta: {
+        name: "Airport"
+      },
       enableSorting: true,
       header: ({ column }) => {
         return (
@@ -70,9 +76,12 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       },
       cell: ({ row }) => {
         return (
-          <div className="font-semibold">
+          <a
+            href={`/lounges/${row.getValue(ColAccessors.airport)}`}
+            className="font-semibold"
+          >
             {row.getValue(ColAccessors.airport)}
-          </div>
+          </a>
         );
       }
     }

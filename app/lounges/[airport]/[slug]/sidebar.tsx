@@ -11,7 +11,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip,
+  Tooltip
 } from "@nextui-org/react";
 import { Info } from "@phosphor-icons/react/dist/ssr/Info";
 import { useMemo } from "react";
@@ -30,7 +30,7 @@ type LoungeSidebarProps = {
 const LoungeSidebar = ({
   placeDetails,
   userId,
-  loungeData,
+  loungeData
 }: LoungeSidebarProps) => {
   const phone = placeDetails.internationalPhoneNumber
     ? placeDetails.internationalPhoneNumber
@@ -86,7 +86,9 @@ const LoungeSidebar = ({
         ) : (
           <Tooltip
             closeDelay={100}
-            content={"Unlock this feature with a Pro Membership!"}
+            content={
+              "See how you can access this lounge and unlock this feature with a Pro Membership!"
+            }
           >
             <Link color="secondary" href="/go-pro">
               🔒

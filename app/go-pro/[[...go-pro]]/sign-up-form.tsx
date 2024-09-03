@@ -157,7 +157,8 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
             After signing up, you will be sent a One Time Password code sent via
             email to verify before being registered.{" "}
             <strong>
-              Your card will not be charged until you confirm via email.
+              Your card will not be charged until you confirm your subscription
+              via email.
             </strong>
           </p>
         </div>

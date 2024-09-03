@@ -20,25 +20,21 @@ type AllLoungesTableProps = {
 };
 
 const AllLoungesTable = ({ lounges }: AllLoungesTableProps) => {
-  console.log(lounges);
   const { table } = useAllLoungesTable(lounges);
+  const columns = table.getAllColumns();
 
-  console.log(lounges);
+  console.log(columns);
 
   return (
     <Table>
       <TableHeader>
-        <TableColumn>Name</TableColumn>
-        <TableColumn>Other</TableColumn>
-
-        {/* {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              console.log(header);
-              return <TableColumn key={header.id}>{header.id}</TableColumn>;
-            })}
-          </TableRow>
-        ))} */}
+        {columns.map((column) => {
+          return (
+            <TableColumn key={column.id}>
+              {column.columnDef.meta?.name}
+            </TableColumn>
+          );
+        })}
       </TableHeader>
 
       <TableBody>

@@ -12,3 +12,10 @@ declare global {
     };
   }
 }
+
+declare module "@tanstack/table-core" {
+  interface ColumnMeta {
+    // filterType: CustomFilterType | StandardFilterType;
+    name: string;
+  }
+}
