@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
 
 const useAllLoungesTable = <T,>(data: T[]) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -22,6 +23,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
 
   enum ColAccessors {
     name = "attributes.name",
+    slug = "attributes.slug",
     airport = "attributes.airport.data.attributes.code"
     // hasAccess = "attributes.amount",
     // isOpen = "attributes.isOpen"
@@ -61,7 +63,12 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       },
       cell: ({ row }) => {
         return (
-          <div className="font-semibold">{row.getValue(ColAccessors.name)}</div>
+          <Link
+            href={`/lounges/${row.getValue(ColAccessors.airport)}/${row.getValue(ColAccessors.slug)}`}
+            className="font-semibold"
+          >
+            {row.getValue(ColAccessors.name)}
+          </Link>
         );
       }
     },
@@ -82,12 +89,12 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       },
       cell: ({ row }) => {
         return (
-          <a
+          <Link
             href={`/lounges/${row.getValue(ColAccessors.airport)}`}
             className="font-semibold"
           >
             {row.getValue(ColAccessors.airport)}
-          </a>
+          </Link>
         );
       }
     }
