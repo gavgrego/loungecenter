@@ -21,7 +21,7 @@ const LoungesPage = async () => {
 
   return (
     <div>
-      <div className="mb-10  flex justify-center">
+      <div className="mb-10 flex justify-center">
         <Search placeholder="Find a lounge or airport..." />
       </div>
       <h1 className="text-center mb-10">Popular Lounges</h1>
@@ -38,6 +38,7 @@ const LoungesPage = async () => {
         })}
       </div>
       <Suspense fallback={<CircularProgress />}>
+        <h2 className="text-center mt-10 mb-8">All Lounges</h2>
         <AllLoungesTable lounges={allLounges!} />
       </Suspense>
     </div>

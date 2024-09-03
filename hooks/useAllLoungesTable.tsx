@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
-import Link from "next/link";
+import { Link } from "@nextui-org/link";
 
 const useAllLoungesTable = <T,>(data: T[]) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -49,14 +49,14 @@ const useAllLoungesTable = <T,>(data: T[]) => {
     {
       id: ColAccessors.name,
       meta: {
-        name: "Name"
+        name: "Lounge"
       },
       accessorKey: ColAccessors.name,
       enableSorting: true,
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting()}>
-            Name
+            Lounge
             <BasicSorting {...column} />
           </Button>
         );
@@ -64,6 +64,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       cell: ({ row }) => {
         return (
           <Link
+            color="foreground"
             href={`/lounges/${row.getValue(ColAccessors.airport)}/${row.getValue(ColAccessors.slug)}`}
             className="font-semibold"
           >
@@ -90,6 +91,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       cell: ({ row }) => {
         return (
           <Link
+            color="foreground"
             href={`/lounges/${row.getValue(ColAccessors.airport)}`}
             className="font-semibold"
           >

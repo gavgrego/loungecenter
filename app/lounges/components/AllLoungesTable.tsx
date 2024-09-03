@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  LoungeResponse,
-  LoungeResponseDataObject
-} from "@/data/api/documentation";
+import { LoungeResponseDataObject } from "@/data/api/documentation";
 import useAllLoungesTable from "@/hooks/useAllLoungesTable";
 import {
   Table,
@@ -25,6 +22,8 @@ const AllLoungesTable = ({ lounges }: AllLoungesTableProps) => {
   const headerGroup = table.getHeaderGroups()[0];
   return (
     <Table
+      isStriped
+      isCompact
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
