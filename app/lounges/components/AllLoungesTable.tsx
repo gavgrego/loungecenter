@@ -21,20 +21,18 @@ type AllLoungesTableProps = {
 
 const AllLoungesTable = ({ lounges }: AllLoungesTableProps) => {
   const { table } = useAllLoungesTable(lounges);
-  const columns = table.getAllColumns();
-
-  console.log(columns);
+  const headerGroup = table.getHeaderGroups()[0];
 
   return (
     <Table>
       <TableHeader>
-        {columns.map((column) => {
-          return (
-            <TableColumn key={column.id}>
-              {column.columnDef.meta?.name}
-            </TableColumn>
-          );
-        })}
+        {headerGroup.headers.map((header) => (
+          <TableColumn key={header.id}>
+            {header.isPlaceholder
+              ? null
+              : flexRender(header.column.columnDef.header, header.getContext())}
+          </TableColumn>
+        ))}
       </TableHeader>
 
       <TableBody>
