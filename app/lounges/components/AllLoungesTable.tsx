@@ -11,7 +11,8 @@ import {
   TableBody,
   TableColumn,
   TableRow,
-  TableCell
+  TableCell,
+  Pagination
 } from "@nextui-org/react";
 import { flexRender } from "@tanstack/react-table";
 
@@ -20,11 +21,29 @@ type AllLoungesTableProps = {
 };
 
 const AllLoungesTable = ({ lounges }: AllLoungesTableProps) => {
-  const { table } = useAllLoungesTable(lounges);
+  const { table, setPagination } = useAllLoungesTable(lounges);
   const headerGroup = table.getHeaderGroups()[0];
-
   return (
-    <Table>
+    <Table
+      bottomContent={
+        <div className="flex w-full justify-center">
+          <Pagination
+            isCompact
+            showControls
+            showShadow
+            color="secondary"
+            page={table.getState().pagination.pageIndex + 1}
+            total={table.getPageCount()}
+            onChange={(page) => {
+              setPagination({
+                pageIndex: page - 1,
+                pageSize: table.getState().pagination.pageSize
+              });
+            }}
+          />
+        </div>
+      }
+    >
       <TableHeader>
         {headerGroup.headers.map((header) => (
           <TableColumn key={header.id}>

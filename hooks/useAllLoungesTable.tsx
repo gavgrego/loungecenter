@@ -13,6 +13,12 @@ import { Button } from "@nextui-org/button";
 
 const useAllLoungesTable = <T,>(data: T[]) => {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10
+  });
+
+  console.log(pagination);
 
   enum ColAccessors {
     name = "attributes.name",
@@ -135,7 +141,8 @@ const useAllLoungesTable = <T,>(data: T[]) => {
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     state: {
-      sorting
+      sorting,
+      pagination
     }
   });
 
@@ -143,6 +150,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
     columns,
     sorting,
     setSorting,
+    setPagination,
     table
   };
 };
