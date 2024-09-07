@@ -38,7 +38,7 @@ const LoungesPage = async () => {
         })}
       </div>
       <Suspense fallback={<CircularProgress />}>
-        <h2 className="text-center mt-10 mb-8">All Lounges</h2>
+        <h2 className="text-center mt-20 mb-8 text-4xl">All Lounges</h2>
         <AllLoungesTable lounges={allLounges!} />
       </Suspense>
     </div>

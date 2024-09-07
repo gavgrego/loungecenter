@@ -1,8 +1,4 @@
-import {
-  Lounge,
-  LoungeResponse,
-  LoungeResponseDataObject
-} from "../api/documentation";
+import { LoungeResponseDataObject } from "../api/documentation";
 
 const getAllLounges = async (): Promise<LoungeResponseDataObject[] | null> => {
   try {

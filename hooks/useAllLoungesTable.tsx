@@ -11,6 +11,7 @@ import { useState } from "react";
 import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
+import { Lounge } from "@/data/api/documentation";
 
 const useAllLoungesTable = <T,>(data: T[]) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -19,13 +20,10 @@ const useAllLoungesTable = <T,>(data: T[]) => {
     pageSize: 10
   });
 
-  console.log(pagination);
-
   enum ColAccessors {
-    name = "attributes.name",
-    slug = "attributes.slug",
-    airport = "attributes.airport.data.attributes.code"
-    // hasAccess = "attributes.amount",
+    lounge = "attributes",
+    airport = "attributes.airport.data.attributes.code",
+    terminal = "attributes.terminal"
     // isOpen = "attributes.isOpen"
   }
 
@@ -47,28 +45,38 @@ const useAllLoungesTable = <T,>(data: T[]) => {
 
   const columns: ColumnDef<T>[] = [
     {
-      id: ColAccessors.name,
+      id: ColAccessors.lounge,
       meta: {
         name: "Lounge"
       },
-      accessorKey: ColAccessors.name,
+      accessorKey: ColAccessors.lounge,
       enableSorting: true,
+      sortingFn: (rowA, rowB) => {
+        // this typecasting is ugly, there a better way to do?
+        const numA = (rowA.getValue(ColAccessors.lounge) as Lounge)
+          .name as string;
+        const numB = (rowB.getValue(ColAccessors.lounge) as Lounge)
+          .name as string;
+
+        return numA < numB ? 1 : numA > numB ? -1 : 0;
+      },
       header: ({ column }) => {
         return (
-          <Button variant="ghost" onClick={() => column.toggleSorting()}>
+          <Button variant="light" onClick={() => column.toggleSorting()}>
             Lounge
             <BasicSorting {...column} />
           </Button>
         );
       },
       cell: ({ row }) => {
+        const lounge: Lounge = row.getValue(ColAccessors.lounge);
         return (
           <Link
             color="foreground"
-            href={`/lounges/${row.getValue(ColAccessors.airport)}/${row.getValue(ColAccessors.slug)}`}
+            href={`/lounges/${row.getValue(ColAccessors.airport)}/${lounge.slug}`}
             className="font-semibold"
           >
-            {row.getValue(ColAccessors.name)}
+            {lounge.name} - {lounge.terminal}
           </Link>
         );
       }
@@ -82,7 +90,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       enableSorting: true,
       header: ({ column }) => {
         return (
-          <Button variant="ghost" onClick={() => column.toggleSorting()}>
+          <Button variant="light" onClick={() => column.toggleSorting()}>
             Airport
             <BasicSorting {...column} />
           </Button>
