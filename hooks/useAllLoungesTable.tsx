@@ -14,6 +14,7 @@ import { Link } from "@nextui-org/link";
 import { Lounge } from "@/data/api/documentation";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import { GooglePlace } from "@/types/googlePlaces/types";
+import { useQuery } from "@tanstack/react-query";
 
 const useAllLoungesTable = <T,>(data: T[]) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -132,18 +133,11 @@ const useAllLoungesTable = <T,>(data: T[]) => {
         },
 
         cell: ({ row, column }) => {
-          const [isOpen, setIsOpen] = useState<GooglePlace | null>(null);
-          const [isLoading, setIsLoading] = useState(true);
-
-          // put this in react query
-          useEffect(() => {
-            getGooglePlaceDetails(row.getValue(ColAccessors.isOpen), true).then(
-              (res) => {
-                setIsOpen(res);
-                setIsLoading(false);
-              }
-            );
-          }, []);
+          const { isLoading, data } = useQuery({
+            queryKey: ["googlePlaceDetails", row.getValue(ColAccessors.isOpen)],
+            queryFn: () =>
+              getGooglePlaceDetails(row.getValue(ColAccessors.isOpen), true)
+          });
 
           const openStatus = (isOpen: GooglePlace | null) => {
             if (isLoading) {
@@ -171,7 +165,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
             }
           };
 
-          return <div>{openStatus(isOpen)}</div>;
+          return <div>{openStatus(data || {})}</div>;
         }
       }
     ],
