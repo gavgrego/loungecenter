@@ -40,6 +40,13 @@ const useAllLoungesTable = <T,>(
     isOpen = "attributes.googlePlaceId"
   }
 
+  const [columnVisibility, setColumnVisibility] = useState({
+    [ColAccessors.lounge]: true,
+    [ColAccessors.airport]: true,
+    [ColAccessors.isOpen]: sessionClaims ? true : false,
+    hasAccess: sessionClaims ? true : false
+  });
+
   const BasicSorting = (column: Column<T, unknown>): JSX.Element => {
     return (
       <>
@@ -186,7 +193,7 @@ const useAllLoungesTable = <T,>(
         }
       },
       {
-        id: ColAccessors.lounge,
+        id: "hasAccess",
         accessorKey: ColAccessors.lounge,
         enableSorting: false,
 
@@ -229,7 +236,8 @@ const useAllLoungesTable = <T,>(
     onSortingChange: setSorting,
     state: {
       sorting,
-      pagination
+      pagination,
+      columnVisibility
     }
   });
 
