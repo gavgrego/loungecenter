@@ -7,11 +7,11 @@ import getAllLounges from "@/data/lounge/getAllLounges";
 import AllLoungesTable from "./components/AllLoungesTable";
 import { Suspense } from "react";
 import { CircularProgress, Skeleton } from "@nextui-org/react";
+import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 
 const LoungesPage = async () => {
   const { userId, sessionClaims } = auth();
 
-  // not sure how to best approach
   const lounges = await getFeaturedLounges();
   const allLounges = await getAllLounges();
 

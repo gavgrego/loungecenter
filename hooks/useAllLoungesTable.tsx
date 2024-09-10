@@ -26,7 +26,6 @@ const useAllLoungesTable = <T,>(data: T[]) => {
   enum ColAccessors {
     lounge = "attributes",
     airport = "attributes.airport.data.attributes.code",
-    terminal = "attributes.terminal",
     isOpen = "attributes.googlePlaceId"
   }
 
@@ -89,6 +88,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
           );
         }
       },
+
       {
         id: ColAccessors.airport,
         accessorKey: ColAccessors.airport,
@@ -123,11 +123,17 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       {
         id: ColAccessors.isOpen,
         accessorKey: ColAccessors.isOpen,
-        enableSorting: false,
-        header: () => {
+        enableSorting: true,
+        sortingFn: "text",
+        header: ({ column }) => {
           return (
-            <Button className="p-0 pointer-events-none" variant="light">
+            <Button
+              className="p-0"
+              variant="light"
+              onClick={() => column.toggleSorting()}
+            >
               Open Now?
+              <BasicSorting {...column} />
             </Button>
           );
         },
@@ -143,6 +149,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
             if (isLoading) {
               return <div>Loading...</div>;
             }
+
             if (isOpen?.currentOpeningHours) {
               return isOpen.currentOpeningHours?.openNow ? (
                 <div className="flex flex-row gap-3 items-center">
@@ -168,6 +175,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
           return <div>{openStatus(data || {})}</div>;
         }
       }
+      //  Add Access column at some point
     ],
     [data]
   );

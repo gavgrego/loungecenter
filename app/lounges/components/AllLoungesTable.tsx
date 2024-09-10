@@ -20,6 +20,7 @@ type AllLoungesTableProps = {
 const AllLoungesTable = ({ lounges }: AllLoungesTableProps) => {
   const { table, setPagination } = useAllLoungesTable(lounges);
   const headerGroup = table.getHeaderGroups()[0];
+
   return (
     <Table
       isStriped

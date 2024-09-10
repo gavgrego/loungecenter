@@ -72,7 +72,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   }
 
   const todaysOpen =
-    placeDetails.currentOpeningHours?.periods[dayOfWeek].open.hour;
+    placeDetails.currentOpeningHours?.periods[dayOfWeek]?.open?.hour || 0;
 
   const otherLounges = await getOtherLounges(
     loungeData?.airport?.data?.attributes?.code as string,
@@ -176,7 +176,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
           <ImageCarousel
             className="my-8 [&_img]:max-h-[500px]"
-            placeImages={placeImages}
+            placeImages={placeImages || []}
           />
           <Divider className="my-4" />
 
