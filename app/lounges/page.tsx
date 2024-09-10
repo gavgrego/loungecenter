@@ -6,7 +6,7 @@ import Search from "@/components/search/Search";
 import getAllLounges from "@/data/lounge/getAllLounges";
 import AllLoungesTable from "./components/AllLoungesTable";
 import { Suspense } from "react";
-import { CircularProgress } from "@nextui-org/react";
+import { CircularProgress, Skeleton } from "@nextui-org/react";
 
 const LoungesPage = async () => {
   const { userId, sessionClaims } = auth();
@@ -37,9 +37,16 @@ const LoungesPage = async () => {
           );
         })}
       </div>
-      <Suspense fallback={<CircularProgress />}>
-        <h2 className="text-center mt-20 mb-8 text-4xl">All Lounges</h2>
-        <AllLoungesTable lounges={allLounges!} />
+      <h2 className="text-center mt-20 mb-8 text-4xl">All Lounges</h2>
+
+      <Suspense
+        fallback={
+          <Skeleton className="rounded-lg">
+            <div className="h-[400px] rounded-lg bg-default-300"></div>
+          </Skeleton>
+        }
+      >
+        <AllLoungesTable lounges={allLounges || []} />
       </Suspense>
     </div>
   );
