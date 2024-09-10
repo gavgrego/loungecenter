@@ -1,10 +1,10 @@
 export type GooglePlace = {
-  formattedAddress: string;
-  rating: number;
-  internationalPhoneNumber: string;
-  businessStatus: "OPERATIONAL" | "CLOSED_TEMPORARILY" | "CLOSED_PERMANENTLY";
-  nationalPhoneNumber: string;
-  currentOpeningHours: {
+  formattedAddress?: string;
+  rating?: number;
+  internationalPhoneNumber?: string;
+  businessStatus?: "OPERATIONAL" | "CLOSED_TEMPORARILY" | "CLOSED_PERMANENTLY";
+  nationalPhoneNumber?: string;
+  currentOpeningHours?: {
     openNow: boolean;
     periods: {
       open: {
@@ -30,8 +30,8 @@ export type GooglePlace = {
     }[];
     weekdayDescriptions: string[];
   };
-  review: Review[];
-  photos: {
+  review?: Review[];
+  photos?: {
     name: string;
     widthPx: number;
     heightPx: number;

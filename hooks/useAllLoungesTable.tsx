@@ -7,11 +7,13 @@ import {
   getSortedRowModel,
   useReactTable
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { Lounge } from "@/data/api/documentation";
+import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
+import { GooglePlace } from "@/types/googlePlaces/types";
 
 const useAllLoungesTable = <T,>(data: T[]) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -23,8 +25,8 @@ const useAllLoungesTable = <T,>(data: T[]) => {
   enum ColAccessors {
     lounge = "attributes",
     airport = "attributes.airport.data.attributes.code",
-    terminal = "attributes.terminal"
-    // isOpen = "attributes.isOpen"
+    terminal = "attributes.terminal",
+    isOpen = "attributes.googlePlaceId"
   }
 
   const BasicSorting = (column: Column<T, unknown>): JSX.Element => {
@@ -62,7 +64,11 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       },
       header: ({ column }) => {
         return (
-          <Button variant="light" onClick={() => column.toggleSorting()}>
+          <Button
+            className="p-0"
+            variant="light"
+            onClick={() => column.toggleSorting()}
+          >
             Lounge
             <BasicSorting {...column} />
           </Button>
@@ -90,7 +96,11 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       enableSorting: true,
       header: ({ column }) => {
         return (
-          <Button variant="light" onClick={() => column.toggleSorting()}>
+          <Button
+            className="p-0"
+            variant="light"
+            onClick={() => column.toggleSorting()}
+          >
             Airport
             <BasicSorting {...column} />
           </Button>
@@ -107,27 +117,35 @@ const useAllLoungesTable = <T,>(data: T[]) => {
           </Link>
         );
       }
+    },
+    {
+      id: ColAccessors.isOpen,
+      accessorKey: ColAccessors.isOpen,
+      enableSorting: false,
+      header: () => {
+        return <Button variant="light">Open Now?</Button>;
+      },
+      cell: async ({ row }) => {
+        const isOpen = useMemo(async () => {
+          const open = await getGooglePlaceDetails(
+            row.getValue(ColAccessors.isOpen),
+            true
+          );
+          return open;
+        }, []);
+
+        const openStatus = async (isOpen: Promise<GooglePlace>) => {
+          const open = await isOpen;
+          if (open.currentOpeningHours) {
+            return open.currentOpeningHours?.openNow ? "Yes" : "No";
+          } else {
+            return "Unavailable";
+          }
+        };
+
+        return <div className="font-semibold">{await openStatus(isOpen)}</div>;
+      }
     }
-    // {
-    //   id: ColAccessors.hasAccess,
-    //   accessorKey: ColAccessors.hasAccess,
-    //   enableSorting: true,
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button variant="ghost" onClick={() => column.toggleSorting()}>
-    //         Access
-    //         <BasicSorting {...column} />
-    //       </Button>
-    //     );
-    //   },
-    //   cell: ({ row }) => {
-    //     return (
-    //       <div className="font-semibold">
-    //         {row.getValue(ColAccessors.airport)}
-    //       </div>
-    //     );
-    //   }
-    // },
     // {
     //   id: ColAccessors.isOpen,
     //   accessorKey: ColAccessors.isOpen,

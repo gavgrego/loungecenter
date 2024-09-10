@@ -1,12 +1,19 @@
 import { GooglePlace } from "@/types/googlePlaces/types";
 
-const getGooglePlaceDetails = async (placeId: string): Promise<GooglePlace> => {
+const getGooglePlaceDetails = async (
+  placeId: string,
+  onlyIsOpen?: boolean
+): Promise<GooglePlace> => {
+  const fields = onlyIsOpen
+    ? "current_opening_hours.open_now"
+    : "photos,rating,formatted_address,nationalPhoneNumber,internationalPhoneNumber,current_opening_hours,business_status";
+
   try {
     const response = await fetch(
-      `https://places.googleapis.com/v1/places/${placeId}?fields=photos,rating,formatted_address,nationalPhoneNumber,internationalPhoneNumber,current_opening_hours,business_status&key=${process.env.GOOGLE_API_KEY}`,
+      `https://places.googleapis.com/v1/places/${placeId}?fields=${fields}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,
       {
         method: "GET",
-        cache: "force-cache",
+        cache: "force-cache"
       }
     );
 
