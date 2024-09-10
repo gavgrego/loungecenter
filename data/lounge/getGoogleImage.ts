@@ -3,10 +3,10 @@ const getGoogleImage = async (
 ): Promise<{ name: string; photoUri: string } | undefined> => {
   try {
     const response = await fetch(
-      `https://places.googleapis.com/v1/${imageId}/media?key=${process.env.GOOGLE_API_KEY}&maxWidthPx=500&maxHeightPx=500&skipHttpRedirect=true`,
+      `https://places.googleapis.com/v1/${imageId}/media?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&maxWidthPx=500&maxHeightPx=500&skipHttpRedirect=true`,
       {
         method: "GET",
-        cache: "force-cache",
+        cache: "force-cache"
       }
     );
 

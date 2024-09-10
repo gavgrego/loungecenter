@@ -12,13 +12,15 @@ import {
   Pagination
 } from "@nextui-org/react";
 import { flexRender } from "@tanstack/react-table";
+import { JwtPayload } from "@clerk/types";
 
 type AllLoungesTableProps = {
   lounges: LoungeResponseDataObject[];
+  sessionClaims: JwtPayload | null;
 };
 
-const AllLoungesTable = ({ lounges }: AllLoungesTableProps) => {
-  const { table, setPagination } = useAllLoungesTable(lounges);
+const AllLoungesTable = ({ lounges, sessionClaims }: AllLoungesTableProps) => {
+  const { table, setPagination } = useAllLoungesTable(lounges, sessionClaims);
   const headerGroup = table.getHeaderGroups()[0];
 
   return (

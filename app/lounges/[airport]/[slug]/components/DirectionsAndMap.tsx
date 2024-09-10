@@ -10,7 +10,7 @@ const DirectionsAndMap = ({ loungeData }: DirectionsAndMapProps) => {
     <>
       <div className="mt-5 [&_iframe]:rounded-lg">
         <GoogleMapsEmbed
-          apiKey={process.env.GOOGLE_API_KEY || ""}
+          apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ""}
           height={400}
           maptype="satellite"
           mode="place"

@@ -1,6 +1,5 @@
 import { Divider, Link, Tooltip } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
-import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 import dayjs from "dayjs";
 
 import Notes from "./components/Notes";
@@ -18,6 +17,7 @@ import getTrafficData from "@/data/lounge/getTrafficData";
 import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
 import { dummyTrafficChartData } from "@/data/dummy";
 import HasLoungeAccess from "./components/HasLoungeAccess";
+import getHasAccess from "@/data/lounge/getHasAccess";
 export type ChartData = { name: string; average: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
@@ -56,8 +56,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     sessionClaims?.unsafeMetadata?.hasPriorityPass
   );
 
-  const hasLoungeAccess =
-    hasMatchingCard || hasPriorityPass || hasMatchingAlliance;
+  const hasLoungeAccess = getHasAccess(loungeData, sessionClaims);
 
   const placeDetails = await getGooglePlaceDetails(
     loungeData?.googlePlaceId as string

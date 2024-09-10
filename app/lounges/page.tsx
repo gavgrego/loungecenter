@@ -6,11 +6,10 @@ import Search from "@/components/search/Search";
 import getAllLounges from "@/data/lounge/getAllLounges";
 import AllLoungesTable from "./components/AllLoungesTable";
 import { Suspense } from "react";
-import { CircularProgress, Skeleton } from "@nextui-org/react";
-import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
+import { Skeleton } from "@nextui-org/react";
 
 const LoungesPage = async () => {
-  const { userId, sessionClaims } = auth();
+  const { sessionClaims } = auth();
 
   const lounges = await getFeaturedLounges();
   const allLounges = await getAllLounges();
@@ -46,7 +45,10 @@ const LoungesPage = async () => {
           </Skeleton>
         }
       >
-        <AllLoungesTable lounges={allLounges || []} />
+        <AllLoungesTable
+          lounges={allLounges || []}
+          sessionClaims={sessionClaims}
+        />
       </Suspense>
     </div>
   );

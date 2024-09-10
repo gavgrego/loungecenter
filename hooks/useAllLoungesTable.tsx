@@ -8,15 +8,26 @@ import {
   useReactTable
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react";
+import {
+  ArrowsDownUp,
+  ArrowUp,
+  ArrowDown,
+  SealCheck,
+  X
+} from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { Lounge } from "@/data/api/documentation";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import { GooglePlace } from "@/types/googlePlaces/types";
 import { useQuery } from "@tanstack/react-query";
+import { JwtPayload } from "@clerk/types";
+import getHasAccess from "@/data/lounge/getHasAccess";
 
-const useAllLoungesTable = <T,>(data: T[]) => {
+const useAllLoungesTable = <T,>(
+  data: T[],
+  sessionClaims: JwtPayload | null
+) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -123,8 +134,7 @@ const useAllLoungesTable = <T,>(data: T[]) => {
       {
         id: ColAccessors.isOpen,
         accessorKey: ColAccessors.isOpen,
-        enableSorting: true,
-        sortingFn: "text",
+        enableSorting: false,
         header: ({ column }) => {
           return (
             <Button
@@ -174,7 +184,37 @@ const useAllLoungesTable = <T,>(data: T[]) => {
 
           return <div>{openStatus(data || {})}</div>;
         }
+      },
+      {
+        id: ColAccessors.lounge,
+        accessorKey: ColAccessors.lounge,
+        enableSorting: false,
+
+        header: ({ column }) => {
+          return (
+            <Button className="p-0" variant="light">
+              Have Access?
+            </Button>
+          );
+        },
+
+        cell: ({ row, column }) => {
+          console.log(row.getValue(ColAccessors.lounge));
+          return (
+            <div>
+              {getHasAccess(
+                row.getValue(ColAccessors.lounge),
+                sessionClaims
+              ) ? (
+                <SealCheck color="green" size={24} weight="fill" />
+              ) : (
+                <X color="red" size={24} weight="fill" />
+              )}
+            </div>
+          );
+        }
       }
+
       //  Add Access column at some point
     ],
     [data]
