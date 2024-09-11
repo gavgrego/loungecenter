@@ -80,6 +80,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   let filteredChartData: ChartData = [];
 
+  const trafficData = await getTrafficData({
+    name: String(loungeData?.name),
+    address: String(placeDetails.formattedAddress)
+  });
+
+  console.log(trafficData);
+
   // only fetch traffic data if the user is logged in
   if (userId) {
     const trafficData = await getTrafficData({

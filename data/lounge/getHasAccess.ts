@@ -5,7 +5,6 @@ const getHasAccess = (
   loungeData: Lounge | undefined,
   sessionClaims: JwtPayload | null
 ) => {
-  console.log("loungeData", loungeData);
   const cards = loungeData?.cards?.data || [];
   const alliances = loungeData?.alliance_access?.data || [];
 

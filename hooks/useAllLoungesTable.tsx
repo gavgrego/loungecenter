@@ -206,7 +206,6 @@ const useAllLoungesTable = <T,>(
         },
 
         cell: ({ row, column }) => {
-          console.log(row.getValue(ColAccessors.lounge));
           return (
             <div>
               {getHasAccess(
