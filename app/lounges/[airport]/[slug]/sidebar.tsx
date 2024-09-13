@@ -21,6 +21,7 @@ import Hours from "./components/Hours";
 import PriortyPass from "@/public/priority-pass.jpg";
 import { Lounge } from "@/data/api/documentation";
 import { GooglePlace } from "@/types/googlePlaces/types";
+import { ArrowSquareOut } from "@phosphor-icons/react";
 type LoungeSidebarProps = {
   loungeData: Lounge | undefined;
   placeDetails: GooglePlace;
@@ -43,11 +44,26 @@ const LoungeSidebar = ({
   return (
     <div className="flex flex-col gap-3">
       <div className="font-medium">📍&nbsp;{placeDetails.formattedAddress}</div>
-      {phone ? (
-        <Link className="font-medium" href={`tel:${phone}`}>
-          ☎️&nbsp;{phone}
-        </Link>
-      ) : null}
+      <div className="flex flex-row gap-3">
+        {phone ? (
+          <Link color="secondary" className="font-medium" href={`tel:${phone}`}>
+            ☎️&nbsp;{phone}
+          </Link>
+        ) : null}
+        {phone && loungeData?.moreInfo ? <>/</> : null}
+        {loungeData?.moreInfo ? (
+          <Link
+            color="secondary"
+            className="font-medium"
+            href={loungeData.moreInfo}
+            target="_blank"
+          >
+            Official Information
+            <ArrowSquareOut className="ml-1" size={24} />
+          </Link>
+        ) : null}
+      </div>
+
       <div className="flex flex-row gap-2 items-center">
         <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
 

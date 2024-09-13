@@ -183,7 +183,7 @@ const useAllLoungesTable = <T,>(
               return (
                 <div className="flex flex-row gap-3 items-center">
                   <div className="w-3 h-3 bg-yellow-400 rounded-full" />
-                  Unavailable
+                  Unknown
                 </div>
               );
             }
