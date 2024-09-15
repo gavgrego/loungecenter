@@ -1,4 +1,4 @@
-import { Divider, Link, Tooltip } from "@nextui-org/react";
+import { Divider, Link } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
 import dayjs from "dayjs";
 
@@ -11,13 +11,13 @@ import IconList from "./components/IconList";
 import TrafficChart from "./components/TrafficChart";
 
 import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
-import getOtherLounges from "@/data/lounge/getOtherLounges";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
 import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
 import { dummyTrafficChartData } from "@/data/dummy";
 import HasLoungeAccess from "./components/HasLoungeAccess";
 import getHasAccess from "@/data/lounge/getHasAccess";
+import { Suspense } from "react";
 export type ChartData = { name: string; average: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
@@ -72,11 +72,6 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   const todaysOpen =
     placeDetails.currentOpeningHours?.periods[dayOfWeek]?.open?.hour || 0;
-
-  const otherLounges = await getOtherLounges(
-    loungeData?.airport?.data?.attributes?.code as string,
-    lounge.data?.[0].id as number
-  );
 
   let filteredChartData: ChartData = [];
 
@@ -172,7 +167,6 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
               userId={userId}
             />
           </span>
-
           <ImageCarousel
             className="my-8 [&_img]:max-h-[500px]"
             placeImages={placeImages || []}
@@ -251,14 +245,14 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
           <DirectionsAndMap loungeData={loungeData} />
 
-          {otherLounges && otherLounges.length > 0 && (
+          <Suspense fallback={<div>Loading...</div>}>
             <OtherLounges
               airport={airportData?.code as string}
               className="mt-14"
-              lounges={otherLounges}
+              currentLounge={lounge.data?.[0].id as number}
               userCards={userCards}
             />
-          )}
+          </Suspense>
         </div>
 
         <aside className="basis-full md:basis-1/3 max-md:hidden block md:sticky md:top-16">

@@ -106,13 +106,13 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
                     className="flex items-center space-x-2"
                     value="price_1PYEb5J8buZJpCe9V0Zkc9kN"
                   >
-                    <strong>Monthly</strong> ($7.99/month)
+                    <strong>Monthly</strong> ($5/month)
                   </Radio>
                   <Radio
                     className="flex items-center space-x-2"
                     value="price_1PYEcHJ8buZJpCe92iaen98q"
                   >
-                    <strong>Yearly</strong> ($79.99/year){" "}
+                    <strong>Yearly</strong> ($50/year){" "}
                     <span className="italic text-sm text-warning">
                       Get 2 free months!
                     </span>

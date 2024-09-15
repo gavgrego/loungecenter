@@ -1,8 +1,10 @@
 import {
   Column,
   ColumnDef,
+  ColumnFiltersState,
   SortingState,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable
@@ -33,6 +35,8 @@ const useAllLoungesTable = <T,>(
     pageIndex: 0,
     pageSize: 10
   });
+
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   enum ColAccessors {
     lounge = "attributes",
@@ -182,8 +186,7 @@ const useAllLoungesTable = <T,>(
             } else {
               return (
                 <div className="flex flex-row gap-3 items-center">
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full" />
-                  Unknown
+                  <span>❓</span> Unknown
                 </div>
               );
             }
@@ -230,11 +233,13 @@ const useAllLoungesTable = <T,>(
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     state: {
       sorting,
+      columnFilters,
       pagination,
       columnVisibility
     }

@@ -1,22 +1,25 @@
 import { Image } from "@nextui-org/react";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, Suspense } from "react";
 
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
+  CarouselItem
 } from "@/components/ui/carousel";
 import getGoogleImage from "@/data/lounge/getGoogleImage";
 type ImageCarouselProps = HTMLAttributes<HTMLDivElement> & {
   placeImages: { name: string; heightPx: number; widthPx: number }[];
 };
 
-const ImageCarousel = ({ placeImages, className }: ImageCarouselProps) => {
+const ImageCarousel = async ({
+  placeImages,
+  className
+}: ImageCarouselProps) => {
   return (
     <div className={className}>
       <Carousel
         opts={{
-          loop: true,
+          loop: true
         }}
       >
         <CarouselContent className="-ml-3 ">
@@ -28,14 +31,16 @@ const ImageCarousel = ({ placeImages, className }: ImageCarouselProps) => {
                 key={image.name}
                 className="pl-3 md:basis-1/2 cursor-grab"
               >
-                <Image
-                  alt={image?.name}
-                  aria-label={image?.name}
-                  className="object-cover w-full h-full"
-                  height={image?.heightPx}
-                  src={fetchedImage?.photoUri}
-                  width={image?.widthPx}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Image
+                    alt={image?.name}
+                    aria-label={image?.name}
+                    className="object-cover w-full h-full"
+                    height={image?.heightPx}
+                    src={fetchedImage?.photoUri}
+                    width={image?.widthPx}
+                  />
+                </Suspense>
               </CarouselItem>
             );
           })}
