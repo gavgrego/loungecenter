@@ -1,6 +1,6 @@
 "use client";
 
-import { Hits, InstantSearch, Highlight, SearchBox } from "react-instantsearch";
+import { Hits, InstantSearch, Highlight } from "react-instantsearch";
 import {
   Dropdown,
   DropdownItem,
@@ -13,8 +13,8 @@ const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_API_KEY as string
 );
 
-console.log(searchClient);
 import SearchInput from "./searchInput";
+import { useState } from "react";
 
 // TODO: Need to type out the results at some point
 const Hit = ({ hit }: any) => {
@@ -29,19 +29,24 @@ const Hit = ({ hit }: any) => {
 };
 
 const Search = ({ ...props }) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Dropdown>
-      <DropdownTrigger>
-        <InstantSearch indexName="lounge" searchClient={searchClient}>
-          <div className="flex flex-col gap-4 max-w-[800px] w-full">
-            <SearchInput {...props} />
-          </div>
-        </InstantSearch>
-      </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions">
-        <Hits hitComponent={Hit} />
-      </DropdownMenu>
-    </Dropdown>
+    <InstantSearch
+      initialUiState={undefined}
+      indexName="lounge"
+      searchClient={searchClient}
+    >
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 max-w-[800px] w-full">
+          <SearchInput
+            onFocus={() => setIsOpen(true)}
+            onBlur={() => setIsOpen(false)}
+            {...props}
+          />
+        </div>
+        {isOpen ? <Hits /> : null}
+      </div>
+    </InstantSearch>
   );
 };
 
