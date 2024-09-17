@@ -22,7 +22,7 @@ const Home = async () => {
         {/* Find airport lounge access, get reviews and info, and see just how busy
         it is before you even get there. */}
       </h3>
-      <div className="mb-10 flex justify-center">
+      <div className=" mb-10 flex justify-center">
         <Search placeholder="Find a lounge or airport..." />
       </div>
       <h1 className="text-center mb-10">Popular Lounges</h1>
