@@ -13,7 +13,7 @@ import { useState } from "react";
 import { LoungeHit } from "@/types/search/types";
 
 const Search = ({ ...props }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <InstantSearch indexName="lounge" searchClient={searchClient}>
       <div className="flex flex-col gap-4 w-full relative">
