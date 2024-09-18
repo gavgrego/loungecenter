@@ -13,10 +13,10 @@ import { useState } from "react";
 import { LoungeHit } from "@/types/search/types";
 
 const Search = ({ ...props }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <InstantSearch indexName="lounge" searchClient={searchClient}>
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full relative">
         <div className="flex flex-col gap-4">
           <SearchInput
             onFocus={() => setIsOpen(true)}
@@ -32,14 +32,18 @@ const Search = ({ ...props }) => {
           />
         </div>
         {isOpen ? (
-          <Hits
-            hitComponent={({ hit }: { hit: LoungeHit }) => (
-              <Link color="secondary" href={hit.url}>
-                {hit.airport?.Code} - {hit.name}
-              </Link>
-            )}
-            className="max-w-[800px]"
-          />
+          <div className="p-4 rounded shadow-lg absolute top-12 w-full z-50 bg-white">
+            <Hits
+              className="max-w-[800px] "
+              hitComponent={({ hit }: { hit: LoungeHit }) => (
+                <div className="[&:not(:last-of-type)]:mt-4">
+                  <Link color="secondary" href={hit.url}>
+                    {hit.airport?.Code} - &nbsp;<strong>{hit.name}</strong>
+                  </Link>
+                </div>
+              )}
+            />
+          </div>
         ) : null}
       </div>
     </InstantSearch>
