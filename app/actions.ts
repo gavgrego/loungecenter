@@ -7,7 +7,6 @@ export const submitForm = async (
   try {
     // send form data to strapi
     console.log(formData);
-
     return { status: "success" };
   } catch (error) {
     return { status: "error" };

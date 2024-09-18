@@ -20,9 +20,7 @@ const LoungesPage = async () => {
 
   return (
     <div>
-      <div className="mb-10 flex justify-center">
-        <Search placeholder="Find a lounge or airport..." />
-      </div>
+      <Search placeholder="Find a lounge or airport..." />
       <h1 className="text-center mb-10">Popular Lounges</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-evenly content-evenly justify-items-center items-center">
         {lounges?.map((lounge) => {

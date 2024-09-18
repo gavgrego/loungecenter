@@ -1,14 +1,38 @@
+"use client";
+
+import { siteConfig } from "@/config/site";
+import { revalidatePath } from "next/cache";
+import NextLink from "next/link";
+
 const Footer = () => {
   return (
     <footer className="w-full flex items-center justify-center py-3 bg-secondary-400 ">
       <div className="container">
-        <div className="flex flex-col gap-4 justify-center light light:text-white md:h-[600px]">
-          {/* <p className="text-sm">
-            We are still growing our dataset! If you see any missing or wrong
+        <div className="flex flex-col gap-4 justify-center light light:text-white md:h-[400px]">
+          {siteConfig.navItems.map((item) => (
+            <NextLink
+              key={item.href}
+              className="font-medium hover:opacity-75 transition-opacity"
+              color="foreground"
+              href={item.href}
+              onClick={() => revalidatePath(item.href)}
+            >
+              {item.label}
+            </NextLink>
+          ))}
+          <NextLink
+            className="font-medium hover:opacity-75 transition-opacity"
+            color="foreground"
+            href={"/contact"}
+          >
+            Contact
+          </NextLink>
+          <p className="text-xs max-w-[500px]">
+            * We are still growing our dataset! If you see any missing or wrong
             info, please send us the info (with a source to the correction)
             using our contact form. You will be automatically entered to win
             LoungeVault merch!
-          </p> */}
+          </p>
         </div>
       </div>
     </footer>

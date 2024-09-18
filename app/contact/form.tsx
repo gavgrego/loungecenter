@@ -1,41 +1,33 @@
 "use client";
 
 import { User } from "@clerk/nextjs/dist/types/server";
-import { Button, Input, Textarea } from "@nextui-org/react";
-import { useFormState } from "react-dom";
-
+import { Button, CircularProgress, Input, Textarea } from "@nextui-org/react";
+import { useFormState, useFormStatus } from "react-dom";
 import { submitForm } from "../actions";
+import SubmitButton from "@/components/form/SubmitButton";
 
 type ContactFormProps = {
   user?: User | null;
 };
 
 const ContactForm = ({ user }: ContactFormProps) => {
-  const [state, submit, isPending] = useFormState(submitForm, {
-    status: "idle",
+  const [state, submit] = useFormState(submitForm, {
+    status: "idle"
   });
 
   return (
-    <div>
+    <div className="mt-4">
       <form action={submit}>
         <div className="flex gap-3 flex-col mb-4 max-w-96">
           <Input
             required
             defaultValue={user ? user?.emailAddresses[0].toString() : ""}
-            disabled={isPending}
             name="email"
-            placeholder="email address"
+            placeholder="Email address..."
             type="text"
           />
-          <Textarea
-            required
-            disabled={isPending}
-            name="comments"
-            placeholder="Comments..."
-          />
-          <Button disabled={isPending} type="submit">
-            Submit
-          </Button>
+          <Textarea required name="comments" placeholder="Comments..." />
+          <SubmitButton />
         </div>
 
         {state.status === "success" && <p>Form submitted!</p>}

@@ -9,6 +9,13 @@ const ContactPage = async () => {
   return (
     <div>
       <h1 className="mb-4">Contact</h1>
+      <p>
+        Questions? Comments? See blatantly incorrect data? Please let me know.
+      </p>
+      <p className="text-xs">
+        Any correction of verifiable incorrect info will automatically enter you
+        to win LoungeVault merch.
+      </p>
       <ContactForm user={user} />
     </div>
   );
