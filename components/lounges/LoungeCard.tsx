@@ -13,7 +13,7 @@ type LoungeCardProps = {
 const LoungeCard = async ({
   lounge,
   userCards,
-  className,
+  className
 }: LoungeCardProps) => {
   const airportData = lounge.attributes?.airport?.data?.attributes;
   const location = lounge.attributes?.terminal;
@@ -31,7 +31,7 @@ const LoungeCard = async ({
 
   return (
     <Card
-      isFooterBlurred
+      shadow="lg"
       className={`max-w-[400px] relative overflow-visible ${className}`}
     >
       {hasLoungeAccess ? (

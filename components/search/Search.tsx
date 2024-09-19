@@ -33,9 +33,9 @@ const Search = ({ ...props }) => {
             />
           </div>
           {isOpen ? (
-            <div className="p-4 rounded shadow-lg absolute top-12 w-full z-50 bg-foreground">
+            <div className="p-4 rounded-md shadow-lg absolute top-12 w-full z-50 bg-foreground-50">
               <Hits
-                className="max-w-[800px] "
+                className="max-w-[800px]"
                 hitComponent={({ hit }: { hit: LoungeHit }) => (
                   <div className="[&:not(:last-of-type)]:mt-4">
                     <Link color="secondary" href={hit.url}>

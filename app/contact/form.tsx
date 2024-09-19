@@ -1,36 +1,78 @@
 "use client";
 
-import { User } from "@clerk/nextjs/dist/types/server";
-import { Input, Textarea } from "@nextui-org/react";
-import { useFormState } from "react-dom";
-import { submitForm } from "../actions";
-import SubmitButton from "@/components/form/SubmitButton";
-
+import { Button, Input, Textarea } from "@nextui-org/react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 type ContactFormProps = {
   userEmail?: string;
 };
 
-const ContactForm = ({ userEmail }: ContactFormProps) => {
-  const [state, submit] = useFormState(submitForm, {
-    status: "idle"
-  });
+// wire this up when I decide to email or save in db
+const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
 
+const schema = z.object({
+  email: z.string().email(),
+  comments: z.string()
+});
+
+type FormData = z.infer<typeof schema>;
+
+const ContactForm = ({ userEmail }: ContactFormProps) => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting, isValid }
+  } = useForm<FormData>({
+    resolver: zodResolver(schema)
+  });
   return (
     <div className="mt-4">
-      <form action={submit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-3 flex-col mb-4 max-w-96">
-          <Input
-            required
-            defaultValue={userEmail ? userEmail : ""}
+          <Controller
             name="email"
-            placeholder="Email address..."
-            type="text"
+            control={control}
+            defaultValue={userEmail ? userEmail : ""}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                required
+                placeholder="Email address..."
+                type="email"
+                {...field}
+              />
+            )}
           />
-          <Textarea required name="comments" placeholder="Comments..." />
-          <SubmitButton />
+          {errors.email && <p className="text-red">Email is required</p>}
+
+          <Controller
+            name="comments"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Textarea
+                required
+                minRows={8}
+                placeholder="Comments..."
+                {...field}
+              />
+            )}
+          />
+          {errors.comments && (
+            <p className="text-red"> Comments are required</p>
+          )}
+
+          {isSubmitting ? (
+            "submitting"
+          ) : (
+            <Button color="secondary" type="submit" isDisabled={!isValid}>
+              Submit
+            </Button>
+          )}
         </div>
 
-        {state.status === "success" && <p>Form submitted!</p>}
+        {/* {state.status === "success" && <p>Form submitted!</p>} */}
       </form>
     </div>
   );

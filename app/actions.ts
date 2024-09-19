@@ -1,9 +1,6 @@
 "use server";
 
-export const submitForm = async (
-  prevState: { status: string },
-  formData: FormData
-) => {
+export const submitForm = async (formData: FormData) => {
   try {
     // send form data to strapi
     console.log(formData);
