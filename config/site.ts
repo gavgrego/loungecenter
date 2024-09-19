@@ -71,6 +71,6 @@ export const siteConfig = {
   ],
   links: {
     twitter: "https://twitter.com/getnextui",
-    discord: "https://discord.gg/9b6yyZKmH4"
+    discord: "https://discord.gg/MUuPyDMXSp"
   }
 };

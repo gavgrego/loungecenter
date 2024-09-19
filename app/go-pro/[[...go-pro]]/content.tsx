@@ -53,7 +53,9 @@ const GoProContent = () => {
             <TableCell>✅</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Advanced filtering</TableCell>
+            <TableCell>
+              Advanced filtering and additional columns on tables
+            </TableCell>
             <TableCell>❌</TableCell>
             <TableCell>✅</TableCell>
           </TableRow>
