@@ -12,8 +12,8 @@ const SignUp = () => {
   const [verifying, setVerifying] = useState(false);
   const options = {
     appearance: {
-      theme: "stripe",
-    },
+      theme: "stripe"
+    }
   };
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -25,7 +25,7 @@ const SignUp = () => {
   }
 
   return (
-    <div className="mt-20 flex items-center justify-center">
+    <div className="mt-10 flex items-center justify-center">
       {/* @ts-ignore */}
       <Elements options={options} stripe={stripePromise}>
         <SignUpForm setVerifying={setVerifying} />

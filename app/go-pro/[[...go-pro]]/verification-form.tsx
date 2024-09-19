@@ -11,7 +11,7 @@ const VerificationForm = () => {
   const router = useRouter();
 
   const { register, handleSubmit, getValues, control, formState } = useForm({
-    shouldUseNativeValidation: true,
+    shouldUseNativeValidation: true
   });
 
   const onSubmit = async () => {
@@ -19,7 +19,7 @@ const VerificationForm = () => {
 
     try {
       const signInAttempt = await signUp.attemptEmailAddressVerification({
-        code: getValues("code"),
+        code: getValues("code")
       });
 
       if (signInAttempt.status === "complete") {
@@ -32,7 +32,7 @@ const VerificationForm = () => {
   };
 
   return (
-    <div className="mt-20 flex items-center justify-center ">
+    <div className="mt-10 flex items-center justify-center ">
       {/* need to figure out why onsubmit form functionality is not working and just refreshed the page */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="w-full sm:w-96 p-4">
@@ -48,7 +48,7 @@ const VerificationForm = () => {
                   {...register("code", {
                     required: true,
                     minLength: 6,
-                    maxLength: 6,
+                    maxLength: 6
                   })}
                 />
               )}
