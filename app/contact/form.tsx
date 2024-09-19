@@ -1,16 +1,16 @@
 "use client";
 
 import { User } from "@clerk/nextjs/dist/types/server";
-import { Button, CircularProgress, Input, Textarea } from "@nextui-org/react";
-import { useFormState, useFormStatus } from "react-dom";
+import { Input, Textarea } from "@nextui-org/react";
+import { useFormState } from "react-dom";
 import { submitForm } from "../actions";
 import SubmitButton from "@/components/form/SubmitButton";
 
 type ContactFormProps = {
-  user?: User | null;
+  userEmail?: string;
 };
 
-const ContactForm = ({ user }: ContactFormProps) => {
+const ContactForm = ({ userEmail }: ContactFormProps) => {
   const [state, submit] = useFormState(submitForm, {
     status: "idle"
   });
@@ -21,7 +21,7 @@ const ContactForm = ({ user }: ContactFormProps) => {
         <div className="flex gap-3 flex-col mb-4 max-w-96">
           <Input
             required
-            defaultValue={user ? user?.emailAddresses[0].toString() : ""}
+            defaultValue={userEmail ? userEmail : ""}
             name="email"
             placeholder="Email address..."
             type="text"

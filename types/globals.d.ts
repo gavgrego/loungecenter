@@ -10,6 +10,7 @@ declare global {
       alliances: [];
       hasPriorityPass: boolean;
     };
+    userEmail: string;
   }
 }
 
