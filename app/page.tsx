@@ -13,15 +13,15 @@ const Home = async () => {
   const lounges = await getFeaturedLounges();
   return (
     <section className="flex flex-col justify-center gap-4 py-8 md:py-10">
-      <div className="flex flex-row gap-4 text-6xl items-center justify-center">
+      <div className="flex flex-row gap-4 text-2xl md:text-5xl items-center justify-center">
         <p>✈️</p>
         <p>🛋️</p>
-        <h2 className="font-semibold text-5xl">LoungeCenter</h2>
+        <h2 className="font-semibold text-2xl md:text-5xl">LoungeCenter</h2>
       </div>
 
       <Search placeholder="Find a lounge or airport..." />
       <h1 className="text-center mb-10">Popular Lounges</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-evenly content-evenly justify-items-center items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 justify-evenly content-evenly justify-items-center items-center">
         {lounges?.map((lounge) => {
           return (
             <LoungeCard
