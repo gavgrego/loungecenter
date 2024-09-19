@@ -23,7 +23,7 @@ const AirportCard = ({ airport, ...props }: AirportCardProps) => {
       >
         <CardHeader className="text-center">
           <h2 className="text-lg">{airport?.attributes?.name}</h2>
-          <h3 className="text-8xl text-secondary-400">
+          <h3 className="text-8xl text-secondary-300">
             {airport?.attributes?.code}
           </h3>
         </CardHeader>

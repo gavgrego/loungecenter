@@ -33,11 +33,11 @@ const LoungeCard = async ({
   return (
     <Link
       href={`/lounges/${airportData?.code}/${slug}`}
-      className="max-w-[400px] w-full"
+      className="max-w-[400px] w-full h-full"
     >
       <Card
         shadow="lg"
-        className={`relative overflow-visible ${className} transform hover:scale-105 transition-all bg-foreground-50`}
+        className={`relative overflow-visible h-full ${className} transform hover:scale-105 transition-all bg-foreground-50`}
       >
         {hasLoungeAccess ? (
           <Tooltip closeDelay={100} content="You have access to this lounge!">
@@ -49,40 +49,44 @@ const LoungeCard = async ({
             />
           </Tooltip>
         ) : null}
+        <div className="flex flex-col justify-between h-full">
+          <div>
+            <CardHeader className="flex flex-col gap-2">
+              <h2 className="text-xl text-center font-semibold w-full text-secondary-300">
+                {lounge?.attributes?.name}
+              </h2>
 
-        <CardHeader className="flex flex-col gap-2">
-          <h2 className="text-xl text-center font-semibold w-full text-secondary-400">
-            {lounge?.attributes?.name}
-          </h2>
+              <div className="flex flex-row justify-between w-full items-center">
+                <h3 className="text-sm font-medium">
+                  {airportData?.code} - 📍{location}
+                </h3>
 
-          <div className="flex flex-row justify-between w-full items-center">
-            <h3 className="text-sm font-medium">
-              {airportData?.code} - 📍{location}
-            </h3>
-
-            <h3 className="text-sm font-medium">
-              {airportData?.city}, {airportData?.country}
-            </h3>
+                <h3 className="text-sm font-medium">
+                  {airportData?.city}, {airportData?.country}
+                </h3>
+              </div>
+            </CardHeader>
+            <ImageCarousel
+              className="my-3 [&_img]:max-h-[250px] cursor-pointer"
+              placeImages={placeDetails?.photos || []}
+            />
           </div>
-        </CardHeader>
-        <ImageCarousel
-          className="my-3 [&_img]:max-h-[250px]"
-          placeImages={placeDetails?.photos || []}
-        />
-        {/* if lounge has card access */}
-        <CardFooter>
-          {placeDetails?.currentOpeningHours?.openNow ? (
-            <div className="flex flex-row gap-3 items-center animate-bounce">
-              <div className="w-3 h-3 bg-green-600 rounded-full" />
-              Open Now!
-            </div>
-          ) : (
-            <div className="flex flex-row gap-3 items-center">
-              <div className="w-3 h-3 bg-red-600 rounded-full" />
-              <div>Currently Closed</div>
-            </div>
-          )}
-        </CardFooter>
+
+          {/* if lounge has card access */}
+          <CardFooter>
+            {placeDetails?.currentOpeningHours?.openNow ? (
+              <div className="flex flex-row gap-3 items-center animate-bounce">
+                <div className="w-3 h-3 bg-green-600 rounded-full" />
+                Open Now!
+              </div>
+            ) : (
+              <div className="flex flex-row gap-3 items-center">
+                <div className="w-3 h-3 bg-red-600 rounded-full" />
+                <div>Currently Closed</div>
+              </div>
+            )}
+          </CardFooter>
+        </div>
       </Card>
     </Link>
   );
