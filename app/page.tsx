@@ -16,7 +16,7 @@ const Home = async () => {
       <div className="flex flex-row gap-4 text-6xl items-center justify-center">
         <p>✈️</p>
         <p>🛋️</p>
-        <h2 className="font-semibold text-5xl">LoungeVault</h2>
+        <h2 className="font-semibold text-5xl">LoungeClub</h2>
       </div>
 
       <Search placeholder="Find a lounge or airport..." />

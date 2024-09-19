@@ -33,7 +33,7 @@ const Search = ({ ...props }) => {
             />
           </div>
           {isOpen ? (
-            <div className="p-4 rounded shadow-lg absolute top-12 w-full z-50 bg-white">
+            <div className="p-4 rounded shadow-lg absolute top-12 w-full z-50 bg-foreground">
               <Hits
                 className="max-w-[800px] "
                 hitComponent={({ hit }: { hit: LoungeHit }) => (

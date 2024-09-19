@@ -70,7 +70,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
       <Card className="w-full sm:w-96">
         <CardHeader>
           <div className="flex flex-col gap-2">
-            <h2 className="text-center">LoungeVault Pro Membership</h2>
+            <h2 className="text-center">LoungeClub Pro Membership</h2>
             <p className="text-sm text-center">
               Please fill in the details to get started.
             </p>

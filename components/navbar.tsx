@@ -7,7 +7,7 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
+  NavbarMenuItem
 } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
@@ -33,7 +33,7 @@ export const Navbar = () => {
               <p>🛋️</p>
             </div>
 
-            <p className="font-bold text-inherit text-3xl">LoungeVault</p>
+            <p className="font-bold text-inherit text-3xl">LoungeClub</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-8 justify-start ml-2">

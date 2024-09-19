@@ -31,7 +31,7 @@ const Footer = () => {
             * We are still growing our dataset! If you see any missing or wrong
             info, please send us the info (with a source to the correction)
             using our contact form. You will be automatically entered to win
-            LoungeVault merch!
+            LoungeClub merch!
           </p>
         </div>
       </div>

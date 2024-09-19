@@ -1,24 +1,24 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "LoungeVault",
+  name: "LoungeClub",
   description: "Find what lounges you have access to, quick.",
   navItems: [
     {
       label: "Lounges",
-      href: "/lounges",
+      href: "/lounges"
     },
     {
       label: "Airports",
-      href: "/airports",
+      href: "/airports"
     },
     {
       label: "Blog",
-      href: "/blog",
+      href: "/blog"
     },
     {
       label: "About",
-      href: "/about",
+      href: "/about"
     },
     {
       label: "GO PRO",
@@ -33,25 +33,25 @@ export const siteConfig = {
         | "primary"
         | "warning"
         | "danger"
-        | undefined,
-    },
+        | undefined
+    }
   ],
   navMenuItems: [
     {
       label: "Lounges",
-      href: "/lounges",
+      href: "/lounges"
     },
     {
       label: "Airports",
-      href: "/airports",
+      href: "/airports"
     },
     {
       label: "Blog",
-      href: "/blog",
+      href: "/blog"
     },
     {
       label: "About",
-      href: "/about",
+      href: "/about"
     },
     {
       label: "GO PRO",
@@ -66,11 +66,11 @@ export const siteConfig = {
         | "primary"
         | "warning"
         | "danger"
-        | undefined,
-    },
+        | undefined
+    }
   ],
   links: {
     twitter: "https://twitter.com/getnextui",
-    discord: "https://discord.gg/9b6yyZKmH4",
-  },
+    discord: "https://discord.gg/9b6yyZKmH4"
+  }
 };

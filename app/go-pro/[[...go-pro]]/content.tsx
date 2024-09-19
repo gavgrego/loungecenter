@@ -15,7 +15,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip,
+  Tooltip
 } from "@nextui-org/react";
 import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 
@@ -147,25 +147,25 @@ const GoProContent = () => {
         <Accordion selectionMode="multiple">
           <AccordionItem
             key="1"
-            aria-label="What's the difference between LoungeVault and other online airline lounge resources?"
-            title="❓ What's the difference between LoungeVault and other online airline lounge resources?"
+            aria-label="What's the difference between LoungeClub and other online airline lounge resources?"
+            title="❓ What's the difference between LoungeClub and other online airline lounge resources?"
           >
             <p className="">
-              LoungeVault provides a more intuitive, full-featured way to get
+              LoungeClub provides a more intuitive, full-featured way to get
               critical lounge information. Our data is automatically sourced and
               updated from reliable and up-to-date data sources, ensuring the
               most accurate info across the board.
             </p>
             <p className="">
               In addition to providing basic information like hours and general
-              info, a LoungeVault Pro Membership also offers real-time foot
+              info, a LoungeClub Pro Membership also offers real-time foot
               traffic data, robust filtering, the ability to easily see all
               lounges you have access to, a community of passionate Pro members
               who share exclusive info and lounge tips, and more.
             </p>
             <p className="mt-2">
               Other lounge resources are also incentivized to promote certain
-              lounges by selling lounge day passes, while LoungeVault is
+              lounges by selling lounge day passes, while LoungeClub is
               completely unbiased and community-driven.
             </p>
           </AccordionItem>
@@ -175,9 +175,9 @@ const GoProContent = () => {
             title="❓ What's the point of paying for a Pro membership when general airline lounge information is already out there for free?"
           >
             <p className="font-semibold">
-              While LoungeVault&apos;s core functionality and data will always
-              be free, Pro members get access to additional features and
-              benefits such as:
+              While LoungeClub&apos;s core functionality and data will always be
+              free, Pro members get access to additional features and benefits
+              such as:
             </p>
             <ul className="list-disc [&>li]:mx-6 [&>li]:my-3">
               <li>
