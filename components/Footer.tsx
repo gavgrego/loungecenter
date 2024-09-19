@@ -6,8 +6,8 @@ import NextLink from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full flex items-center justify-center py-3 bg-secondary-400 ">
-      <div className="container">
+    <footer className="w-full flex items-center justify-center  bg-secondary-400">
+      <div className="container mx-auto max-w-7xl py-10 px-6 flex-grow">
         <div className="flex flex-col gap-4 justify-center light light:text-white md:h-[400px]">
           {siteConfig.navItems.map((item) => (
             <NextLink
