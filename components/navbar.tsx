@@ -33,7 +33,7 @@ export const Navbar = () => {
               <p>🛋️</p>
             </div>
 
-            <p className="font-bold text-inherit text-3xl">LoungeClub</p>
+            <p className="font-bold text-inherit text-3xl">LoungeCenter</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-8 justify-start ml-2">

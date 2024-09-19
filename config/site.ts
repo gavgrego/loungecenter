@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "LoungeClub",
+  name: "LoungeCenter",
   description: "Find what lounges you have access to, quick.",
   navItems: [
     {

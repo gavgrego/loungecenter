@@ -14,7 +14,7 @@ const GoProPage = () => {
       <div className="md:basis-2/3">
         <h1 className="mb-8">Go Pro!</h1>
         <p>
-          A LoungeClub Pro Membership provides a myriad of benefits for the
+          A LoungeCenter Pro Membership provides a myriad of benefits for the
           serious traveler:
         </p>
         <GoProContent />

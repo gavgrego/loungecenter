@@ -12,7 +12,7 @@ const ContactPage = async () => {
       <p>Questions? Comments? See incorrect data? Please let me know.</p>
       <p className="text-xs">
         * Any correction of verifiable incorrect info will automatically enter
-        you to win LoungeClub merch!
+        you to win LoungeCenter merch!
       </p>
       <ContactForm userEmail={userEmail} />
     </div>
