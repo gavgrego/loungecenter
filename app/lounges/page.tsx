@@ -7,6 +7,7 @@ import getAllLounges from "@/data/lounge/getAllLounges";
 import AllLoungesTable from "./components/AllLoungesTable";
 import { Suspense } from "react";
 import { Skeleton } from "@nextui-org/react";
+import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
 
 const LoungesPage = async () => {
   const { sessionClaims } = auth();
@@ -22,18 +23,7 @@ const LoungesPage = async () => {
     <div>
       <Search placeholder="Find a lounge or airport..." />
       <h1 className="text-center mb-10">Popular Lounges</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-evenly content-evenly justify-items-center items-center">
-        {lounges?.map((lounge) => {
-          return (
-            <LoungeCard
-              key={lounge.id}
-              className="w-full"
-              lounge={lounge}
-              userCards={userCards}
-            />
-          );
-        })}
-      </div>
+      <LoungeCardGroup heading="Popular Lounges" userCards={userCards} />
       <h2 className="text-center mt-20 mb-8 text-4xl">All Lounges</h2>
 
       <Suspense

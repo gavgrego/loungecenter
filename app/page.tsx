@@ -1,7 +1,10 @@
 import LoungeCard from "@/components/lounges/LoungeCard";
+import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
 import Search from "@/components/search/Search";
 import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
 import { auth } from "@clerk/nextjs/server";
+import { Skeleton } from "@nextui-org/react";
+import { Suspense } from "react";
 
 const Home = async () => {
   const { sessionClaims } = auth();
@@ -12,27 +15,30 @@ const Home = async () => {
 
   const lounges = await getFeaturedLounges();
   return (
-    <section className="flex flex-col justify-center gap-4 py-8 md:py-10">
-      <div className="flex flex-row gap-4 text-2xl md:text-5xl items-center justify-center">
-        <p>✈️</p>
-        <p>🛋️</p>
-        <h2 className="font-semibold text-2xl md:text-5xl">LoungeCenter</h2>
-      </div>
-
+    <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
       <Search placeholder="Find a lounge or airport..." />
-      <h1 className="text-center mb-10">Popular Lounges</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 justify-evenly content-evenly justify-items-center items-center">
-        {lounges?.map((lounge) => {
-          return (
-            <LoungeCard
-              key={lounge.id}
-              className="w-full"
-              lounge={lounge}
-              userCards={userCards}
-            />
-          );
-        })}
-      </div>
+      <Suspense
+        fallback={
+          <div>
+            <Skeleton className="rounded-lg">
+              <div className="h-[80px] rounded-lg bg-default-300"></div>
+            </Skeleton>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-8 justify-evenly content-evenly justify-items-center items-center">
+              <Skeleton className="rounded-lg">
+                <div className="h-[300px] rounded-lg bg-default-300"></div>
+              </Skeleton>
+              <Skeleton className="rounded-lg">
+                <div className="h-[300px] rounded-lg bg-default-300"></div>
+              </Skeleton>
+              <Skeleton className="rounded-lg">
+                <div className="h-[300px] rounded-lg bg-default-300"></div>
+              </Skeleton>
+            </div>
+          </div>
+        }
+      >
+        <LoungeCardGroup heading="Popular Lounges" userCards={userCards} />
+      </Suspense>
     </section>
   );
 };

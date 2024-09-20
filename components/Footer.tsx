@@ -1,6 +1,7 @@
 "use client";
 
 import { siteConfig } from "@/config/site";
+import { Link } from "@nextui-org/link";
 import { revalidatePath } from "next/cache";
 import NextLink from "next/link";
 
@@ -34,9 +35,11 @@ const Footer = () => {
           </NextLink>
           <p className="text-xs max-w-[500px]">
             * We are still growing our dataset! If you see any missing or wrong
-            info, please send us the info (with a source to the correction)
-            using our contact form. You will be automatically entered to win
-            LoungeCenter merch!
+            info, please send us the info (with a source to the correction){" "}
+            <Link className="text-inherit text-xs underline" href="/contact">
+              using our contact form
+            </Link>
+            . You will be automatically entered to win LoungeCenter merch!
           </p>
         </div>
       </div>
