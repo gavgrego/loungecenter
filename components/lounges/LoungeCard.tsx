@@ -37,7 +37,7 @@ const LoungeCard = async ({
     >
       <Card
         shadow="lg"
-        className={`relative overflow-visible h-full ${className} transform hover:scale-105 transition-all bg-foreground-50`}
+        className={`relative overflow-visible h-full ${className} transform sm:hover:scale-105 transition-all bg-foreground-50`}
       >
         {hasLoungeAccess ? (
           <Tooltip closeDelay={100} content="You have access to this lounge!">

@@ -21,6 +21,7 @@ import SearchInput from "./search/searchInput";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { TwitterIcon, DiscordIcon } from "@/components/icons";
+import Search from "./search/Search";
 
 export const Navbar = () => {
   return (
@@ -91,7 +92,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        <SearchInput />
+        <Search />
 
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
