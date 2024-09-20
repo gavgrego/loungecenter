@@ -6,6 +6,14 @@ import { auth } from "@clerk/nextjs/server";
 import { Skeleton } from "@nextui-org/react";
 import { Suspense } from "react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Lounge Center - Global Airport Lounges",
+  description:
+    "Find global airport lounge information, check your access, and more."
+};
+
 const Home = async () => {
   const { sessionClaims } = auth();
 

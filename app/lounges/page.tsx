@@ -8,11 +8,16 @@ import AllLoungesTable from "./components/AllLoungesTable";
 import { Suspense } from "react";
 import { Skeleton } from "@nextui-org/react";
 import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Lounge Center - Lounges",
+  description: "Find and filter all lounges, check your access, and more."
+};
 
 const LoungesPage = async () => {
   const { sessionClaims } = auth();
 
-  const lounges = await getFeaturedLounges();
   const allLounges = await getAllLounges();
 
   // if card.id in cards exists in metadata, then card is available
