@@ -52,7 +52,7 @@ const LoungeCard = async ({
         <div className="flex flex-col justify-between h-full">
           <div>
             <CardHeader className="flex flex-col gap-2">
-              <h2 className="text-xl text-center font-semibold w-full text-secondary-300">
+              <h2 className="text-xl text-center font-semibold w-full text-secondary-600">
                 {lounge?.attributes?.name}
               </h2>
 
