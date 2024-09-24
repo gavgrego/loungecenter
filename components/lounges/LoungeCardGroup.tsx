@@ -1,4 +1,3 @@
-import { Lounge } from "@/data/api/documentation";
 import LoungeCard from "./LoungeCard";
 import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
 
@@ -15,8 +14,8 @@ const LoungeCardGroup = async ({
 
   return (
     <div>
-      <h1 className="text-center mb-10">{heading}</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-8 justify-evenly content-evenly justify-items-center items-center">
+      <h2 className="text-center mb-10">{heading}</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 justify-evenly content-evenly justify-items-center items-center">
         {lounges?.map((lounge) => {
           return (
             <LoungeCard

@@ -25,7 +25,7 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
     sessionClaims?.unsafeMetadata?.cardSelections || [];
 
   return (
-    <div>
+    <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
       {airportData?.name}
       <div className="flex flex-col gap-6">
         {terminals.map((terminal) => {
@@ -33,18 +33,18 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
             (lounge) => lounge.attributes?.terminal === terminal
           );
           return (
-            <div key={terminal} className="">
-              <h2>{terminal}</h2>
-              <div className="grid md:grid-cols-3 grid-cols-1 gap-8">
+            <div key={terminal}>
+              {/* need to extend <LoungeCardGroup /> api a bit better so this can fit in */}
+              <h2 className="mb-4">{terminal}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 justify-evenly content-evenly justify-items-center items-center">
                 {lounges?.map((lounge) => {
                   return (
-                    <div key={lounge.id} className="">
-                      <LoungeCard
-                        key={lounge.id}
-                        lounge={lounge}
-                        userCards={userCards}
-                      />
-                    </div>
+                    <LoungeCard
+                      key={lounge.id}
+                      className="w-full"
+                      lounge={lounge}
+                      userCards={userCards}
+                    />
                   );
                 })}
               </div>
@@ -52,7 +52,7 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

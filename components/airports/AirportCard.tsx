@@ -23,14 +23,14 @@ const AirportCard = ({ airport, ...props }: AirportCardProps) => {
       >
         <CardHeader className="text-center">
           <h2 className="text-lg">{airport?.attributes?.name}</h2>
-          <h3 className="text-8xl text-secondary-300">
+          <h3 className="text-8xl text-secondary-300 pl-4">
             {airport?.attributes?.code}
           </h3>
         </CardHeader>
         <CardFooter>
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-row">
-              <p>{airport?.attributes?.city}</p>
+              <p>📍 {airport?.attributes?.city}</p>
               {airport?.attributes?.state && (
                 <p>, {airport?.attributes?.state}</p>
               )}

@@ -11,7 +11,7 @@ const AirportsPage = async () => {
     <div>
       <Search placeholder="Find a lounge or airport..." />
       <h1 className="text-center mb-10">Popular Airports</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-evenly content-evenly justify-items-center items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap- justify-evenly content-evenly justify-items-center items-center">
         {airports?.map((airport) => {
           return (
             <AirportCard

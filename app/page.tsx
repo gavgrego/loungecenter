@@ -1,11 +1,9 @@
-import LoungeCard from "@/components/lounges/LoungeCard";
 import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
 import Search from "@/components/search/Search";
 import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
 import { auth } from "@clerk/nextjs/server";
 import { Skeleton } from "@nextui-org/react";
 import { Suspense } from "react";
-
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,7 +19,6 @@ const Home = async () => {
   const userCards: string[] =
     sessionClaims?.unsafeMetadata?.cardSelections || [];
 
-  const lounges = await getFeaturedLounges();
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
       <Search placeholder="Find a lounge or airport..." />
