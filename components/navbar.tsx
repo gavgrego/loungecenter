@@ -15,9 +15,6 @@ import NextLink from "next/link";
 import clsx from "clsx";
 import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
-
-import SearchInput from "./search/searchInput";
-
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { TwitterIcon, DiscordIcon } from "@/components/icons";
@@ -34,7 +31,9 @@ export const Navbar = () => {
               <p>🛋️</p>
             </div>
 
-            <p className="font-bold text-inherit text-3xl">LoungeCenter</p>
+            <p className="font-bold text-inherit text-2xl sm:text-3xl">
+              LoungeCenter
+            </p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-8 justify-start ml-2">
@@ -86,7 +85,7 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+      <NavbarContent className="sm:hidden basis-1 pl-4 gap-2" justify="end">
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>

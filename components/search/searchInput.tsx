@@ -31,8 +31,7 @@ const SearchInput = ({ ...props }: SearchInputProps) => {
       autoComplete="off"
       autoCorrect="off"
       classNames={{
-        inputWrapper: "bg-default-100 w-full",
-        input: "text-sm"
+        inputWrapper: "bg-default-100 w-full"
       }}
       labelPlacement="outside"
       startContent={

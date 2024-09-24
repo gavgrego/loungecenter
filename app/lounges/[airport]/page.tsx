@@ -3,6 +3,12 @@ import { auth } from "@clerk/nextjs/server";
 import LoungeCard from "@/components/lounges/LoungeCard";
 import getAirportByCode from "@/data/airport/getAirportByCode";
 import getLoungesByAirportCode from "@/data/lounge/getLoungesByAirportCode";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Lounge Center - Airports",
+  description: "Find and filter all lounges, check your access, and more."
+};
 
 const AirportPage = async ({ params }: { params: { airport: string } }) => {
   const airport = await getAirportByCode(params.airport);
@@ -13,12 +19,10 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
     new Set(airportLounges?.data?.map((lounge) => lounge.attributes?.terminal))
   ).toSorted();
 
-  const { userId, sessionClaims } = auth();
+  const { sessionClaims } = auth();
 
   const userCards: string[] =
     sessionClaims?.unsafeMetadata?.cardSelections || [];
-
-  //  organize lounges by terminal
 
   return (
     <div>
