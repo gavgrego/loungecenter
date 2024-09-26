@@ -3,7 +3,7 @@ import { Skeleton } from "@nextui-org/react";
 const Loading = () => {
   return (
     <div className="flex flex-col md:flex-row gap-10 items-start">
-      <div className="basis-full md:basis-2/3 max-md:order-2">
+      <div className="basis-full md:basis-2/3 max-md:order-2 flex flex-col gap-3">
         <Skeleton className="rounded-lg">
           <div className="h-[20px] rounded-lg bg-default-300"></div>
         </Skeleton>
