@@ -1,31 +1,52 @@
 "use client";
 
-import { Button, Input, Textarea } from "@nextui-org/react";
+import { Button, CircularProgress, Input, Textarea } from "@nextui-org/react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import submitContactForm from "@/data/contact/submitContactForm";
+import { useEffect } from "react";
+
 type ContactFormProps = {
   userEmail?: string;
 };
 
-// wire this up when I decide to email or save in db
-const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
+const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
+  await submitContactForm({ formData: data });
+};
 
 const schema = z.object({
   email: z.string().email(),
   comments: z.string()
 });
 
-type FormData = z.infer<typeof schema>;
+export type ContactFormData = z.infer<typeof schema>;
 
 const ContactForm = ({ userEmail }: ContactFormProps) => {
   const {
     handleSubmit,
+    reset,
     control,
-    formState: { errors, isSubmitting, isValid }
-  } = useForm<FormData>({
+    formState: {
+      errors,
+      isSubmitting,
+      isSubmitted,
+      isSubmitSuccessful,
+      isValid
+    }
+  } = useForm<ContactFormData>({
     resolver: zodResolver(schema)
   });
+
+  useEffect(() => {
+    reset(
+      {
+        email: "",
+        comments: ""
+      },
+      { keepIsSubmitted: true }
+    );
+  }, [isSubmitSuccessful]);
   return (
     <div className="mt-4">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -63,16 +84,16 @@ const ContactForm = ({ userEmail }: ContactFormProps) => {
             <p className="text-red"> Comments are required</p>
           )}
 
-          {isSubmitting ? (
-            "submitting"
-          ) : (
-            <Button color="secondary" type="submit" isDisabled={!isValid}>
-              Submit
-            </Button>
+          <Button color="secondary" type="submit" isDisabled={!isValid}>
+            {isSubmitting ? <CircularProgress /> : "Submit"}
+          </Button>
+
+          {isSubmitted && (
+            <p className="text-success">
+              Form submitted successfully! We'll be in touch soon.
+            </p>
           )}
         </div>
-
-        {/* {state.status === "success" && <p>Form submitted!</p>} */}
       </form>
     </div>
   );
