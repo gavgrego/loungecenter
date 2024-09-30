@@ -255,7 +255,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           </Suspense>
         </div>
 
-        <aside className="basis-full md:basis-1/3 max-md:hidden block md:sticky md:top-16">
+        <aside className="basis-full md:basis-1/3 max-md:hidden block md:sticky md:top-20">
           <LoungeSidebar
             loungeData={loungeData}
             placeDetails={placeDetails}

@@ -25,7 +25,7 @@ const SignUp = () => {
   }
 
   return (
-    <div className="mt-10 flex items-center justify-center">
+    <div className="flex items-center justify-center">
       {/* @ts-ignore */}
       <Elements options={options} stripe={stripePromise}>
         <SignUpForm setVerifying={setVerifying} />

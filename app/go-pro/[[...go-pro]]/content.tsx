@@ -96,8 +96,8 @@ const GoProContent = () => {
           Save your credit cards/alliance status/Priority Pass membership and
           automatically see if you have access to a lounge.
         </p>
-        <div className="flex flex-row gap-8 justify-between ">
-          <div className="flex flex-col gap-6 basis-2/3">
+        <div className="flex flex-col md:flex-row gap-8 justify-between ">
+          <div className="flex flex-col gap-6 md:basis-2/3">
             <CheckboxGroup
               color="secondary"
               label="Select credit cards you have to save them to your profile:"
@@ -123,7 +123,7 @@ const GoProContent = () => {
               with a Pro membership.
             </p>
           </div>
-          <div className="basis-1/3">
+          <div className="md:basis-1/3">
             <Card
               isBlurred
               className="flex flex-col gap-2 items-center px-1 pb-1 pt-3"

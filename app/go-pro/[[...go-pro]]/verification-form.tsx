@@ -32,7 +32,7 @@ const VerificationForm = () => {
   };
 
   return (
-    <div className="mt-10 flex items-center justify-center ">
+    <div className="flex items-center justify-center ">
       {/* need to figure out why onsubmit form functionality is not working and just refreshed the page */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="w-full sm:w-96 p-4">

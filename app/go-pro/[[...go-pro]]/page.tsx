@@ -19,7 +19,7 @@ const GoProPage = () => {
         </p>
         <GoProContent />
       </div>
-      <aside className="md:basis-1/3 md:sticky md:top-16">
+      <aside className="md:basis-1/3 md:sticky md:top-20">
         {!user && isLoaded ? (
           <SignUp />
         ) : (
