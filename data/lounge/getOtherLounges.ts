@@ -8,7 +8,9 @@ const getOtherLounges = async (
     `${process.env.STRAPI_BASE_URL}/api/lounges?populate[cards][populate]=*&populate=airport&filters[airport][code][$eq]=${airportCode}&filters[id][$ne]=${currentLounge}&pagination[pageSize]=3`,
     {
       method: "GET",
-      cache: "no-cache",
+      headers: {
+        "Strapi-Response-Format": "v4"
+      }
     }
   );
 

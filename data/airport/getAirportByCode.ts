@@ -5,6 +5,9 @@ const getAirportByCode = async (code: string): Promise<AirportListResponse> => {
     `${process.env.STRAPI_BASE_URL}/api/airports?filters[code][$eq]=${code}`,
     {
       cache: "no-cache",
+      headers: {
+        "Strapi-Response-Format": "v4"
+      }
     }
   );
 

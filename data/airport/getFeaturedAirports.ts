@@ -6,7 +6,12 @@ const getFeaturedAirports = async (): Promise<
   try {
     // Ideally need to optionally pass lat, lon, and limit to the API, otherwise, it will return all lounges
     const data = await fetch(
-      `${process.env.STRAPI_BASE_URL}/api/airports?filters[featured][$eq]=true`
+      `${process.env.STRAPI_BASE_URL}/api/airports?filters[featured][$eq]=true`,
+      {
+        headers: {
+          "Strapi-Response-Format": "v4"
+        }
+      }
     );
 
     const response = await data.json();

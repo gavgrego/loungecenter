@@ -1,6 +1,7 @@
 import { Lounge } from "../api/documentation";
 import { JwtPayload } from "@clerk/types";
 
+// this needs to just be in the utils folder
 const getHasAccess = (
   loungeData: Lounge | undefined,
   sessionClaims: JwtPayload | null
