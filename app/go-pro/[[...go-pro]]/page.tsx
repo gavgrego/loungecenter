@@ -1,13 +1,12 @@
-"use client";
+import { auth } from "@clerk/nextjs/server";
 
-import { useUser } from "@clerk/nextjs";
 import { Card } from "@nextui-org/react";
-
 import GoProContent from "./content";
 import SignUp from "./sign-up";
 
 const GoProPage = () => {
-  const { user, isLoaded } = useUser();
+  const { sessionClaims } = auth();
+  console.log(sessionClaims?.userEmail);
 
   return (
     <div className="flex flex-col md:flex-row gap-10 items-start">
@@ -20,7 +19,7 @@ const GoProPage = () => {
         <GoProContent />
       </div>
       <aside className="md:basis-1/3 md:sticky md:top-20">
-        {!user && isLoaded ? (
+        {!sessionClaims?.userEmail ? (
           <SignUp />
         ) : (
           <Card className="p-4">

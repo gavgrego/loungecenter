@@ -1,7 +1,6 @@
 "use client";
 
 import { Hits, InstantSearch } from "react-instantsearch";
-
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
@@ -27,7 +26,7 @@ const Search = ({ ...props }) => {
               onBlur={() => {
                 setTimeout(() => {
                   setIsOpen(false);
-                }, 100);
+                }, 500);
               }}
               {...props}
             />

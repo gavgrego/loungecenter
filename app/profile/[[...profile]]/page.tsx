@@ -1,10 +1,8 @@
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { Divider } from "@nextui-org/react";
-
 import Settings from "./settings";
 import ManageAccount from "./manage-account";
-
 import getCards from "@/data/card/getCards";
 
 const ProfilePage = async () => {
