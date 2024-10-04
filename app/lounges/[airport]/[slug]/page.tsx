@@ -167,10 +167,10 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
               userId={userId}
             />
           </span>
-          <ImageCarousel
+          {/* <ImageCarousel
             className="my-8 w-auto [&_img]:max-h-[500px]"
             placeImages={placeImages || []}
-          />
+          /> */}
           <Divider className="my-4" />
 
           {loungeData?.notes ? (

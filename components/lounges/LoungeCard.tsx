@@ -66,10 +66,10 @@ const LoungeCard = async ({
                 </h3>
               </div>
             </CardHeader>
-            <ImageCarousel
+            {/* <ImageCarousel
               className="my-3 [&_img]:max-h-[250px] cursor-pointer"
               placeImages={placeDetails?.photos || []}
-            />
+            /> */}
           </div>
 
           {/* if lounge has card access */}
