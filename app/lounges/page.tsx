@@ -27,7 +27,6 @@ const LoungesPage = async () => {
   return (
     <div>
       <Search placeholder="Find a lounge or airport..." />
-      <h1 className="text-center mb-10">Popular Lounges</h1>
       <LoungeCardGroup heading="Popular Lounges" userCards={userCards} />
       <h2 className="text-center mt-20 mb-8 text-4xl">All Lounges</h2>
 

@@ -2,7 +2,6 @@ import { Divider, Link } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
 import dayjs from "dayjs";
 
-import Notes from "./components/Notes";
 import DirectionsAndMap from "./components/DirectionsAndMap";
 import OtherLounges from "./components/OtherLounges";
 import LoungeSidebar from "./sidebar";
@@ -18,6 +17,7 @@ import { dummyTrafficChartData } from "@/data/dummy";
 import HasLoungeAccess from "./components/HasLoungeAccess";
 import getHasAccess from "@/data/lounge/getHasAccess";
 import { Suspense } from "react";
+import Markdown from "@/components/Markdown";
 export type ChartData = { name: string; average: number; live: number }[];
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
@@ -75,7 +75,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
   let filteredChartData: ChartData = [];
 
-  // only need fetch traffic data if the user is logged in
+  // only need to fetch traffic data if the user is logged in
   if (userId) {
     const trafficData = await getTrafficData({
       name: String(loungeData?.name),
@@ -168,7 +168,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             />
           </span>
           <ImageCarousel
-            className="my-8 [&_img]:max-h-[500px]"
+            className="my-8 w-auto [&_img]:max-h-[500px]"
             placeImages={placeImages || []}
           />
           <Divider className="my-4" />
@@ -176,16 +176,15 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           {loungeData?.notes ? (
             <>
               <Divider className="my-5" />
-
               <h3 className="mb-2">❗ Important Info:</h3>
-              <Notes markdown={loungeData?.notes} />
+              <Markdown>{loungeData?.notes}</Markdown>
             </>
           ) : null}
           {loungeData?.guest && (
             <>
               <Divider className="my-5" />
               <h3 className="mb-2">👫 Guest Access:</h3>
-              <p>{loungeData?.guest}</p>
+              <Markdown>{loungeData?.guest}</Markdown>
             </>
           )}
 
