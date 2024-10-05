@@ -19,6 +19,7 @@ import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { TwitterIcon, DiscordIcon } from "@/components/icons";
 import Search from "./search/Search";
+import { UserCircle } from "@phosphor-icons/react/dist/ssr/UserCircle";
 
 export const Navbar = () => {
   return (
@@ -64,9 +65,6 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon className="text-default-500" />
-          </Link>
           <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
             <DiscordIcon className="text-default-500" />
           </Link>
@@ -74,7 +72,14 @@ export const Navbar = () => {
           <ThemeSwitch />
 
           <SignedOut>
-            <SignInButton />
+            <SignInButton>
+              <Link aria-label="Sign In">
+                <UserCircle
+                  className="text-default-500 cursor-pointer"
+                  size={24}
+                />
+              </Link>
+            </SignInButton>
           </SignedOut>
           <SignedIn>
             <UserButton
@@ -87,6 +92,25 @@ export const Navbar = () => {
 
       <NavbarContent className="sm:hidden basis-1 pl-4 gap-2" justify="end">
         <ThemeSwitch />
+        <div className="mr-1 h-[24px]">
+          <SignedOut>
+            <SignInButton>
+              <Link aria-label="Sign In">
+                <UserCircle
+                  className="text-default-500 cursor-pointer"
+                  size={24}
+                />
+              </Link>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton
+              userProfileMode="navigation"
+              userProfileUrl="/profile"
+            />
+          </SignedIn>
+        </div>
+
         <NavbarMenuToggle />
       </NavbarContent>
 

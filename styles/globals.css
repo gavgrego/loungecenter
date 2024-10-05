@@ -75,9 +75,14 @@ h1 {
 }
 
 h2 {
-  @apply text-2xl md:text-3xl font-semibold;
+  @apply text-2xl md:text-4xl font-semibold;
 }
 
 h3 {
   @apply text-xl md:text-2xl font-semibold;
+}
+
+.cl-avatarBox.cl-userButtonAvatarBox {
+  width: 24px;
+  height: 24px;
 }
