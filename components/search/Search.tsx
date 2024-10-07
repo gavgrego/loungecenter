@@ -1,6 +1,6 @@
 "use client";
 
-import { Hits, InstantSearch } from "react-instantsearch";
+import { Hits, InstantSearch, UseSearchBoxProps } from "react-instantsearch";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
@@ -10,11 +10,14 @@ import { Link } from "@nextui-org/link";
 import SearchInput from "./searchInput";
 import { useState } from "react";
 import { LoungeHit } from "@/types/search/types";
+import { InputProps } from "@nextui-org/input";
 
-const Search = ({ ...props }) => {
+type SearchProps = UseSearchBoxProps & InputProps;
+
+const Search = ({ className, placeholder }: SearchProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="mb-10 flex justify-center">
+    <div className={`flex justify-center ${className}`}>
       <InstantSearch indexName="lounge" searchClient={searchClient}>
         <div className="flex flex-col gap-4 w-full max-w-[800px] relative">
           <div className="flex flex-col gap-4">
@@ -28,7 +31,7 @@ const Search = ({ ...props }) => {
                   setIsOpen(false);
                 }, 500);
               }}
-              {...props}
+              placeholder={placeholder}
             />
           </div>
           {isOpen ? (

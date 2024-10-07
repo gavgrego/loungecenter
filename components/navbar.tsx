@@ -17,7 +17,7 @@ import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { TwitterIcon, DiscordIcon } from "@/components/icons";
+import { DiscordIcon } from "@/components/icons";
 import Search from "./search/Search";
 import { UserCircle } from "@phosphor-icons/react/dist/ssr/UserCircle";
 
@@ -137,6 +137,15 @@ export const Navbar = () => {
               </NextLink>
             </NavbarMenuItem>
           ))}
+          <NavbarMenuItem>
+            <Link
+              isExternal
+              aria-label="Discord"
+              href={siteConfig.links.discord}
+            >
+              <DiscordIcon className="text-default-500" size={32} />
+            </Link>
+          </NavbarMenuItem>
         </div>
       </NavbarMenu>
     </NextUINavbar>

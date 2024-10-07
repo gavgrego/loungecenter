@@ -6,7 +6,7 @@ const getGooglePlaceDetails = async (
 ): Promise<GooglePlace> => {
   const fields = onlyIsOpen
     ? "current_opening_hours.open_now"
-    : "photos,rating,formatted_address,nationalPhoneNumber,internationalPhoneNumber,current_opening_hours,business_status";
+    : "photos,rating,nationalPhoneNumber,internationalPhoneNumber,current_opening_hours,business_status";
   try {
     const response = await fetch(
       `https://places.googleapis.com/v1/places/${placeId}?fields=${fields}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,

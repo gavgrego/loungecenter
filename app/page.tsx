@@ -20,7 +20,7 @@ const Home = async () => {
 
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
-      <Search placeholder="Find a lounge or airport..." />
+      <Search className="mb-10" placeholder="Find a lounge or airport..." />
       <Suspense
         fallback={
           <div className="flex flex-col gap-3">

@@ -41,9 +41,58 @@ const LoungeSidebar = ({
     return loungeData?.cards?.data;
   }, [loungeData?.cards?.data]);
 
+  const AccessMethods = () => {
+    if (
+      cards?.length == 0 &&
+      !loungeData?.priorityPass &&
+      loungeData?.alliance_access?.data?.length == 0
+    )
+      return null;
+    return (
+      <div className="contents">
+        <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
+
+        <div className="flex flex-row gap-2">
+          {cards?.map((card) => {
+            return (
+              <Tooltip
+                key={card.id}
+                closeDelay={100}
+                content={card.attributes?.name}
+              >
+                <Image
+                  height={24}
+                  radius="none"
+                  src={card.attributes?.icon?.data?.attributes?.url}
+                  width={48}
+                />
+              </Tooltip>
+            );
+          })}
+          {loungeData?.priorityPass ? (
+            <Tooltip
+              closeDelay={100}
+              content={"Priority Pass (double check access rules)"}
+            >
+              <Image
+                height={25}
+                radius="none"
+                src={PriortyPass.src}
+                width={50}
+              />
+            </Tooltip>
+          ) : null}
+          {/* Alliances */}
+          {loungeData?.alliance_access?.data?.map(
+            (alliance) => alliance.attributes?.name
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-3">
-      <div className="font-medium">📍&nbsp;{placeDetails.formattedAddress}</div>
       <div className="flex flex-row gap-3">
         {phone ? (
           <Link color="secondary" className="font-medium" href={`tel:${phone}`}>
@@ -65,40 +114,8 @@ const LoungeSidebar = ({
       </div>
 
       <div className="flex flex-row gap-2 items-center">
-        <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
-
         {userId ? (
-          <>
-            {cards?.map((card) => {
-              return (
-                <Tooltip
-                  key={card.id}
-                  closeDelay={100}
-                  content={card.attributes?.name}
-                >
-                  <Image
-                    height={24}
-                    radius="none"
-                    src={card.attributes?.icon?.data?.attributes?.url}
-                    width={48}
-                  />
-                </Tooltip>
-              );
-            })}
-            {loungeData?.priorityPass ? (
-              <Tooltip
-                closeDelay={100}
-                content={"Priority Pass (double check access rules)"}
-              >
-                <Image
-                  height={25}
-                  radius="none"
-                  src={PriortyPass.src}
-                  width={50}
-                />
-              </Tooltip>
-            ) : null}
-          </>
+          <AccessMethods />
         ) : (
           <Tooltip
             closeDelay={100}

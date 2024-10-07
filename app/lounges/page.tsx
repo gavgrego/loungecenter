@@ -1,7 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
 
-import LoungeCard from "@/components/lounges/LoungeCard";
-import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
 import Search from "@/components/search/Search";
 import getAllLounges from "@/data/lounge/getAllLounges";
 import AllLoungesTable from "./components/AllLoungesTable";
@@ -26,7 +24,7 @@ const LoungesPage = async () => {
 
   return (
     <div>
-      <Search placeholder="Find a lounge or airport..." />
+      <Search className="mb-10" placeholder="Find a lounge or airport..." />
       <LoungeCardGroup heading="Popular Lounges" userCards={userCards} />
       <h2 className="text-center mt-20 mb-8 text-4xl">All Lounges</h2>
 
