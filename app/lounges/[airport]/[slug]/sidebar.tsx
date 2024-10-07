@@ -3,6 +3,8 @@
 import {
   Accordion,
   AccordionItem,
+  Card,
+  Divider,
   Image,
   Link,
   Table,
@@ -42,8 +44,8 @@ const LoungeSidebar = ({
   }, [loungeData?.cards?.data]);
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-row gap-3">
+    <Card className="flex flex-col">
+      <div className="flex flex-row gap-3 p-3">
         {phone ? (
           <Link color="secondary" className="font-medium" href={`tel:${phone}`}>
             ☎️&nbsp;{phone}
@@ -62,8 +64,9 @@ const LoungeSidebar = ({
           </Link>
         ) : null}
       </div>
+      <Divider />
 
-      <div className="flex flex-row gap-2 items-center">
+      <div className="flex flex-row gap-2 items-center p-3">
         {userId ? (
           <AccessMethods cards={cards} loungeData={loungeData} />
         ) : (
@@ -79,50 +82,63 @@ const LoungeSidebar = ({
           </Tooltip>
         )}
       </div>
+      <Divider />
+
       {loungeData?.ambiguous_access ? (
-        <div>
-          ⁉️{" "}
-          <em className="text-sm">
-            This lounge has peculiar access rules/methods, please double check
-            before visiting!
-          </em>
+        <div className="p-3">
+          <Divider />
+
+          <div>
+            ⁉️{" "}
+            <em className="text-sm">
+              This lounge has peculiar access rules/methods, please double check
+              before visiting!
+            </em>
+          </div>
         </div>
       ) : null}
 
-      {/* don't nest ternaries, kids */}
-      {placeDetails.businessStatus === "CLOSED_TEMPORARILY" ? (
-        <h3 className="text-red-600">
-          ⛔ Unfortunately, this lounge is temporarily closed.
-        </h3>
-      ) : placeDetails.currentOpeningHours ? (
-        <Accordion className="p-0" defaultExpandedKeys={["1"]}>
-          <AccordionItem
-            key={1}
-            aria-label="Open Hours"
-            title={<Hours open={placeDetails.currentOpeningHours?.openNow} />}
-          >
-            <Table hideHeader isStriped>
-              <TableHeader>
-                <TableColumn>Weekly Hours</TableColumn>
-              </TableHeader>
-              <TableBody>
-                {placeDetails.currentOpeningHours?.weekdayDescriptions.map(
-                  (day) => {
-                    return (
-                      <TableRow key={day} className="mb-2">
-                        <TableCell className="font-semibold">{day}</TableCell>
-                      </TableRow>
-                    );
-                  }
-                )}
-              </TableBody>
-            </Table>
-          </AccordionItem>
-        </Accordion>
-      ) : null}
+      {/* don't nest ternaries */}
+      <div className="p-3">
+        {placeDetails.businessStatus === "CLOSED_TEMPORARILY" ? (
+          <h3 className="text-red-600">
+            ⛔ Unfortunately, this lounge is temporarily closed.
+          </h3>
+        ) : placeDetails.currentOpeningHours ? (
+          <Accordion className="p-0" defaultExpandedKeys={["1"]}>
+            <AccordionItem
+              classNames={{
+                trigger: "p-0"
+              }}
+              key={1}
+              aria-label="Open Hours"
+              title={<Hours open={placeDetails.currentOpeningHours?.openNow} />}
+            >
+              <Table hideHeader isStriped radius="none" shadow="none">
+                <TableHeader>
+                  <TableColumn>Weekly Hours</TableColumn>
+                </TableHeader>
+                <TableBody>
+                  {placeDetails.currentOpeningHours?.weekdayDescriptions.map(
+                    (day) => {
+                      return (
+                        <TableRow key={day} className="mb-2">
+                          <TableCell className="font-semibold">{day}</TableCell>
+                        </TableRow>
+                      );
+                    }
+                  )}
+                </TableBody>
+              </Table>
+            </AccordionItem>
+          </Accordion>
+        ) : null}
+      </div>
+
+      <Divider />
 
       {placeDetails.rating ? (
-        <div className="flex flex-row gap-2 items-center">
+        <div className="flex flex-row gap-2 items-center p-3">
           <div className="flex items-center flex-row gap-1">
             <Tooltip closeDelay={100} content="Live ratings from Google!">
               <Info size={20} />
@@ -135,7 +151,7 @@ const LoungeSidebar = ({
           </div>
         </div>
       ) : null}
-    </div>
+    </Card>
   );
 };
 

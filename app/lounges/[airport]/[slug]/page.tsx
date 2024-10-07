@@ -130,7 +130,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
       <div className="flex flex-col md:flex-row gap-10 items-start">
         <div className="basis-full md:basis-2/3 max-md:order-2">
           <div className="flex flex-row gap-4 items-center">
-            <h1 className="text-4xl font-semibold">{loungeData?.name}</h1>
+            <h1 className="text-4xl font-semibold mb-2">{loungeData?.name}</h1>
             {hasLoungeAccess ? (
               <HasLoungeAccess
                 hasMatchingCard={hasMatchingCard}
