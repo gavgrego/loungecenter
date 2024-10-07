@@ -18,10 +18,10 @@ import { useMemo } from "react";
 
 import Hours from "./components/Hours";
 
-import PriortyPass from "@/public/priority-pass.jpg";
 import { Lounge } from "@/data/api/documentation";
 import { GooglePlace } from "@/types/googlePlaces/types";
 import { ArrowSquareOut } from "@phosphor-icons/react";
+import AccessMethods from "./components/AccessMethods";
 type LoungeSidebarProps = {
   loungeData: Lounge | undefined;
   placeDetails: GooglePlace;
@@ -40,56 +40,6 @@ const LoungeSidebar = ({
   const cards = useMemo(() => {
     return loungeData?.cards?.data;
   }, [loungeData?.cards?.data]);
-
-  const AccessMethods = () => {
-    if (
-      cards?.length == 0 &&
-      !loungeData?.priorityPass &&
-      loungeData?.alliance_access?.data?.length == 0
-    )
-      return null;
-    return (
-      <div className="contents">
-        <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
-
-        <div className="flex flex-row gap-2">
-          {cards?.map((card) => {
-            return (
-              <Tooltip
-                key={card.id}
-                closeDelay={100}
-                content={card.attributes?.name}
-              >
-                <Image
-                  height={24}
-                  radius="none"
-                  src={card.attributes?.icon?.data?.attributes?.url}
-                  width={48}
-                />
-              </Tooltip>
-            );
-          })}
-          {loungeData?.priorityPass ? (
-            <Tooltip
-              closeDelay={100}
-              content={"Priority Pass (double check access rules)"}
-            >
-              <Image
-                height={25}
-                radius="none"
-                src={PriortyPass.src}
-                width={50}
-              />
-            </Tooltip>
-          ) : null}
-          {/* Alliances */}
-          {loungeData?.alliance_access?.data?.map(
-            (alliance) => alliance.attributes?.name
-          )}
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -115,7 +65,7 @@ const LoungeSidebar = ({
 
       <div className="flex flex-row gap-2 items-center">
         {userId ? (
-          <AccessMethods />
+          <AccessMethods cards={cards} loungeData={loungeData} />
         ) : (
           <Tooltip
             closeDelay={100}
