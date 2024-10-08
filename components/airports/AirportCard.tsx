@@ -18,7 +18,7 @@ const AirportCard = ({ airport, ...props }: AirportCardProps) => {
     >
       <Card
         shadow="lg"
-        className="transform hover:scale-105 transition-all bg-foreground-50 "
+        className={`relative overflow-visible h-full ${props.className} transform sm:hover:scale-105 transition-all bg-foreground-50`}
         {...props}
       >
         <CardHeader className="text-center">

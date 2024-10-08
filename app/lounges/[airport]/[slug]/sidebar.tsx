@@ -85,17 +85,16 @@ const LoungeSidebar = ({
       <Divider />
 
       {loungeData?.ambiguous_access ? (
-        <div className="p-3">
-          <Divider />
-
-          <div>
+        <>
+          <div className="p-3">
             ⁉️{" "}
             <em className="text-sm">
               This lounge has peculiar access rules/methods, please double check
               before visiting!
             </em>
           </div>
-        </div>
+          <Divider />
+        </>
       ) : null}
 
       {/* don't nest ternaries */}

@@ -14,7 +14,7 @@ const LoungeCardGroup = async ({
 
   return (
     <div>
-      <h2 className="text-center mb-10">{heading}</h2>
+      <h1 className="text-center mb-10">{heading}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 justify-evenly content-evenly justify-items-center items-center">
         {lounges?.map((lounge) => {
           return (
