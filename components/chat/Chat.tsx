@@ -1,35 +1,83 @@
 "use client";
 
 import { useChat } from "ai/react";
+import {
+  Modal,
+  Button,
+  Input,
+  Card,
+  CardBody,
+  Spinner,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  ModalContent
+} from "@nextui-org/react";
 
-const Chat = () => {
+const ChatbotModal = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
-      // this route is the default when using useChat, but I wanted to show it here
-      api: "/api/chat",
-      streamProtocol: "text"
+      api: "/api/chat" // Make sure to create this API route in your Next.js app
     });
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map((message) => (
-        <div key={message.id} className="whitespace-pre-wrap">
-          {message.role === "user" ? "User: " : "AI: "}
-          {message.content}
-        </div>
-      ))}
-
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          disabled={isLoading}
-          placeholder="Talk to the AI..."
-          onChange={handleInputChange}
-        />
-      </form>
-    </div>
+    <>
+      <Button onPress={onOpen} color="secondary">
+        Talk to Termie
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        scrollBehavior="inside"
+        size="2xl"
+      >
+        <ModalContent>
+          <ModalHeader>
+            <h2 className="text-xl font-bold">Talk to Termie</h2>
+          </ModalHeader>
+          <ModalBody>
+            <Card>
+              <CardBody className="h-[400px] overflow-y-auto">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`mb-4 p-3 rounded-lg ${
+                      message.role === "user"
+                        ? "bg-secondary text-secondary-foreground ml-auto"
+                        : "bg-default-100"
+                    } max-w-[80%] ${message.role === "user" ? "ml-auto" : "mr-auto"}`}
+                  >
+                    {message.content}
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="flex items-center space-x-2">
+                    <Spinner size="sm" />
+                    <span>Termie is thinking...</span>
+                  </div>
+                )}
+              </CardBody>
+            </Card>
+          </ModalBody>
+          <ModalFooter>
+            <form onSubmit={handleSubmit} className="flex w-full space-x-2">
+              <Input
+                value={input}
+                onChange={handleInputChange}
+                placeholder="Type your message..."
+                className="flex-grow"
+              />
+              <Button type="submit" color="secondary" isLoading={isLoading}>
+                Send
+              </Button>
+            </form>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
-export default Chat;
+export default ChatbotModal;

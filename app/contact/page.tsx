@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 
 import ContactForm from "./form";
-import Chat from "@/components/chat/Chat";
+import ChatBotModal from "@/components/chat/Chat";
 
 const ContactPage = async () => {
   const user = auth();
@@ -16,7 +16,7 @@ const ContactPage = async () => {
         you to win LoungeCenter merch!
       </p>
       <ContactForm userEmail={userEmail} />
-      <Chat />
+      <ChatBotModal />
     </div>
   );
 };

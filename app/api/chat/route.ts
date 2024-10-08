@@ -1,6 +1,5 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { convertToCoreMessages, generateText, streamText } from "ai";
-import { create } from "domain";
 
 // Allow streaming responses up to 10 seconds
 export const maxDuration = 10;
