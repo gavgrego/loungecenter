@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -7,7 +8,7 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem
+  NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
@@ -20,8 +21,25 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { DiscordIcon } from "@/components/icons";
 import Search from "./search/Search";
 import { UserCircle } from "@phosphor-icons/react/dist/ssr/UserCircle";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@nextui-org/react";
+
+enum DropdownType {
+  DESKTOP = "desktop",
+  MOBILE = "mobile",
+}
 
 export const Navbar = () => {
+  const [openDropdown, setOpenDropdown] = useState<DropdownType | null>(null);
+
+  const toggleDropdown = (dropdownType: DropdownType) => {
+    setOpenDropdown(openDropdown === dropdownType ? null : dropdownType);
+  };
+
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -31,7 +49,6 @@ export const Navbar = () => {
               <p>✈️</p>
               <p>🛋️</p>
             </div>
-
             <p className="font-bold text-inherit text-2xl sm:text-3xl">
               LoungeCenter
             </p>
@@ -72,15 +89,34 @@ export const Navbar = () => {
           <ThemeSwitch />
 
           <SignedOut>
-            <SignInButton>
-              <Link aria-label="Sign In">
+            <Dropdown
+              isOpen={openDropdown === DropdownType.DESKTOP}
+              onClose={() => setOpenDropdown(null)}
+            >
+              <DropdownTrigger>
                 <UserCircle
                   className="text-default-500 cursor-pointer"
                   size={24}
+                  onClick={() => toggleDropdown(DropdownType.DESKTOP)}
                 />
-              </Link>
-            </SignInButton>
+              </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem key="signin">
+                  <SignInButton>
+                    <Link color="secondary" aria-label="Sign In">
+                      Sign In
+                    </Link>
+                  </SignInButton>
+                </DropdownItem>
+                <DropdownItem key="signup">
+                  <Link color="secondary" href="/go-pro">
+                    Sign Up
+                  </Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </SignedOut>
+
           <SignedIn>
             <UserButton
               userProfileMode="navigation"
@@ -94,14 +130,32 @@ export const Navbar = () => {
         <ThemeSwitch />
         <div className="mr-1 h-[24px]">
           <SignedOut>
-            <SignInButton>
-              <Link aria-label="Sign In">
+            <Dropdown
+              isOpen={openDropdown === DropdownType.MOBILE}
+              onClose={() => setOpenDropdown(null)}
+            >
+              <DropdownTrigger>
                 <UserCircle
                   className="text-default-500 cursor-pointer"
                   size={24}
+                  onClick={() => toggleDropdown(DropdownType.MOBILE)}
                 />
-              </Link>
-            </SignInButton>
+              </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem key="signin">
+                  <SignInButton>
+                    <Link color="secondary" aria-label="Sign In">
+                      Sign In
+                    </Link>
+                  </SignInButton>
+                </DropdownItem>
+                <DropdownItem key="signup">
+                  <Link color="secondary" href="/go-pro">
+                    Sign Up
+                  </Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </SignedOut>
           <SignedIn>
             <UserButton
@@ -151,3 +205,5 @@ export const Navbar = () => {
     </NextUINavbar>
   );
 };
+
+export default Navbar;
