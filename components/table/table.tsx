@@ -7,7 +7,7 @@ import {
   TableColumn,
   TableRow,
   TableCell,
-  Pagination
+  Pagination,
 } from "@nextui-org/react";
 
 import { flexRender, Table as TTable } from "@tanstack/react-table";
@@ -42,7 +42,7 @@ const ResultsTable = <T,>({ table, setPagination }: ResultsTableProps<T>) => {
             onChange={(page) => {
               setPagination({
                 pageIndex: page - 1,
-                pageSize: table.getState().pagination.pageSize
+                pageSize: table.getState().pagination.pageSize,
               });
             }}
           />

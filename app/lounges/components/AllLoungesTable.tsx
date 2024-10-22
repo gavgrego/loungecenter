@@ -5,6 +5,7 @@ import useAllLoungesTable from "@/hooks/useAllLoungesTable";
 
 import { JwtPayload } from "@clerk/types";
 import ResultsTable from "@/components/table/table";
+import Filters from "@/components/table/Filters";
 
 type AllLoungesTableProps = {
   lounges: LoungeResponseDataObject[];
@@ -13,8 +14,12 @@ type AllLoungesTableProps = {
 
 const AllLoungesTable = ({ lounges, sessionClaims }: AllLoungesTableProps) => {
   const { table, setPagination } = useAllLoungesTable(lounges, sessionClaims);
-
-  return <ResultsTable table={table} setPagination={setPagination} />;
+  return (
+    <>
+      <Filters table={table} />
+      <ResultsTable table={table} setPagination={setPagination} />
+    </>
+  );
 };
 
 export default AllLoungesTable;

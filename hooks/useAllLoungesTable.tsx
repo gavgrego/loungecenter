@@ -7,15 +7,15 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable
+  useReactTable,
 } from "@tanstack/react-table";
-import {  useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowsDownUp,
   ArrowUp,
   ArrowDown,
   SealCheck,
-  X
+  X,
 } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
@@ -33,7 +33,7 @@ const useAllLoungesTable = <T,>(
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10
+    pageSize: 10,
   });
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -41,14 +41,14 @@ const useAllLoungesTable = <T,>(
   enum ColAccessors {
     lounge = "attributes",
     airport = "attributes.airport.data.attributes.code",
-    isOpen = "attributes.googlePlaceId"
+    isOpen = "attributes.googlePlaceId",
   }
 
   const [columnVisibility, setColumnVisibility] = useState({
     [ColAccessors.lounge]: true,
     [ColAccessors.airport]: true,
     [ColAccessors.isOpen]: sessionClaims ? true : false,
-    hasAccess: sessionClaims ? true : false
+    hasAccess: sessionClaims ? true : false,
   });
 
   const BasicSorting = (column: Column<T, unknown>): JSX.Element => {
@@ -72,8 +72,9 @@ const useAllLoungesTable = <T,>(
       {
         id: ColAccessors.lounge,
         meta: {
-          name: "Lounge"
+          name: "Lounge",
         },
+        enableColumnFilter: false,
         accessorKey: ColAccessors.lounge,
         enableSorting: true,
         sortingFn: (rowA, rowB) => {
@@ -108,15 +109,16 @@ const useAllLoungesTable = <T,>(
               {lounge.name} - {lounge.terminal}
             </Link>
           );
-        }
+        },
       },
 
       {
         id: ColAccessors.airport,
         accessorKey: ColAccessors.airport,
         meta: {
-          name: "Airport"
+          name: "Airport",
         },
+        filterFn: "equalsString",
         enableSorting: true,
         header: ({ column }) => {
           return (
@@ -140,12 +142,13 @@ const useAllLoungesTable = <T,>(
               {row.getValue(ColAccessors.airport)}
             </Link>
           );
-        }
+        },
       },
       {
         id: ColAccessors.isOpen,
         accessorKey: ColAccessors.isOpen,
         enableSorting: false,
+        filterFn: "equalsString",
         header: ({ column }) => {
           return (
             <Button
@@ -163,7 +166,7 @@ const useAllLoungesTable = <T,>(
           const { isLoading, data } = useQuery({
             queryKey: ["googlePlaceDetails", row.getValue(ColAccessors.isOpen)],
             queryFn: () =>
-              getGooglePlaceDetails(row.getValue(ColAccessors.isOpen), true)
+              getGooglePlaceDetails(row.getValue(ColAccessors.isOpen), true),
           });
 
           const openStatus = (isOpen: GooglePlace | null) => {
@@ -193,13 +196,12 @@ const useAllLoungesTable = <T,>(
           };
 
           return <div>{openStatus(data || {})}</div>;
-        }
+        },
       },
       {
         id: "hasAccess",
         accessorKey: ColAccessors.lounge,
         enableSorting: false,
-
         header: ({ column }) => {
           return (
             <Button className="p-0" variant="light">
@@ -221,8 +223,8 @@ const useAllLoungesTable = <T,>(
               )}
             </div>
           );
-        }
-      }
+        },
+      },
 
       //  Add Access column at some point
     ],
@@ -237,20 +239,24 @@ const useAllLoungesTable = <T,>(
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    filterFns: {},
     state: {
       sorting,
       columnFilters,
       pagination,
-      columnVisibility
-    }
+      columnVisibility,
+    },
   });
 
   return {
     columns,
     sorting,
+    columnFilters,
+    setColumnFilters,
     setSorting,
     setPagination,
-    table
+    table,
   };
 };
 
