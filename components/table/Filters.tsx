@@ -7,12 +7,13 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@nextui-org/react";
-import { ColumnFiltersState, Table } from "@tanstack/react-table";
+import { Table } from "@tanstack/react-table";
 
 type FiltersProps<T> = {
   table: Table<T>;
 };
 
+// this generic implementation needs fixed everywhere
 const Filters = ({ table }: FiltersProps<LoungeResponseDataObject>) => {
   const columns = table
     .getAllColumns()
@@ -30,7 +31,7 @@ const Filters = ({ table }: FiltersProps<LoungeResponseDataObject>) => {
           const columnFilterValue = column.getFilterValue();
           return (
             // these need to be dynamically imported obvi
-            <DropdownItem key={column.id} closeOnSelect={false}>
+            <DropdownItem key={column.id}>
               <CheckboxGroup>
                 <Checkbox
                   value="SFO"

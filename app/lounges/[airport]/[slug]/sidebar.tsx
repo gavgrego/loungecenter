@@ -13,7 +13,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip
+  Tooltip,
 } from "@nextui-org/react";
 import { Info } from "@phosphor-icons/react/dist/ssr/Info";
 import { useMemo } from "react";
@@ -33,7 +33,7 @@ type LoungeSidebarProps = {
 const LoungeSidebar = ({
   placeDetails,
   userId,
-  loungeData
+  loungeData,
 }: LoungeSidebarProps) => {
   const phone = placeDetails.internationalPhoneNumber
     ? placeDetails.internationalPhoneNumber
@@ -77,7 +77,7 @@ const LoungeSidebar = ({
             }
           >
             <Link color="secondary" href="/go-pro">
-              🔒
+              Acess With: 🔒
             </Link>
           </Tooltip>
         )}
@@ -107,7 +107,7 @@ const LoungeSidebar = ({
           <Accordion className="p-0" defaultExpandedKeys={["1"]}>
             <AccordionItem
               classNames={{
-                trigger: "p-0"
+                trigger: "p-0",
               }}
               key={1}
               aria-label="Open Hours"

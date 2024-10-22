@@ -1,5 +1,5 @@
 import { AirportResponseDataObject } from "@/data/api/documentation";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
+import { Card, CardFooter, CardHeader } from "@nextui-org/react";
 import { CardProps } from "@nextui-org/react";
 import Link from "next/link";
 

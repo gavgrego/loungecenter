@@ -79,12 +79,12 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   if (userId) {
     const trafficData = await getTrafficData({
       name: String(loungeData?.name),
-      address: String(placeDetails.formattedAddress)
+      address: String(placeDetails.formattedAddress),
     });
 
     const liveTrafficData = await getLiveTrafficData({
       name: String(loungeData?.name),
-      address: String(placeDetails.formattedAddress)
+      address: String(placeDetails.formattedAddress),
     });
 
     // The endpoint returns hourly data starting at 6AM for the current day, and ending
@@ -108,13 +108,13 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           average: value,
           live: liveTrafficData.analysis.venue_live_busyness
             ? liveTrafficData.analysis.venue_live_busyness
-            : liveTrafficData.analysis.venue_forecasted_busyness
+            : liveTrafficData.analysis.venue_forecasted_busyness,
         });
       } else {
         chartData.push({
           name: `${hour}:00`,
           average: value,
-          live: 0
+          live: 0,
         });
       }
     });
@@ -167,10 +167,10 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
               userId={userId}
             />
           </span>
-          {/* <ImageCarousel
+          <ImageCarousel
             className="my-8 w-auto [&_img]:max-h-[500px]"
             placeImages={placeImages || []}
-          /> */}
+          />
           <Divider className="my-4" />
 
           {loungeData?.notes ? (
