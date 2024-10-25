@@ -1,6 +1,7 @@
 import { Divider, Link } from "@nextui-org/react";
 import { auth } from "@clerk/nextjs/server";
 import dayjs from "dayjs";
+import { Suspense } from "react";
 
 import DirectionsAndMap from "./components/DirectionsAndMap";
 import OtherLounges from "./components/OtherLounges";
@@ -8,15 +9,14 @@ import LoungeSidebar from "./sidebar";
 import ImageCarousel from "./components/ImageCarousel";
 import IconList from "./components/IconList";
 import TrafficChart from "./components/TrafficChart";
+import HasLoungeAccess from "./components/HasLoungeAccess";
 
 import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
 import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
 import { dummyTrafficChartData } from "@/data/dummy";
-import HasLoungeAccess from "./components/HasLoungeAccess";
 import getHasAccess from "@/data/lounge/getHasAccess";
-import { Suspense } from "react";
 import Markdown from "@/components/Markdown";
 export type ChartData = { name: string; average: number; live: number }[];
 
@@ -37,29 +37,29 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     sessionClaims?.unsafeMetadata?.alliances || [];
 
   const hasMatchingCard = userCards.some((userCard) =>
-    cards.find((card) => card.id == parseInt(userCard))
+    cards.find((card) => card.id == parseInt(userCard)),
   );
 
   const matchingCards = cards.filter((card) =>
-    userCards.includes(String(card.id))
+    userCards.includes(String(card.id)),
   );
 
   const hasMatchingAlliance = userAlliances.some((userAlliance) =>
-    alliances.find((alliance) => alliance.attributes?.value == userAlliance)
+    alliances.find((alliance) => alliance.attributes?.value == userAlliance),
   );
 
   const matchingAlliances = alliances.filter((alliance) =>
-    userAlliances.includes(alliance?.attributes?.value)
+    userAlliances.includes(alliance?.attributes?.value),
   );
 
   const hasPriorityPass = Boolean(
-    sessionClaims?.unsafeMetadata?.hasPriorityPass
+    sessionClaims?.unsafeMetadata?.hasPriorityPass,
   );
 
   const hasLoungeAccess = getHasAccess(loungeData, sessionClaims);
 
   const placeDetails = await getGooglePlaceDetails(
-    loungeData?.googlePlaceId as string
+    loungeData?.googlePlaceId as string,
   );
 
   // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
@@ -133,11 +133,11 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             <h1 className="text-4xl font-semibold mb-2">{loungeData?.name}</h1>
             {hasLoungeAccess ? (
               <HasLoungeAccess
-                hasMatchingCard={hasMatchingCard}
-                matchingCards={matchingCards}
                 hasMatchingAlliance={hasMatchingAlliance}
-                matchingAlliances={matchingAlliances}
+                hasMatchingCard={hasMatchingCard}
                 hasPriorityPass={hasPriorityPass}
+                matchingAlliances={matchingAlliances}
+                matchingCards={matchingCards}
               />
             ) : null}
           </div>

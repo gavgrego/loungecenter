@@ -1,4 +1,5 @@
 import LoungeCard from "./LoungeCard";
+
 import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
 
 type LoungeCardGroupProps = {
@@ -8,7 +9,7 @@ type LoungeCardGroupProps = {
 
 const LoungeCardGroup = async ({
   heading,
-  userCards
+  userCards,
 }: LoungeCardGroupProps) => {
   const lounges = await getFeaturedLounges();
 

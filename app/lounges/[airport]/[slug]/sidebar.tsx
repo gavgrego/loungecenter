@@ -5,7 +5,6 @@ import {
   AccordionItem,
   Card,
   Divider,
-  Image,
   Link,
   Table,
   TableBody,
@@ -17,13 +16,13 @@ import {
 } from "@nextui-org/react";
 import { Info } from "@phosphor-icons/react/dist/ssr/Info";
 import { useMemo } from "react";
+import { ArrowSquareOut } from "@phosphor-icons/react";
 
 import Hours from "./components/Hours";
+import AccessMethods from "./components/AccessMethods";
 
 import { Lounge } from "@/data/api/documentation";
 import { GooglePlace } from "@/types/googlePlaces/types";
-import { ArrowSquareOut } from "@phosphor-icons/react";
-import AccessMethods from "./components/AccessMethods";
 type LoungeSidebarProps = {
   loungeData: Lounge | undefined;
   placeDetails: GooglePlace;
@@ -47,15 +46,15 @@ const LoungeSidebar = ({
     <Card className="flex flex-col">
       <div className="flex flex-row gap-3 p-3">
         {phone ? (
-          <Link color="secondary" className="font-medium" href={`tel:${phone}`}>
+          <Link className="font-medium" color="secondary" href={`tel:${phone}`}>
             ☎️&nbsp;{phone}
           </Link>
         ) : null}
         {phone && loungeData?.moreInfo ? <>/</> : null}
         {loungeData?.moreInfo ? (
           <Link
-            color="secondary"
             className="font-medium"
+            color="secondary"
             href={loungeData.moreInfo}
             target="_blank"
           >
@@ -106,11 +105,11 @@ const LoungeSidebar = ({
         ) : placeDetails.currentOpeningHours ? (
           <Accordion className="p-0" defaultExpandedKeys={["1"]}>
             <AccordionItem
+              key={1}
+              aria-label="Open Hours"
               classNames={{
                 trigger: "p-0",
               }}
-              key={1}
-              aria-label="Open Hours"
               title={<Hours open={placeDetails.currentOpeningHours?.openNow} />}
             >
               <Table hideHeader isStriped radius="none" shadow="none">
@@ -125,7 +124,7 @@ const LoungeSidebar = ({
                           <TableCell className="font-semibold">{day}</TableCell>
                         </TableRow>
                       );
-                    }
+                    },
                   )}
                 </TableBody>
               </Table>

@@ -11,12 +11,12 @@ const submitContactForm = async ({ formData }: SubmitContactFormProps) => {
     const response = await fetch("/api/submitContactForm", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email,
-        comments
-      })
+        comments,
+      }),
     });
 
     if (!response.ok) {
@@ -24,6 +24,7 @@ const submitContactForm = async ({ formData }: SubmitContactFormProps) => {
     }
 
     const result = await response.json();
+
     console.log("Form submitted successfully:", result);
   } catch (error) {
     console.error("There was a problem with the form submission:", error);

@@ -4,8 +4,9 @@ import { Button, CircularProgress, Input, Textarea } from "@nextui-org/react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import submitContactForm from "@/data/contact/submitContactForm";
 import { useEffect } from "react";
+
+import submitContactForm from "@/data/contact/submitContactForm";
 
 type ContactFormProps = {
   userEmail?: string;
@@ -17,7 +18,7 @@ const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
 
 const schema = z.object({
   email: z.string().email(),
-  comments: z.string()
+  comments: z.string(),
 });
 
 export type ContactFormData = z.infer<typeof schema>;
@@ -32,30 +33,30 @@ const ContactForm = ({ userEmail }: ContactFormProps) => {
       isSubmitting,
       isSubmitted,
       isSubmitSuccessful,
-      isValid
-    }
+      isValid,
+    },
   } = useForm<ContactFormData>({
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema),
   });
 
   useEffect(() => {
     reset(
       {
         email: "",
-        comments: ""
+        comments: "",
       },
       { keepIsSubmitted: true }
     );
   }, [isSubmitSuccessful]);
+
   return (
     <div className="mt-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-3 flex-col mb-4 max-w-96">
           <Controller
-            name="email"
             control={control}
             defaultValue={userEmail ? userEmail : ""}
-            rules={{ required: true }}
+            name="email"
             render={({ field }) => (
               <Input
                 required
@@ -64,13 +65,13 @@ const ContactForm = ({ userEmail }: ContactFormProps) => {
                 {...field}
               />
             )}
+            rules={{ required: true }}
           />
           {errors.email && <p className="text-red">Email is required</p>}
 
           <Controller
-            name="comments"
             control={control}
-            rules={{ required: true }}
+            name="comments"
             render={({ field }) => (
               <Textarea
                 required
@@ -79,18 +80,19 @@ const ContactForm = ({ userEmail }: ContactFormProps) => {
                 {...field}
               />
             )}
+            rules={{ required: true }}
           />
           {errors.comments && (
             <p className="text-red"> Comments are required</p>
           )}
 
-          <Button color="secondary" type="submit" isDisabled={!isValid}>
+          <Button color="secondary" isDisabled={!isValid} type="submit">
             {isSubmitting ? <CircularProgress /> : "Submit"}
           </Button>
 
           {isSubmitted && (
             <p className="text-success">
-              Form submitted successfully! We'll be in touch soon.
+              Form submitted successfully! We&apos;ll be in touch soon.
             </p>
           )}
         </div>

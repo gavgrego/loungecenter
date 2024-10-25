@@ -9,12 +9,13 @@ const getFeaturedAirports = async (): Promise<
       `${process.env.STRAPI_BASE_URL}/api/airports?filters[featured][$eq]=true`,
       {
         headers: {
-          "Strapi-Response-Format": "v4"
-        }
-      }
+          "Strapi-Response-Format": "v4",
+        },
+      },
     );
 
     const response = await data.json();
+
     return response.data;
   } catch (error) {
     console.error("Error fetching lounges!", error);

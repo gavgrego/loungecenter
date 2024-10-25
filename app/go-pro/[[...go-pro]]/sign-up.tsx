@@ -12,11 +12,11 @@ const SignUp = () => {
   const [verifying, setVerifying] = useState(false);
   const options = {
     appearance: {
-      theme: "stripe"
-    }
+      theme: "stripe",
+    },
   };
   const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
   );
 
   // Render the verification form, meaning OTP email has been set

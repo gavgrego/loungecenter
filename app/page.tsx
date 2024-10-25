@@ -1,14 +1,16 @@
-import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
-import Search from "@/components/search/Search";
+import type { Metadata } from "next";
+
 import { auth } from "@clerk/nextjs/server";
 import { Skeleton } from "@nextui-org/react";
 import { Suspense } from "react";
-import type { Metadata } from "next";
+
+import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
+import Search from "@/components/search/Search";
 
 export const metadata: Metadata = {
   title: "Lounge Center - Global Airport Lounges",
   description:
-    "Find global airport lounge information, check your access, and more."
+    "Find global airport lounge information, check your access, and more.",
 };
 
 const Home = async () => {
@@ -25,13 +27,13 @@ const Home = async () => {
         fallback={
           <div className="flex flex-col gap-3">
             <Skeleton className="rounded-lg">
-              <div className="h-[80px] rounded-lg bg-default-300"></div>
+              <div className="h-[80px] rounded-lg bg-default-300" />
             </Skeleton>
             <Skeleton className="rounded-lg">
-              <div className="h-[300px] rounded-lg bg-default-300"></div>
+              <div className="h-[300px] rounded-lg bg-default-300" />
             </Skeleton>
             <Skeleton className="rounded-lg">
-              <div className="h-[300px] rounded-lg bg-default-300"></div>
+              <div className="h-[300px] rounded-lg bg-default-300" />
             </Skeleton>
           </div>
         }

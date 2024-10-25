@@ -19,16 +19,17 @@ import {
 } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
+import { useQuery } from "@tanstack/react-query";
+import { JwtPayload } from "@clerk/types";
+
 import { Lounge } from "@/data/api/documentation";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import { GooglePlace } from "@/types/googlePlaces/types";
-import { useQuery } from "@tanstack/react-query";
-import { JwtPayload } from "@clerk/types";
 import getHasAccess from "@/data/lounge/getHasAccess";
 
 const useAllLoungesTable = <T,>(
   data: T[],
-  sessionClaims: JwtPayload | null
+  sessionClaims: JwtPayload | null,
 ) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({
@@ -100,11 +101,12 @@ const useAllLoungesTable = <T,>(
         },
         cell: ({ row }) => {
           const lounge: Lounge = row.getValue(ColAccessors.lounge);
+
           return (
             <Link
+              className="font-semibold"
               color="foreground"
               href={`/lounges/${row.getValue(ColAccessors.airport)}/${lounge.slug}`}
-              className="font-semibold"
             >
               {lounge.name} - {lounge.terminal}
             </Link>
@@ -135,9 +137,9 @@ const useAllLoungesTable = <T,>(
         cell: ({ row }) => {
           return (
             <Link
+              className="font-semibold"
               color="foreground"
               href={`/lounges/${row.getValue(ColAccessors.airport)}`}
-              className="font-semibold"
             >
               {row.getValue(ColAccessors.airport)}
             </Link>
@@ -215,7 +217,7 @@ const useAllLoungesTable = <T,>(
             <div>
               {getHasAccess(
                 row.getValue(ColAccessors.lounge),
-                sessionClaims
+                sessionClaims,
               ) ? (
                 <SealCheck color="green" size={24} weight="fill" />
               ) : (
@@ -228,7 +230,7 @@ const useAllLoungesTable = <T,>(
 
       //  Add Access column at some point
     ],
-    [data]
+    [data],
   );
 
   const table = useReactTable({

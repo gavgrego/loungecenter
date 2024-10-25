@@ -7,14 +7,16 @@ const getAllLounges = async (): Promise<LoungeResponseDataObject[] | null> => {
       `${process.env.STRAPI_BASE_URL}/api/lounges?populate[cards][populate]=*&populate[alliance_access][populate]=*&populate=airport`,
       {
         headers: {
-          "Strapi-Response-Format": "v4"
-        }
-      }
+          "Strapi-Response-Format": "v4",
+        },
+      },
     );
     const data = await response.json();
+
     return data.data;
   } catch (error) {
     console.error("Error fetching lounges!", error);
+
     return null;
   }
 };

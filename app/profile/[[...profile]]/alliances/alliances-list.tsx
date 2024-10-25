@@ -159,7 +159,7 @@ const AlliancesList = ({ onChange, value }: AlliancesListProps) => {
         ),
       },
     ],
-    []
+    [],
   );
 
   return (

@@ -1,7 +1,7 @@
 import { LoungeListResponse } from "../api/documentation";
 
 const getLoungesByAirportCode = async (
-  airportCode: string
+  airportCode: string,
 ): Promise<LoungeListResponse> => {
   // CAUTION: Deep filtering is not recommended.
   // Querying your API with deep filters may cause performance issues. If one of your deep filtering queries is too slow, we recommend building a custom route with an optimized version of the query.
@@ -10,9 +10,9 @@ const getLoungesByAirportCode = async (
     `${process.env.STRAPI_BASE_URL}/api/lounges?populate[cards][populate]=*&populate=airport&filters[airport][code][$eq]=${airportCode}`,
     {
       headers: {
-        "Strapi-Response-Format": "v4"
-      }
-    }
+        "Strapi-Response-Format": "v4",
+      },
+    },
   );
 
   return await response.json();

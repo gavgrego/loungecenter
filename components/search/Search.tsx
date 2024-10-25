@@ -4,18 +4,22 @@ import { Hits, InstantSearch, UseSearchBoxProps } from "react-instantsearch";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
-  process.env.NEXT_PUBLIC_ALGOLIA_API_KEY as string
+  process.env.NEXT_PUBLIC_ALGOLIA_API_KEY as string,
 );
+
 import { Link } from "@nextui-org/link";
-import SearchInput from "./searchInput";
 import { useState } from "react";
-import { LoungeHit } from "@/types/search/types";
 import { InputProps } from "@nextui-org/input";
+
+import SearchInput from "./searchInput";
+
+import { LoungeHit } from "@/types/search/types";
 
 type SearchProps = UseSearchBoxProps & InputProps;
 
 const Search = ({ className, placeholder }: SearchProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className={`flex justify-center ${className}`}>
       <InstantSearch indexName="lounge" searchClient={searchClient}>
@@ -26,12 +30,12 @@ const Search = ({ className, placeholder }: SearchProps) => {
               //
               // figure out how to appropriately fire the Link's onClick event prior to the onBlur event, this is disgusting
               //
+              placeholder={placeholder}
               onBlur={() => {
                 setTimeout(() => {
                   setIsOpen(false);
                 }, 100);
               }}
-              placeholder={placeholder}
             />
           </div>
           {isOpen ? (

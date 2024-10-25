@@ -1,9 +1,10 @@
-import {
-  LoungeAllianceAccessDataItem,
-  LoungeCardsDataItem
-} from "@/data/api/documentation";
 import { Tooltip } from "@nextui-org/react";
 import { SealCheck } from "@phosphor-icons/react/dist/ssr";
+
+import {
+  LoungeAllianceAccessDataItem,
+  LoungeCardsDataItem,
+} from "@/data/api/documentation";
 
 type HasLoungeAccessProps = {
   hasMatchingCard: boolean;
@@ -18,7 +19,7 @@ const HasLoungeAccess = ({
   matchingAlliances,
   matchingCards,
   hasMatchingCard,
-  hasPriorityPass
+  hasPriorityPass,
 }: HasLoungeAccessProps) => {
   return (
     <Tooltip

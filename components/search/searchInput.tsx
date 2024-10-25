@@ -3,7 +3,7 @@ import { Input, InputProps } from "@nextui-org/input";
 import {
   useInstantSearch,
   useSearchBox,
-  UseSearchBoxProps
+  UseSearchBoxProps,
 } from "react-instantsearch";
 import { useState, useRef } from "react";
 
@@ -31,7 +31,7 @@ const SearchInput = ({ ...props }: SearchInputProps) => {
       autoComplete="off"
       autoCorrect="off"
       classNames={{
-        inputWrapper: "bg-default-100 w-full"
+        inputWrapper: "bg-default-100 w-full",
       }}
       labelPlacement="outside"
       startContent={

@@ -11,7 +11,7 @@ import {
   Input,
   RadioGroup,
   Radio,
-  CircularProgress
+  CircularProgress,
 } from "@nextui-org/react";
 import { useForm, Controller } from "react-hook-form";
 
@@ -25,11 +25,11 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   const elements = useElements();
   const [cardValid, setCardValid] = useState(false);
   const [subscription, setSubscription] = useState(
-    "price_1PWOniJ8buZJpCe9xpDhw0g5"
+    "price_1PWOniJ8buZJpCe9xpDhw0g5",
   );
 
   const { register, handleSubmit, getValues, control, formState } = useForm({
-    shouldUseNativeValidation: true
+    shouldUseNativeValidation: true,
   });
 
   const onSubmit = async () => {
@@ -53,8 +53,8 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
         emailAddress: getValues("emailAddress"),
         unsafeMetadata: {
           cardToken,
-          priceId: subscription
-        }
+          priceId: subscription,
+        },
       });
 
       await signUp.prepareEmailAddressVerification();

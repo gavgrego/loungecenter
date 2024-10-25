@@ -1,12 +1,14 @@
+import type { Metadata } from "next";
+
 import { auth } from "@clerk/nextjs/server";
+import { Suspense } from "react";
+import { Skeleton } from "@nextui-org/react";
+
+import AllLoungesTable from "./components/AllLoungesTable";
 
 import Search from "@/components/search/Search";
 import getAllLounges from "@/data/lounge/getAllLounges";
-import AllLoungesTable from "./components/AllLoungesTable";
-import { Suspense } from "react";
-import { Skeleton } from "@nextui-org/react";
 import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Lounge Center - Lounges",
@@ -20,11 +22,11 @@ const LoungesPage = async () => {
 
   const airportCodes = Array.from(
     new Set(
-      allLounges
-        ?.map((lounge) => lounge?.attributes?.airport?.data?.attributes?.code)
-        .filter((code) => code !== undefined)
+      allLounges?.map(
+        (lounge) => lounge?.attributes?.airport?.data?.attributes?.code
+      )
     )
-  );
+  ) as string[];
 
   // if card.id in cards exists in metadata, then card is available
   const userCards: string[] =
@@ -39,7 +41,7 @@ const LoungesPage = async () => {
       <Suspense
         fallback={
           <Skeleton className="rounded-lg">
-            <div className="h-[400px] rounded-lg bg-default-300"></div>
+            <div className="h-[400px] rounded-lg bg-default-300" />
           </Skeleton>
         }
       >

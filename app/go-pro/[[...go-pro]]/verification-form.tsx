@@ -11,7 +11,7 @@ const VerificationForm = () => {
   const router = useRouter();
 
   const { register, handleSubmit, getValues, control, formState } = useForm({
-    shouldUseNativeValidation: true
+    shouldUseNativeValidation: true,
   });
 
   const onSubmit = async () => {
@@ -19,7 +19,7 @@ const VerificationForm = () => {
 
     try {
       const signInAttempt = await signUp.attemptEmailAddressVerification({
-        code: getValues("code")
+        code: getValues("code"),
       });
 
       if (signInAttempt.status === "complete") {
@@ -48,7 +48,7 @@ const VerificationForm = () => {
                   {...register("code", {
                     required: true,
                     minLength: 6,
-                    maxLength: 6
+                    maxLength: 6,
                   })}
                 />
               )}

@@ -1,7 +1,8 @@
-import { AirportResponseDataObject } from "@/data/api/documentation";
 import { Card, CardFooter, CardHeader } from "@nextui-org/react";
 import { CardProps } from "@nextui-org/react";
 import Link from "next/link";
+
+import { AirportResponseDataObject } from "@/data/api/documentation";
 
 type AirportCardProps = {
   airport: AirportResponseDataObject;
@@ -13,12 +14,12 @@ type AirportCardProps = {
 const AirportCard = ({ airport, ...props }: AirportCardProps) => {
   return (
     <Link
-      href={`/lounges/${airport.attributes?.code}`}
       className="max-w-[400px] w-full "
+      href={`/lounges/${airport.attributes?.code}`}
     >
       <Card
-        shadow="lg"
         className={`relative overflow-visible h-full ${props.className} transform sm:hover:scale-105 transition-all bg-foreground-50`}
+        shadow="lg"
         {...props}
       >
         <CardHeader className="text-center">
@@ -45,4 +46,5 @@ const AirportCard = ({ airport, ...props }: AirportCardProps) => {
     </Link>
   );
 };
+
 export default AirportCard;

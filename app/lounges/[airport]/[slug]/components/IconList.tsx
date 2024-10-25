@@ -18,7 +18,7 @@ const IconList = ({ items }: AmenitiesProps) => {
         (
           item:
             | AirportLoungesDataItemAttributesAmenitiesDataItem
-            | AirportLoungesDataItemAttributesDetrimentsDataItem
+            | AirportLoungesDataItemAttributesDetrimentsDataItem,
         ) => {
           return (
             <div key={item.id} className="flex flex-row gap-2 items-center">
@@ -26,7 +26,7 @@ const IconList = ({ items }: AmenitiesProps) => {
               <Image src={item.attributes?.icon?.data?.attributes?.url} />
             </div>
           );
-        }
+        },
       )}
     </div>
   );

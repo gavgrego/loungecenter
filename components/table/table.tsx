@@ -9,7 +9,6 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-
 import { flexRender, Table as TTable } from "@tanstack/react-table";
 import { Dispatch, SetStateAction } from "react";
 
@@ -28,8 +27,8 @@ const ResultsTable = <T,>({ table, setPagination }: ResultsTableProps<T>) => {
 
   return (
     <Table
-      isStriped
       isCompact
+      isStriped
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
@@ -76,8 +75,8 @@ const ResultsTable = <T,>({ table, setPagination }: ResultsTableProps<T>) => {
         ) : (
           <TableRow>
             <TableCell
-              colSpan={table.getAllColumns().length}
               className="h-24 text-center"
+              colSpan={table.getAllColumns().length}
             >
               No results.
             </TableCell>

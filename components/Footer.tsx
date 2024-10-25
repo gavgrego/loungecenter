@@ -1,9 +1,10 @@
 "use client";
 
-import { siteConfig } from "@/config/site";
 import { Link } from "@nextui-org/link";
 import { revalidatePath } from "next/cache";
 import NextLink from "next/link";
+
+import { siteConfig } from "@/config/site";
 
 const Footer = () => {
   return (

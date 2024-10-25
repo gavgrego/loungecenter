@@ -15,7 +15,7 @@ const getLiveTrafficData = async ({
     `${process.env.BEST_TIME_LIVE_ENDPOINT}?${params}`,
     {
       method: "POST",
-    }
+    },
   );
 
   const data = await response.json();

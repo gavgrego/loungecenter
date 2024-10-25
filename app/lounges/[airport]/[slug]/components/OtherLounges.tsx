@@ -16,6 +16,7 @@ const OtherLounges = async ({
   ...props
 }: OtherLoungesProps) => {
   const otherLounges = await getOtherLounges(airport, currentLounge);
+
   return (
     otherLounges.length > 0 && (
       <div {...props}>

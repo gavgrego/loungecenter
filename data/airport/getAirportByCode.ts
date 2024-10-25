@@ -6,9 +6,9 @@ const getAirportByCode = async (code: string): Promise<AirportListResponse> => {
     {
       cache: "no-cache",
       headers: {
-        "Strapi-Response-Format": "v4"
-      }
-    }
+        "Strapi-Response-Format": "v4",
+      },
+    },
   );
 
   return await response.json();

@@ -15,7 +15,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip
+  Tooltip,
 } from "@nextui-org/react";
 import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 

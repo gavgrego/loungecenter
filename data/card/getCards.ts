@@ -4,8 +4,8 @@ const getCards = async (): Promise<CardListResponse> => {
   const response = await fetch(`${process.env.STRAPI_BASE_URL}/api/cards`, {
     cache: "no-cache",
     headers: {
-      "Strapi-Response-Format": "v4"
-    }
+      "Strapi-Response-Format": "v4",
+    },
   });
 
   return await response.json();

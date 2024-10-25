@@ -3,7 +3,6 @@ import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
-import ImageCarousel from "@/app/lounges/[airport]/[slug]/components/ImageCarousel";
 
 type LoungeCardProps = {
   lounge: LoungeResponseDataObject;
@@ -14,7 +13,7 @@ type LoungeCardProps = {
 const LoungeCard = async ({
   lounge,
   userCards,
-  className
+  className,
 }: LoungeCardProps) => {
   const airportData = lounge.attributes?.airport?.data?.attributes;
   const location = lounge.attributes?.terminal;
@@ -25,19 +24,19 @@ const LoungeCard = async ({
   const placeDetails = await getGooglePlaceDetails(googlePlaceId as string);
 
   const hasMatchingCard = userCards?.some((userCard) =>
-    cards.find((card) => String(card.id) == userCard)
+    cards.find((card) => String(card.id) == userCard),
   );
 
   const hasLoungeAccess = hasMatchingCard;
 
   return (
     <Link
-      href={`/lounges/${airportData?.code}/${slug}`}
       className="max-w-[400px] w-full h-full"
+      href={`/lounges/${airportData?.code}/${slug}`}
     >
       <Card
-        shadow="lg"
         className={`relative overflow-visible h-full ${className} transform sm:hover:scale-105 transition-all bg-foreground-50`}
+        shadow="lg"
       >
         {hasLoungeAccess ? (
           <Tooltip closeDelay={100} content="You have access to this lounge!">

@@ -27,14 +27,14 @@ const ChatbotModal = () => {
 
   return (
     <>
-      <Button onPress={onOpen} color="secondary">
+      <Button color="secondary" onPress={onOpen}>
         Talk to Termie
       </Button>
       <Modal
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
         scrollBehavior="inside"
         size="2xl"
+        onOpenChange={onOpenChange}
       >
         <ModalContent>
           <ModalHeader>
@@ -65,14 +65,14 @@ const ChatbotModal = () => {
             </Card>
           </ModalBody>
           <ModalFooter>
-            <form onSubmit={handleSubmit} className="flex w-full space-x-2">
+            <form className="flex w-full space-x-2" onSubmit={handleSubmit}>
               <Input
+                className="flex-grow"
+                placeholder="Type your message..."
                 value={input}
                 onChange={handleInputChange}
-                placeholder="Type your message..."
-                className="flex-grow"
               />
-              <Button type="submit" color="secondary" isLoading={isLoading}>
+              <Button color="secondary" isLoading={isLoading} type="submit">
                 Send
               </Button>
             </form>

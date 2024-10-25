@@ -16,10 +16,6 @@ import NextLink from "next/link";
 import clsx from "clsx";
 import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
-import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
-import { DiscordIcon } from "@/components/icons";
-import Search from "./search/Search";
 import { UserCircle } from "@phosphor-icons/react/dist/ssr/UserCircle";
 import {
   Dropdown,
@@ -27,6 +23,12 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/react";
+
+import Search from "./search/Search";
+
+import { siteConfig } from "@/config/site";
+import { ThemeSwitch } from "@/components/theme-switch";
+import { DiscordIcon } from "@/components/icons";
 
 enum DropdownType {
   DESKTOP = "desktop",
@@ -64,7 +66,7 @@ export const Navbar = () => {
                     item.bold ? "font-bold" : ""
                   } 
                   ${item.bounce ? "animate-bounce" : ""}
-                  `
+                  `,
                 )}
                 color={item.color ? item.color : "foreground"}
                 href={item.href}
@@ -103,7 +105,7 @@ export const Navbar = () => {
               <DropdownMenu>
                 <DropdownItem key="signin">
                   <SignInButton>
-                    <Link color="secondary" aria-label="Sign In">
+                    <Link aria-label="Sign In" color="secondary">
                       Sign In
                     </Link>
                   </SignInButton>
@@ -144,7 +146,7 @@ export const Navbar = () => {
               <DropdownMenu>
                 <DropdownItem key="signin">
                   <SignInButton>
-                    <Link color="secondary" aria-label="Sign In">
+                    <Link aria-label="Sign In" color="secondary">
                       Sign In
                     </Link>
                   </SignInButton>
@@ -181,7 +183,7 @@ export const Navbar = () => {
                     item.bold ? "font-bold" : ""
                   } 
                   ${item.bounce ? "animate-bounce" : ""}
-                  `
+                  `,
                 )}
                 color={item.color ? item.color : "foreground"}
                 href={item.href}

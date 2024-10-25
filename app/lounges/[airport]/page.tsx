@@ -1,13 +1,14 @@
+import type { Metadata } from "next";
+
 import { auth } from "@clerk/nextjs/server";
 
 import LoungeCard from "@/components/lounges/LoungeCard";
 import getAirportByCode from "@/data/airport/getAirportByCode";
 import getLoungesByAirportCode from "@/data/lounge/getLoungesByAirportCode";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Lounge Center - Airports",
-  description: "Find and filter all lounges, check your access, and more."
+  description: "Find and filter all lounges, check your access, and more.",
 };
 
 const AirportPage = async ({ params }: { params: { airport: string } }) => {
@@ -16,7 +17,7 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
   const airportLounges = await getLoungesByAirportCode(params.airport);
 
   const terminals = Array.from(
-    new Set(airportLounges?.data?.map((lounge) => lounge.attributes?.terminal))
+    new Set(airportLounges?.data?.map((lounge) => lounge.attributes?.terminal)),
   ).toSorted();
 
   const { sessionClaims } = auth();
@@ -30,8 +31,9 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
       <div className="flex flex-col gap-6">
         {terminals.map((terminal) => {
           const lounges = airportLounges?.data?.filter(
-            (lounge) => lounge.attributes?.terminal === terminal
+            (lounge) => lounge.attributes?.terminal === terminal,
           );
+
           return (
             <div key={terminal}>
               {/* need to extend <LoungeCardGroup /> api a bit better so this can fit in */}

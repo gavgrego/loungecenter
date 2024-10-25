@@ -10,9 +10,9 @@ const getFeaturedLounges = async (): Promise<
       {
         method: "GET",
         headers: {
-          "Strapi-Response-Format": "v4"
-        }
-      }
+          "Strapi-Response-Format": "v4",
+        },
+      },
     );
     const data = await response.json();
 

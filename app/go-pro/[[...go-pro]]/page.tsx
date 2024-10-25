@@ -1,11 +1,12 @@
 import { auth } from "@clerk/nextjs/server";
-
 import { Card } from "@nextui-org/react";
+
 import GoProContent from "./content";
 import SignUp from "./sign-up";
 
 const GoProPage = () => {
   const { sessionClaims } = auth();
+
   console.log(sessionClaims?.userEmail);
 
   return (

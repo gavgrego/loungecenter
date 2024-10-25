@@ -1,11 +1,11 @@
 "use client";
 
+import { JwtPayload } from "@clerk/types";
+import { useState, useMemo } from "react";
+
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import useAllLoungesTable from "@/hooks/useAllLoungesTable";
-
-import { JwtPayload } from "@clerk/types";
 import ResultsTable from "@/components/table/table";
-import { useState, useMemo } from "react";
 import Filters from "@/components/table/Filters";
 
 type AllLoungesTableProps = {
@@ -51,12 +51,12 @@ const AllLoungesTable = ({
   return (
     <>
       <Filters
-        table={table}
         currentAirportCodes={currentAirportCodes}
         selectedAirportCodes={selectedAirportCodes}
+        table={table}
         onAirportCodeSelection={handleAirportCodeSelection}
       />
-      <ResultsTable table={table} setPagination={setPagination} />
+      <ResultsTable setPagination={setPagination} table={table} />
     </>
   );
 };

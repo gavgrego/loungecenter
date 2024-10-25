@@ -4,7 +4,7 @@ import { HTMLAttributes, Suspense } from "react";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem
+  CarouselItem,
 } from "@/components/ui/carousel";
 import getGoogleImage from "@/data/lounge/getGoogleImage";
 type ImageCarouselProps = HTMLAttributes<HTMLDivElement> & {
@@ -13,13 +13,13 @@ type ImageCarouselProps = HTMLAttributes<HTMLDivElement> & {
 
 const ImageCarousel = async ({
   placeImages,
-  className
+  className,
 }: ImageCarouselProps) => {
   return (
     <div className={className}>
       <Carousel
         opts={{
-          loop: true
+          loop: true,
         }}
       >
         <CarouselContent className="-ml-3 ">

@@ -4,7 +4,6 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
 import type {
   MutationFunction,
   QueryFunction,
@@ -14,8 +13,11 @@ import type {
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import axios from "axios";
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 export type GetTerminalsParams = {
   /**
    * Sort by attributes ascending (asc) or descending (desc)

@@ -8,7 +8,7 @@ const SubmitButton = (props: SubmitButtonProps) => {
   const { pending } = useFormStatus();
 
   return (
-    <Button color="secondary" type="submit" isDisabled={pending} {...props}>
+    <Button color="secondary" isDisabled={pending} type="submit" {...props}>
       {pending ? <CircularProgress /> : "Submit"}
     </Button>
   );

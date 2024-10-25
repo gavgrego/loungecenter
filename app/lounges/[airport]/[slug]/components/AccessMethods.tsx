@@ -1,5 +1,6 @@
-import { Lounge, LoungeCardsDataItem } from "@/data/api/documentation";
 import { Image, Tooltip } from "@nextui-org/react";
+
+import { Lounge, LoungeCardsDataItem } from "@/data/api/documentation";
 import PriortyPass from "@/public/priority-pass.jpg";
 
 type AccessMethodsProps = {
@@ -14,6 +15,7 @@ const AccessMethods = ({ cards, loungeData }: AccessMethodsProps) => {
     loungeData?.alliance_access?.data?.length == 0
   )
     return null;
+
   return (
     <div className="contents">
       <h3 className="text-base flex flex-row">Access With:&nbsp;</h3>
@@ -45,7 +47,7 @@ const AccessMethods = ({ cards, loungeData }: AccessMethodsProps) => {
         ) : null}
         {/* Alliances */}
         {loungeData?.alliance_access?.data?.map(
-          (alliance) => alliance.attributes?.name
+          (alliance) => alliance.attributes?.name,
         )}
       </div>
     </div>

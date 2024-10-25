@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 
 import ContactForm from "./form";
+
 import ChatBotModal from "@/components/chat/Chat";
 
 const ContactPage = async () => {

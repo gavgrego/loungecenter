@@ -1,6 +1,5 @@
 "use client";
 
-import { LoungeResponseDataObject } from "@/data/api/documentation";
 import {
   Dropdown,
   DropdownTrigger,
@@ -10,7 +9,9 @@ import {
   CheckboxGroup,
 } from "@nextui-org/react";
 import { Table } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useState } from "react";
+
+import { LoungeResponseDataObject } from "@/data/api/documentation";
 
 type FiltersProps<T> = {
   table: Table<T>;
@@ -43,6 +44,7 @@ const Filters = ({
             value={selectedAirportCodes}
             onValueChange={(value) => {
               const newValue = value as string[];
+
               console.log(newValue);
               selectedAirportCodes.forEach((code) => {
                 if (!newValue.includes(code)) {

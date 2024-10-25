@@ -9,7 +9,7 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
 
   await clerkClient.users.deleteUser(userId as string);
   await stripe.customers.del(
-    sessionClaims?.publicMetadata.stripeCustomerId as string
+    sessionClaims?.publicMetadata.stripeCustomerId as string,
   );
 
   return NextResponse.json({ success: true });

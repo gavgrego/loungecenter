@@ -1,5 +1,6 @@
-import { Lounge } from "../api/documentation";
 import { JwtPayload } from "@clerk/types";
+
+import { Lounge } from "../api/documentation";
 
 // this needs to just be in the utils folder
 const getHasAccess = (

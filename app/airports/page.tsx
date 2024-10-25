@@ -1,8 +1,9 @@
+import { Skeleton } from "@nextui-org/react";
+import { Suspense } from "react";
+
 import AirportCard from "@/components/airports/AirportCard";
 import Search from "@/components/search/Search";
 import getFeaturedAirports from "@/data/airport/getFeaturedAirports";
-import { Skeleton } from "@nextui-org/react";
-import { Suspense } from "react";
 
 const AirportsPage = async () => {
   const airports = await getFeaturedAirports();
@@ -27,10 +28,10 @@ const AirportsPage = async () => {
       <Suspense
         fallback={
           <Skeleton className="rounded-lg">
-            <div className="h-[400px] rounded-lg bg-default-300"></div>
+            <div className="h-[400px] rounded-lg bg-default-300" />
           </Skeleton>
         }
-      ></Suspense>
+      />
     </div>
   );
 
