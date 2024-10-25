@@ -10,13 +10,21 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Lounge Center - Lounges",
-  description: "Find and filter all lounges, check your access, and more."
+  description: "Find and filter all lounges, check your access, and more.",
 };
 
 const LoungesPage = async () => {
   const { sessionClaims } = auth();
 
   const allLounges = await getAllLounges();
+
+  const airportCodes = Array.from(
+    new Set(
+      allLounges
+        ?.map((lounge) => lounge?.attributes?.airport?.data?.attributes?.code)
+        .filter((code) => code !== undefined)
+    )
+  );
 
   // if card.id in cards exists in metadata, then card is available
   const userCards: string[] =
@@ -36,6 +44,7 @@ const LoungesPage = async () => {
         }
       >
         <AllLoungesTable
+          currentAirportCodes={airportCodes}
           lounges={allLounges || []}
           sessionClaims={sessionClaims}
         />

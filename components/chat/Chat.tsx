@@ -12,14 +12,17 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  ModalContent
+  ModalContent,
 } from "@nextui-org/react";
+import { Remark } from "react-remark";
 
 const ChatbotModal = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
-      api: "/api/chat" // Make sure to create this API route in your Next.js app
+      api: "/api/chat",
+      streamProtocol: "text",
+      keepLastMessageOnError: true,
     });
 
   return (
@@ -43,13 +46,13 @@ const ChatbotModal = () => {
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`mb-4 p-3 rounded-lg ${
+                    className={`mb-4 p-3 rounded-lg [&_a]:text-secondary  ${
                       message.role === "user"
                         ? "bg-secondary text-secondary-foreground ml-auto"
                         : "bg-default-100"
                     } max-w-[80%] ${message.role === "user" ? "ml-auto" : "mr-auto"}`}
                   >
-                    {message.content}
+                    <Remark>{message.content}</Remark>
                   </div>
                 ))}
                 {isLoading && (

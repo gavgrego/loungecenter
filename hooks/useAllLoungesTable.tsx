@@ -118,7 +118,7 @@ const useAllLoungesTable = <T,>(
         meta: {
           name: "Airport",
         },
-        filterFn: "equalsString",
+        filterFn: "arrIncludes",
         enableSorting: true,
         header: ({ column }) => {
           return (
@@ -251,6 +251,7 @@ const useAllLoungesTable = <T,>(
 
   return {
     columns,
+    ColAccessors,
     sorting,
     columnFilters,
     setColumnFilters,

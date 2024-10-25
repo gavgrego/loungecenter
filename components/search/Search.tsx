@@ -29,7 +29,7 @@ const Search = ({ className, placeholder }: SearchProps) => {
               onBlur={() => {
                 setTimeout(() => {
                   setIsOpen(false);
-                }, 500);
+                }, 100);
               }}
               placeholder={placeholder}
             />
