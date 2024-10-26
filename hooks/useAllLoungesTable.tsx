@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowsDownUp,
   ArrowUp,
@@ -36,6 +36,9 @@ const useAllLoungesTable = <T,>(
     pageIndex: 0,
     pageSize: 10,
   });
+  const [selectedAirportCodes, setSelectedAirportCodes] = useState<string[]>(
+    []
+  );
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -44,6 +47,15 @@ const useAllLoungesTable = <T,>(
     airport = "attributes.airport.data.attributes.code",
     isOpen = "attributes.googlePlaceId",
   }
+
+  const handleAirportCodeSelection = useMemo(
+    () => (code: string, isSelected: boolean) => {
+      setSelectedAirportCodes((prev) =>
+        isSelected ? [...prev, code] : prev.filter((c) => c !== code)
+      );
+    },
+    []
+  );
 
   const [columnVisibility, setColumnVisibility] = useState({
     [ColAccessors.lounge]: true,
@@ -251,6 +263,16 @@ const useAllLoungesTable = <T,>(
     },
   });
 
+  useEffect(() => {
+    if (selectedAirportCodes.length > 0) {
+      table
+        .getColumn(ColAccessors.airport)
+        ?.setFilterValue(selectedAirportCodes);
+    } else {
+      table.getColumn(ColAccessors.airport)?.setFilterValue(undefined);
+    }
+  }, [selectedAirportCodes, table]);
+
   return {
     columns,
     ColAccessors,
@@ -260,6 +282,8 @@ const useAllLoungesTable = <T,>(
     setSorting,
     setPagination,
     table,
+    selectedAirportCodes,
+    handleAirportCodeSelection,
   };
 };
 

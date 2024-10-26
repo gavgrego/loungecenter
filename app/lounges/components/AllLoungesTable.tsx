@@ -1,7 +1,7 @@
 "use client";
 
 import { JwtPayload } from "@clerk/types";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import useAllLoungesTable from "@/hooks/useAllLoungesTable";
@@ -19,34 +19,13 @@ const AllLoungesTable = ({
   sessionClaims,
   currentAirportCodes,
 }: AllLoungesTableProps) => {
-  const { table, setPagination, ColAccessors } = useAllLoungesTable(
-    lounges,
-    sessionClaims
-  );
-  // this stuff probably needs moved to hook once this table component is generalized
-  const [selectedAirportCodes, setSelectedAirportCodes] = useState<string[]>(
-    []
-  );
-
-  const handleAirportCodeSelection = useMemo(
-    () => (code: string, isSelected: boolean) => {
-      setSelectedAirportCodes((prev) =>
-        isSelected ? [...prev, code] : prev.filter((c) => c !== code)
-      );
-    },
-    []
-  );
-
-  // Filter the table data based on selected airport codes
-  useMemo(() => {
-    if (selectedAirportCodes.length > 0) {
-      table
-        .getColumn(ColAccessors.airport)
-        ?.setFilterValue(selectedAirportCodes);
-    } else {
-      table.getColumn(ColAccessors.airport)?.setFilterValue(undefined);
-    }
-  }, [selectedAirportCodes, table]);
+  const {
+    table,
+    setPagination,
+    ColAccessors,
+    selectedAirportCodes,
+    handleAirportCodeSelection,
+  } = useAllLoungesTable(lounges, sessionClaims);
 
   return (
     <>
