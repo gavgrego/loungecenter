@@ -29,7 +29,7 @@ import getHasAccess from "@/data/lounge/getHasAccess";
 
 const useAllLoungesTable = <T,>(
   data: T[],
-  sessionClaims: JwtPayload | null,
+  sessionClaims: JwtPayload | null
 ) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({
@@ -120,7 +120,7 @@ const useAllLoungesTable = <T,>(
         meta: {
           name: "Airport",
         },
-        filterFn: "arrIncludes",
+        filterFn: "arrIncludesSome",
         enableSorting: true,
         header: ({ column }) => {
           return (
@@ -217,7 +217,7 @@ const useAllLoungesTable = <T,>(
             <div>
               {getHasAccess(
                 row.getValue(ColAccessors.lounge),
-                sessionClaims,
+                sessionClaims
               ) ? (
                 <SealCheck color="green" size={24} weight="fill" />
               ) : (
@@ -230,7 +230,7 @@ const useAllLoungesTable = <T,>(
 
       //  Add Access column at some point
     ],
-    [data],
+    [data]
   );
 
   const table = useReactTable({
