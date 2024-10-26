@@ -22,19 +22,21 @@ const AllLoungesTable = ({
   const {
     table,
     setPagination,
-    ColAccessors,
     selectedAirportCodes,
     handleAirportCodeSelection,
   } = useAllLoungesTable(lounges, sessionClaims);
 
   return (
     <>
-      <Filters
-        currentAirportCodes={currentAirportCodes}
-        selectedAirportCodes={selectedAirportCodes}
-        table={table}
-        onAirportCodeSelection={handleAirportCodeSelection}
-      />
+      <div className="mb-4">
+        <Filters
+          currentAirportCodes={currentAirportCodes}
+          selectedAirportCodes={selectedAirportCodes}
+          table={table}
+          onAirportCodeSelection={handleAirportCodeSelection}
+        />
+      </div>
+
       <ResultsTable setPagination={setPagination} table={table} />
     </>
   );

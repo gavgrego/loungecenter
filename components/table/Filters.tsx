@@ -1,10 +1,10 @@
 "use client";
 
 import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
   Checkbox,
   CheckboxGroup,
 } from "@nextui-org/react";
@@ -33,40 +33,40 @@ const Filters = ({
     .filter((column) => column.getCanFilter());
 
   return (
-    <Dropdown isOpen={isOpen} onOpenChange={(open) => setIsOpen(open)}>
-      <DropdownTrigger>
-        <button className="text-default-500 cursor-pointer">Filters</button>
-      </DropdownTrigger>
-      <DropdownMenu closeOnSelect={false}>
-        <DropdownItem key="airport-codes" className="capitalize">
-          <CheckboxGroup
-            label="Airport Codes"
-            value={selectedAirportCodes}
-            onValueChange={(value) => {
-              const newValue = value as string[];
+    <Popover placement="bottom">
+      <PopoverTrigger>
+        <Button color="secondary" className="cursor-pointer">
+          Filters
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-4">
+        <CheckboxGroup
+          label="Airport Codes"
+          value={selectedAirportCodes}
+          onValueChange={(value) => {
+            const newValue = value as string[];
 
-              console.log(newValue);
-              selectedAirportCodes.forEach((code) => {
-                if (!newValue.includes(code)) {
-                  onAirportCodeSelection(code, false);
-                }
-              });
-              newValue.forEach((code) => {
-                if (!selectedAirportCodes.includes(code)) {
-                  onAirportCodeSelection(code, true);
-                }
-              });
-            }}
-          >
-            {currentAirportCodes?.map((code) => (
-              <Checkbox key={code} value={code}>
-                {code}
-              </Checkbox>
-            ))}
-          </CheckboxGroup>
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+            console.log(newValue);
+            selectedAirportCodes.forEach((code) => {
+              if (!newValue.includes(code)) {
+                onAirportCodeSelection(code, false);
+              }
+            });
+            newValue.forEach((code) => {
+              if (!selectedAirportCodes.includes(code)) {
+                onAirportCodeSelection(code, true);
+              }
+            });
+          }}
+        >
+          {currentAirportCodes?.map((code) => (
+            <Checkbox key={code} value={code}>
+              {code}
+            </Checkbox>
+          ))}
+        </CheckboxGroup>
+      </PopoverContent>
+    </Popover>
   );
 };
 
