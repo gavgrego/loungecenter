@@ -27,6 +27,13 @@ import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import { GooglePlace } from "@/types/googlePlaces/types";
 import getHasAccess from "@/data/lounge/getHasAccess";
 
+export enum ColAccessors {
+  lounge = "attributes",
+  airport = "attributes.airport.data.attributes.code",
+  isOpen = "attributes.googlePlaceId",
+  hasAccess = "hasAccess",
+}
+
 const useAllLoungesTable = <T,>(
   data: T[],
   sessionClaims: JwtPayload | null
@@ -41,12 +48,6 @@ const useAllLoungesTable = <T,>(
   );
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
-  enum ColAccessors {
-    lounge = "attributes",
-    airport = "attributes.airport.data.attributes.code",
-    isOpen = "attributes.googlePlaceId",
-  }
 
   const handleAirportCodeSelection = useMemo(
     () => (code: string, isSelected: boolean) => {
@@ -216,6 +217,13 @@ const useAllLoungesTable = <T,>(
         id: "hasAccess",
         accessorKey: ColAccessors.lounge,
         enableSorting: false,
+        filterFn: (row, id, filterValue) => {
+          return (
+            getHasAccess(row.getValue(ColAccessors.lounge), sessionClaims) ===
+            filterValue
+          );
+        },
+
         header: ({ column }) => {
           return (
             <Button className="p-0" variant="light">
@@ -226,7 +234,7 @@ const useAllLoungesTable = <T,>(
 
         cell: ({ row, column }) => {
           return (
-            <div>
+            <>
               {getHasAccess(
                 row.getValue(ColAccessors.lounge),
                 sessionClaims
@@ -235,12 +243,10 @@ const useAllLoungesTable = <T,>(
               ) : (
                 <X color="red" size={24} weight="fill" />
               )}
-            </div>
+            </>
           );
         },
       },
-
-      //  Add Access column at some point
     ],
     [data]
   );
