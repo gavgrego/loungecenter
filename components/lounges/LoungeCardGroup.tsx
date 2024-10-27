@@ -1,15 +1,16 @@
 import LoungeCard from "./LoungeCard";
+import { JwtPayload } from "@clerk/types";
 
 import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
 
 type LoungeCardGroupProps = {
   heading: string;
-  userCards: string[];
+  sessionClaims: JwtPayload | null;
 };
 
 const LoungeCardGroup = async ({
   heading,
-  userCards,
+  sessionClaims,
 }: LoungeCardGroupProps) => {
   const lounges = await getFeaturedLounges();
 
@@ -23,7 +24,7 @@ const LoungeCardGroup = async ({
               key={lounge.id}
               className="w-full"
               lounge={lounge}
-              userCards={userCards}
+              sessionClaims={sessionClaims}
             />
           );
         })}

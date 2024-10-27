@@ -7,7 +7,8 @@ const getLoungeBySlug = async (slug: string): Promise<LoungeListResponse> => {
       headers: {
         "Strapi-Response-Format": "v4",
       },
-    },
+      cache: "no-cache",
+    }
   );
 
   return await response.json();
