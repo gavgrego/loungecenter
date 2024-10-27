@@ -1,7 +1,6 @@
 "use client";
 
 import { JwtPayload } from "@clerk/types";
-import { useState, useMemo, useEffect } from "react";
 
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import useAllLoungesTable from "@/hooks/useAllLoungesTable";

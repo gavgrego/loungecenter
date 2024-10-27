@@ -9,8 +9,7 @@ import {
   CheckboxGroup,
 } from "@nextui-org/react";
 import { Table } from "@tanstack/react-table";
-import { useState } from "react";
-
+import { ColAccessors } from "@/hooks/useAllLoungesTable";
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 
 type FiltersProps<T> = {
@@ -26,12 +25,6 @@ const Filters = ({
   currentAirportCodes,
   onAirportCodeSelection,
 }: FiltersProps<LoungeResponseDataObject>) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const columns = table
-    .getAllColumns()
-    .filter((column) => column.getCanFilter());
-
   return (
     <Popover placement="bottom">
       <PopoverTrigger>
@@ -46,7 +39,6 @@ const Filters = ({
           onValueChange={(value) => {
             const newValue = value as string[];
 
-            console.log(newValue);
             selectedAirportCodes.forEach((code) => {
               if (!newValue.includes(code)) {
                 onAirportCodeSelection(code, false);
@@ -64,6 +56,17 @@ const Filters = ({
               {code}
             </Checkbox>
           ))}
+        </CheckboxGroup>
+        <CheckboxGroup label="Have Access?">
+          <Checkbox
+            onValueChange={(value) => {
+              table
+                .getColumn(ColAccessors.hasAccess)
+                ?.setFilterValue(value === true ? value : undefined);
+            }}
+          >
+            Have Access?
+          </Checkbox>
         </CheckboxGroup>
       </PopoverContent>
     </Popover>
