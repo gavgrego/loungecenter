@@ -28,14 +28,13 @@ const LoungesPage = async () => {
     )
   ) as string[];
 
-  // if card.id in cards exists in metadata, then card is available
-  const userCards: string[] =
-    sessionClaims?.unsafeMetadata?.cardSelections || [];
-
   return (
     <div>
       <Search className="mb-10" placeholder="Find a lounge or airport..." />
-      <LoungeCardGroup heading="Popular Lounges" userCards={userCards} />
+      <LoungeCardGroup
+        heading="Popular Lounges"
+        sessionClaims={sessionClaims}
+      />
       <h2 className="text-center mt-20 mb-8 text-4xl">All Lounges</h2>
 
       <Suspense

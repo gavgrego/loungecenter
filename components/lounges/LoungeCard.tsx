@@ -3,31 +3,28 @@ import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
+import getHasAccess from "@/data/lounge/getHasAccess";
+import { JwtPayload } from "@clerk/types";
 
 type LoungeCardProps = {
   lounge: LoungeResponseDataObject;
-  userCards: string[];
   className?: string;
+  sessionClaims: JwtPayload | null;
 };
 
 const LoungeCard = async ({
   lounge,
-  userCards,
   className,
+  sessionClaims,
 }: LoungeCardProps) => {
   const airportData = lounge.attributes?.airport?.data?.attributes;
   const location = lounge.attributes?.terminal;
-  const cards = lounge.attributes?.cards?.data || [];
 
   const slug = lounge.attributes?.slug;
   const googlePlaceId = lounge.attributes?.googlePlaceId;
   const placeDetails = await getGooglePlaceDetails(googlePlaceId as string);
 
-  const hasMatchingCard = userCards?.some((userCard) =>
-    cards.find((card) => String(card.id) == userCard),
-  );
-
-  const hasLoungeAccess = hasMatchingCard;
+  const hasLoungeAccess = getHasAccess(lounge.attributes, sessionClaims);
 
   return (
     <Link

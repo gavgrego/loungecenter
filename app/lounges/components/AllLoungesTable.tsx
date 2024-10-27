@@ -5,7 +5,7 @@ import { JwtPayload } from "@clerk/types";
 import { LoungeResponseDataObject } from "@/data/api/documentation";
 import useAllLoungesTable from "@/hooks/useAllLoungesTable";
 import ResultsTable from "@/components/table/table";
-import Filters from "@/components/table/Filters";
+import Filters from "./Filters";
 
 type AllLoungesTableProps = {
   lounges: LoungeResponseDataObject[];
