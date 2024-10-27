@@ -17,13 +17,10 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
   const airportLounges = await getLoungesByAirportCode(params.airport);
 
   const terminals = Array.from(
-    new Set(airportLounges?.data?.map((lounge) => lounge.attributes?.terminal)),
+    new Set(airportLounges?.data?.map((lounge) => lounge.attributes?.terminal))
   ).toSorted();
 
   const { sessionClaims } = auth();
-
-  const userCards: string[] =
-    sessionClaims?.unsafeMetadata?.cardSelections || [];
 
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
@@ -31,7 +28,7 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
       <div className="flex flex-col gap-6">
         {terminals.map((terminal) => {
           const lounges = airportLounges?.data?.filter(
-            (lounge) => lounge.attributes?.terminal === terminal,
+            (lounge) => lounge.attributes?.terminal === terminal
           );
 
           return (
@@ -45,7 +42,7 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
                       key={lounge.id}
                       className="w-full"
                       lounge={lounge}
-                      userCards={userCards}
+                      sessionClaims={sessionClaims}
                     />
                   );
                 })}

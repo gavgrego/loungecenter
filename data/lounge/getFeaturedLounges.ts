@@ -6,13 +6,13 @@ const getFeaturedLounges = async (): Promise<
   try {
     // Ideally need to optionally pass lat, lon, and limit to the API, otherwise, it will return all lounges
     const response = await fetch(
-      `${process.env.STRAPI_BASE_URL}/api/lounges?populate[cards][populate]=*&populate=airport&filters[featured][$eq]=true`,
+      `${process.env.STRAPI_BASE_URL}/api/lounges?populate[alliance_access][populate]=*&populate[cards][populate]=*&populate=airport&filters[featured][$eq]=true`,
       {
         method: "GET",
         headers: {
           "Strapi-Response-Format": "v4",
         },
-      },
+      }
     );
     const data = await response.json();
 

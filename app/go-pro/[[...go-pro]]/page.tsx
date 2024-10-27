@@ -7,8 +7,6 @@ import SignUp from "./sign-up";
 const GoProPage = () => {
   const { sessionClaims } = auth();
 
-  console.log(sessionClaims?.userEmail);
-
   return (
     <div className="flex flex-col md:flex-row gap-10 items-start">
       <div className="md:basis-2/3">

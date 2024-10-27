@@ -4,33 +4,40 @@ import { CheckboxGroup, Checkbox, Switch, Tooltip } from "@nextui-org/react";
 import { useUser } from "@clerk/nextjs";
 
 import AlliancesList from "./alliances/alliances-list";
-
+import { useOptimistic, startTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { CardListResponse } from "@/data/api/documentation";
+import { updatePriortityPass } from "./actions";
+import { JwtPayload } from "@clerk/types";
+
 type SettingsProps = {
   cards: CardListResponse;
+  sessionClaims: JwtPayload | null;
 };
-const Settings = ({ cards }: SettingsProps) => {
+const Settings = ({ cards, sessionClaims }: SettingsProps) => {
   const { user } = useUser();
   const { toast } = useToast();
   const unsafeMetadata = user?.unsafeMetadata;
-
-  if (!user) return null;
-
   const cardsSelected = user?.unsafeMetadata?.cardSelections as string[];
   const loungeMemberships = user?.unsafeMetadata?.loungeMemberships as string[];
   const alliances = user?.unsafeMetadata?.alliances as string[];
 
-  const hasPriorityPass = user?.unsafeMetadata?.hasPriorityPass;
+  const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
+  const [optimisticHasPriorityPass, addOptimisticHasPriorityPass] =
+    useOptimistic(
+      Boolean(hasPriorityPass),
+      (state: boolean, value: boolean) => value
+    );
 
-  const togglePriorityPass = async () => {
+  if (!user) return null;
+
+  const togglePriorityPass = async (value: boolean) => {
     try {
-      await user.update({
-        unsafeMetadata: {
-          ...unsafeMetadata,
-          hasPriorityPass: !hasPriorityPass,
-        },
+      startTransition(() => {
+        addOptimisticHasPriorityPass(value);
       });
+      await updatePriortityPass(value);
+
       toast({
         duration: 2000,
         title:
@@ -40,7 +47,6 @@ const Settings = ({ cards }: SettingsProps) => {
     } catch {
       toast({
         duration: 2000,
-
         title:
           "Sorry, something went wrong.  Please refresh the page and try again.",
       });
@@ -150,8 +156,8 @@ const Settings = ({ cards }: SettingsProps) => {
       >
         <Switch
           color="secondary"
-          isSelected={Boolean(hasPriorityPass)}
-          onClick={() => togglePriorityPass()}
+          isSelected={optimisticHasPriorityPass}
+          onValueChange={(value: boolean) => togglePriorityPass(value)}
         >
           Do you have Priority Pass?
         </Switch>

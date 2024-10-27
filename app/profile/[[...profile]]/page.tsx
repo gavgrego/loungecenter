@@ -8,7 +8,7 @@ import ManageAccount from "./manage-account";
 import getCards from "@/data/card/getCards";
 
 const ProfilePage = async () => {
-  const { userId } = auth();
+  const { userId, sessionClaims } = auth();
 
   if (!userId) {
     redirect("/");
@@ -32,7 +32,7 @@ const ProfilePage = async () => {
       </p>
 
       {/* TODO: better loading state for this */}
-      <Settings cards={cards} />
+      <Settings cards={cards} sessionClaims={sessionClaims} />
       <Divider className="my-6" />
       <ManageAccount />
     </div>

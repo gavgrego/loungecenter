@@ -24,9 +24,10 @@ const getHasAccess = (
     alliances.find((alliance) => alliance.attributes?.value == userAlliance)
   );
 
-  const hasPriorityPass = Boolean(
-    sessionClaims?.unsafeMetadata?.hasPriorityPass
-  );
+  console.log(alliances);
+  const hasPriorityPass =
+    loungeData?.priorityPass &&
+    Boolean(sessionClaims?.unsafeMetadata?.hasPriorityPass);
 
   const hasLoungeAccess =
     hasMatchingCard || hasPriorityPass || hasMatchingAlliance;

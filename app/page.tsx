@@ -16,10 +16,6 @@ export const metadata: Metadata = {
 const Home = async () => {
   const { sessionClaims } = auth();
 
-  // if card.id in cards exists in metadata, then card is available
-  const userCards: string[] =
-    sessionClaims?.unsafeMetadata?.cardSelections || [];
-
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
       <Search className="mb-10" placeholder="Find a lounge or airport..." />
@@ -38,7 +34,10 @@ const Home = async () => {
           </div>
         }
       >
-        <LoungeCardGroup heading="Popular Lounges" userCards={userCards} />
+        <LoungeCardGroup
+          heading="Popular Lounges"
+          sessionClaims={sessionClaims}
+        />
       </Suspense>
     </section>
   );
