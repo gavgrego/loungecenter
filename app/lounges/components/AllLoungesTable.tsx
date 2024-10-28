@@ -33,6 +33,7 @@ const AllLoungesTable = ({
           selectedAirportCodes={selectedAirportCodes}
           table={table}
           onAirportCodeSelection={handleAirportCodeSelection}
+          sessionClaims={sessionClaims}
         />
       </div>
 

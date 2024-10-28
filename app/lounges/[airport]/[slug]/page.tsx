@@ -37,30 +37,31 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
     sessionClaims?.unsafeMetadata?.alliances || [];
 
   const hasMatchingCard = userCards.some((userCard) =>
-    cards.find((card) => card.id == parseInt(userCard)),
+    cards.find((card) => card.id == parseInt(userCard))
   );
 
   const matchingCards = cards.filter((card) =>
-    userCards.includes(String(card.id)),
+    userCards.includes(String(card.id))
   );
 
   const hasMatchingAlliance = userAlliances.some((userAlliance) =>
-    alliances.find((alliance) => alliance.attributes?.value == userAlliance),
+    alliances.find((alliance) => alliance.attributes?.value == userAlliance)
   );
 
   const matchingAlliances = alliances.filter((alliance) =>
-    userAlliances.includes(alliance?.attributes?.value),
+    userAlliances.includes(alliance?.attributes?.value)
   );
 
   const hasPriorityPass = Boolean(
-    sessionClaims?.unsafeMetadata?.hasPriorityPass,
+    sessionClaims?.unsafeMetadata?.hasPriorityPass
   );
 
   const hasLoungeAccess = getHasAccess(loungeData, sessionClaims);
 
   const placeDetails = await getGooglePlaceDetails(
-    loungeData?.googlePlaceId as string,
+    loungeData?.googlePlaceId as string
   );
+  console.log(placeDetails);
 
   // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
   // starts the week on Monday (0), so we need to subtract 1

@@ -163,7 +163,14 @@ const useAllLoungesTable = <T,>(
         id: ColAccessors.isOpen,
         accessorKey: ColAccessors.isOpen,
         enableSorting: false,
-        filterFn: "equalsString",
+        filterFn: (row, id, filterValue) => {
+          const { isLoading, data } = useQuery({
+            queryKey: ["googlePlaceDetails", row.getValue(ColAccessors.isOpen)],
+            queryFn: () =>
+              getGooglePlaceDetails(row.getValue(ColAccessors.isOpen), true),
+          });
+          return data?.currentOpeningHours?.openNow === filterValue;
+        },
         header: ({ column }) => {
           return (
             <Button
