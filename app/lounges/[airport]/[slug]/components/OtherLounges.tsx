@@ -1,4 +1,5 @@
 import { HTMLAttributes } from "react";
+import { auth } from "@clerk/nextjs/server";
 
 import LoungeCard from "@/components/lounges/LoungeCard";
 import getOtherLounges from "@/data/lounge/getOtherLounges";
@@ -16,6 +17,7 @@ const OtherLounges = async ({
   ...props
 }: OtherLoungesProps) => {
   const otherLounges = await getOtherLounges(airport, currentLounge);
+  const { sessionClaims } = auth();
 
   return (
     otherLounges.length > 0 && (
@@ -28,7 +30,7 @@ const OtherLounges = async ({
                 key={lounge.id}
                 className="w-full"
                 lounge={lounge}
-                userCards={userCards}
+                sessionClaims={sessionClaims}
               />
             );
           })}
