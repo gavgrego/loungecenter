@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import AirportCard from "@/components/airports/AirportCard";
 import Search from "@/components/search/Search";
 import getFeaturedAirports from "@/data/airport/getFeaturedAirports";
+import AllAirportsTable from "./components/AllAirportsTable";
 
 const AirportsPage = async () => {
   const airports = await getFeaturedAirports();
@@ -31,7 +32,9 @@ const AirportsPage = async () => {
             <div className="h-[400px] rounded-lg bg-default-300" />
           </Skeleton>
         }
-      />
+      >
+        <AllAirportsTable airports={airports || []} />
+      </Suspense>
     </div>
   );
 

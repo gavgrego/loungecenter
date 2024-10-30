@@ -25,6 +25,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/index.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/lounges/[airport]/[slug]"],
+  "include": [
+    "next-env.d.ts",
+    "**/index.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/lounges/[airport]/[slug]"
+  ],
   "exclude": ["node_modules"]
 }
