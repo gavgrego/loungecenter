@@ -57,7 +57,7 @@ const LoungeCard = async ({
                   {airportData?.code} - 📍{location}
                 </h3>
 
-                <h3 className="text-sm font-medium">
+                <h3 className="text-sm font-medium text-right">
                   {airportData?.city}, {airportData?.country}
                 </h3>
               </div>

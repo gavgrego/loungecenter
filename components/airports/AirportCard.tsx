@@ -30,7 +30,7 @@ const AirportCard = ({ airport, ...props }: AirportCardProps) => {
         </CardHeader>
         <CardFooter>
           <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-row">
+            <div className="flex flex-row text-right">
               <p>📍 {airport?.attributes?.city}</p>
               {airport?.attributes?.state && (
                 <p>, {airport?.attributes?.state}</p>

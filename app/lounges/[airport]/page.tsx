@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import LoungeCard from "@/components/lounges/LoungeCard";
 import getAirportByCode from "@/data/airport/getAirportByCode";
 import getLoungesByAirportCode from "@/data/lounge/getLoungesByAirportCode";
+import { Divider } from "@nextui-org/react";
 
 export const metadata: Metadata = {
   title: "Lounge Center - Airports",
@@ -24,8 +25,11 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
 
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
-      {airportData?.name}
-      <div className="flex flex-col gap-6">
+      <h1>
+        {airportData?.name} - ({airportData?.code})
+      </h1>
+      <Divider className="my-4" />
+      <div className="flex flex-col gap-10">
         {terminals.map((terminal) => {
           const lounges = airportLounges?.data?.filter(
             (lounge) => lounge.attributes?.terminal === terminal
