@@ -287,12 +287,6 @@ const useAllLoungesTable = <T,>(
   }, [selectedAirportCodes, table]);
 
   return {
-    columns,
-    ColAccessors,
-    sorting,
-    columnFilters,
-    setColumnFilters,
-    setSorting,
     setPagination,
     table,
     selectedAirportCodes,

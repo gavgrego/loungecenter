@@ -25,7 +25,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   const elements = useElements();
   const [cardValid, setCardValid] = useState(false);
   const [subscription, setSubscription] = useState(
-    "price_1PWOniJ8buZJpCe9xpDhw0g5",
+    "price_1PWOniJ8buZJpCe9xpDhw0g5"
   );
 
   const { register, handleSubmit, getValues, control, formState } = useForm({
@@ -66,7 +66,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="group">
       <Card className="w-full sm:w-96">
         <CardHeader>
           <div className="flex flex-col gap-2">
@@ -155,10 +155,14 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
 
           <p className="text-xs">
             After signing up, you will be sent a One Time Password code sent via
-            email to verify before being registered.{" "}
+            email to verify before being registered.
+          </p>
+          <br />
+
+          <p className="text-xs group-hover:animate-shake">
             <strong>
-              Your card will not be charged until you confirm your subscription
-              via email.
+              Your card will <em>not</em> be charged until you confirm your
+              subscription via email.
             </strong>
           </p>
         </div>

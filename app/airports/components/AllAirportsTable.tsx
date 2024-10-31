@@ -13,8 +13,8 @@ type AllAirportsTableProps = {
 export default function AllAirportsTable({ airports }: AllAirportsTableProps) {
   const {
     table,
-    selectedCountries,
-    availableCountries,
+    selectedCities,
+    availableCities,
     handleCountrySelection,
     setPagination,
   } = useAllAirportsTable(airports);
@@ -22,10 +22,9 @@ export default function AllAirportsTable({ airports }: AllAirportsTableProps) {
   return (
     <div className="space-y-4">
       <Filters
-        table={table}
-        selectedCountries={selectedCountries}
-        availableCountries={availableCountries}
-        onCountrySelection={handleCountrySelection}
+        selectedCities={selectedCities}
+        availableCities={availableCities}
+        onCitySelection={handleCountrySelection}
       />
       <ResultsTable setPagination={setPagination} table={table} />
     </div>

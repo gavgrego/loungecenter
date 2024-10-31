@@ -8,21 +8,18 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@nextui-org/react";
-import { Table } from "@tanstack/react-table";
 import { AirportResponseDataObject } from "@/data/api/documentation";
 
 type FiltersProps<T> = {
-  table: Table<T>;
-  selectedCountries: string[];
-  availableCountries?: string[];
-  onCountrySelection: (country: string, isSelected: boolean) => void;
+  selectedCities: string[];
+  availableCities?: string[];
+  onCitySelection: (city: string, isSelected: boolean) => void;
 };
 
 const Filters = ({
-  table,
-  selectedCountries,
-  availableCountries,
-  onCountrySelection,
+  selectedCities,
+  availableCities,
+  onCitySelection,
 }: FiltersProps<AirportResponseDataObject>) => {
   return (
     <Popover placement="bottom-start">
@@ -34,26 +31,26 @@ const Filters = ({
       <PopoverContent className="p-4">
         <div className="flex flex-row gap-6">
           <CheckboxGroup
-            label="Countries"
-            value={selectedCountries}
+            label="Cities"
+            value={selectedCities}
             onValueChange={(value) => {
               const newValue = value as string[];
 
-              selectedCountries.forEach((country) => {
-                if (!newValue.includes(country)) {
-                  onCountrySelection(country, false);
+              selectedCities.forEach((city) => {
+                if (!newValue.includes(city)) {
+                  onCitySelection(city, false);
                 }
               });
-              newValue.forEach((country) => {
-                if (!selectedCountries.includes(country)) {
-                  onCountrySelection(country, true);
+              newValue.forEach((city) => {
+                if (!selectedCities.includes(city)) {
+                  onCitySelection(city, true);
                 }
               });
             }}
           >
-            {availableCountries?.map((country) => (
-              <Checkbox key={country} value={country}>
-                {country}
+            {availableCities?.map((city) => (
+              <Checkbox key={city} value={city}>
+                {city}
               </Checkbox>
             ))}
           </CheckboxGroup>

@@ -6,11 +6,14 @@ import {
   SortingState,
   getSortedRowModel,
   Column,
+  ColumnFiltersState,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { useState, useMemo, useCallback } from "react";
 import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
+import { AirportResponseDataObject } from "@/data/api/documentation";
 export enum ColAccessors {
   code = "attributes.code",
   name = "attributes.name",
@@ -18,38 +21,42 @@ export enum ColAccessors {
   country = "attributes.country",
 }
 
-const useAllAirportsTable = <T,>(data: T[]) => {
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
+  const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const availableCountries = useMemo(() => {
-    const countrySet = new Set<string>(
-      data.map((airport) => ColAccessors.country)
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
+  const availableCities = useMemo(() => {
+    const citySet = new Set<string>(
+      data.map((airport) => airport?.attributes?.city || "")
     );
-    return Array.from(countrySet).sort();
+    return Array.from(citySet).sort();
   }, [data]);
 
   const filteredAirports = useMemo(() => {
-    if (selectedCountries.length === 0) return data;
+    if (selectedCities.length === 0) return data;
     return data.filter((airport) =>
-      selectedCountries.includes(ColAccessors.country)
+      selectedCities.includes(airport?.attributes?.city || "")
     );
-  }, [data, selectedCountries]);
+  }, [data, selectedCities]);
 
   const handleCountrySelection = useCallback(
-    (country: string, isSelected: boolean) => {
-      setSelectedCountries((prev) =>
-        isSelected ? [...prev, country] : prev.filter((c) => c !== country)
+    (city: string, isSelected: boolean) => {
+      setSelectedCities((prev) =>
+        isSelected ? [...prev, city] : prev.filter((c) => c !== city)
       );
     },
     []
   );
 
-  const BasicSorting = (column: Column<T, unknown>): JSX.Element => {
+  const BasicSorting = (
+    column: Column<AirportResponseDataObject, unknown>
+  ): JSX.Element => {
     return (
       <>
         {column.getIsSorted() === false && (
@@ -65,7 +72,7 @@ const useAllAirportsTable = <T,>(data: T[]) => {
     );
   };
 
-  const columns: ColumnDef<T>[] = [
+  const columns: ColumnDef<AirportResponseDataObject>[] = [
     {
       id: ColAccessors.code,
       accessorKey: ColAccessors.code,
@@ -77,7 +84,7 @@ const useAllAirportsTable = <T,>(data: T[]) => {
             variant="light"
             onClick={() => column.toggleSorting()}
           >
-            Airport
+            IATA Code
             <BasicSorting {...column} />
           </Button>
         );
@@ -104,7 +111,7 @@ const useAllAirportsTable = <T,>(data: T[]) => {
             variant="light"
             onClick={() => column.toggleSorting()}
           >
-            Airport
+            Name
             <BasicSorting {...column} />
           </Button>
         );
@@ -132,7 +139,7 @@ const useAllAirportsTable = <T,>(data: T[]) => {
             variant="light"
             onClick={() => column.toggleSorting()}
           >
-            Airport
+            City
             <BasicSorting {...column} />
           </Button>
         );
@@ -152,7 +159,7 @@ const useAllAirportsTable = <T,>(data: T[]) => {
             variant="light"
             onClick={() => column.toggleSorting()}
           >
-            Airport
+            Country
             <BasicSorting {...column} />
           </Button>
         );
@@ -168,19 +175,24 @@ const useAllAirportsTable = <T,>(data: T[]) => {
   const table = useReactTable({
     data: filteredAirports,
     columns,
+    filterFns: {},
     state: {
+      columnFilters,
       sorting,
+      pagination,
     },
+    onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return {
     table,
-    selectedCountries,
-    availableCountries,
+    selectedCities,
+    availableCities,
     handleCountrySelection,
     setPagination,
   };
