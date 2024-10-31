@@ -58,30 +58,16 @@ const ResultsTable = <T,>({ table, setPagination }: ResultsTableProps<T>) => {
         ))}
       </TableHeader>
 
-      <TableBody>
-        {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map((row) => (
-            <TableRow
-              key={row.id}
-              data-state={row.getIsSelected() && "selected"}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))
-        ) : (
-          <TableRow>
-            <TableCell
-              className="h-24 text-center"
-              colSpan={table.getAllColumns().length}
-            >
-              No results.
-            </TableCell>
+      <TableBody emptyContent={<div>No results.</div>}>
+        {table.getRowModel().rows.map((row) => (
+          <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+            {row.getVisibleCells().map((cell) => (
+              <TableCell key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </TableCell>
+            ))}
           </TableRow>
-        )}
+        ))}
       </TableBody>
     </Table>
   );
