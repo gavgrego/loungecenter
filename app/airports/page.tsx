@@ -24,7 +24,7 @@ const AirportsPage = async () => {
           );
         })}
       </div>
-      <h2 className="text-center mt-20 mb-8 text-4xl">All Airports</h2>
+      <h2 className="text-center mt-20 text-4xl">All Airports</h2>
 
       <Suspense
         fallback={

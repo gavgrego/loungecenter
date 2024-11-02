@@ -2,10 +2,10 @@ import { GooglePlace } from "@/types/googlePlaces/types";
 
 const getGooglePlaceDetails = async (
   placeId: string,
-  onlyIsOpen?: boolean,
+  forAllLoungesTable?: boolean
 ): Promise<GooglePlace> => {
-  const fields = onlyIsOpen
-    ? "current_opening_hours.open_now"
+  const fields = forAllLoungesTable
+    ? "current_opening_hours.open_now,rating"
     : "photos,rating,nationalPhoneNumber,internationalPhoneNumber,current_opening_hours,business_status";
 
   try {
@@ -15,7 +15,7 @@ const getGooglePlaceDetails = async (
         headers: {
           "X-Goog-FieldMask": fields,
         },
-      },
+      }
     );
 
     return await response.json();

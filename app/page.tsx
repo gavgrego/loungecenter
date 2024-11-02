@@ -54,7 +54,7 @@ const Home = async () => {
         />
       </Suspense>
 
-      <h2 className="text-center mt-20 mb-4 text-4xl">All Lounges</h2>
+      <h2 className="text-center mt-20 text-4xl">All Lounges</h2>
 
       <Suspense
         fallback={
@@ -82,7 +82,7 @@ const Home = async () => {
           );
         })}
       </div>
-      <h2 className="text-center mt-20 mb-4 text-4xl">All Airports</h2>
+      <h2 className="text-center mt-20 text-4xl">All Airports</h2>
 
       <Suspense
         fallback={

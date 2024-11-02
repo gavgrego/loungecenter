@@ -2,6 +2,7 @@ import {
   Column,
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   getCoreRowModel,
   getFilteredRowModel,
@@ -30,7 +31,7 @@ import getHasAccess from "@/data/lounge/getHasAccess";
 export enum ColAccessors {
   lounge = "attributes",
   airport = "attributes.airport.data.attributes.code",
-  isOpen = "attributes.googlePlaceId",
+  googlePlaceId = "attributes.googlePlaceId",
   hasAccess = "hasAccess",
 }
 
@@ -61,7 +62,7 @@ const useAllLoungesTable = <T,>(
   const [columnVisibility, setColumnVisibility] = useState({
     [ColAccessors.lounge]: true,
     [ColAccessors.airport]: true,
-    [ColAccessors.isOpen]: sessionClaims ? true : false,
+    [ColAccessors.googlePlaceId]: sessionClaims ? true : false,
     hasAccess: sessionClaims ? true : false,
   });
 
@@ -160,14 +161,13 @@ const useAllLoungesTable = <T,>(
         },
       },
       {
-        id: ColAccessors.isOpen,
-        accessorKey: ColAccessors.isOpen,
+        id: "isOpen",
+        accessorKey: ColAccessors.googlePlaceId,
         enableSorting: false,
         filterFn: (row, id, filterValue) => {
           const { isLoading, data } = useQuery({
-            queryKey: ["googlePlaceDetails", row.getValue(ColAccessors.isOpen)],
-            queryFn: () =>
-              getGooglePlaceDetails(row.getValue(ColAccessors.isOpen), true),
+            queryKey: ["googlePlaceDetails", row.getValue("isOpen")],
+            queryFn: () => getGooglePlaceDetails(row.getValue("isOpen"), true),
           });
           return data?.currentOpeningHours?.openNow === filterValue;
         },
@@ -186,9 +186,8 @@ const useAllLoungesTable = <T,>(
 
         cell: ({ row, column }) => {
           const { isLoading, data } = useQuery({
-            queryKey: ["googlePlaceDetails", row.getValue(ColAccessors.isOpen)],
-            queryFn: () =>
-              getGooglePlaceDetails(row.getValue(ColAccessors.isOpen), true),
+            queryKey: ["googlePlaceDetails", row.getValue("isOpen")],
+            queryFn: () => getGooglePlaceDetails(row.getValue("isOpen"), true),
           });
 
           const openStatus = (isOpen: GooglePlace | null) => {
@@ -251,6 +250,43 @@ const useAllLoungesTable = <T,>(
                 <X color="red" size={24} weight="fill" />
               )}
             </>
+          );
+        },
+      },
+      {
+        id: "rating",
+        accessorKey: ColAccessors.googlePlaceId,
+        enableSorting: true,
+
+        header: ({ column }) => {
+          return (
+            <Button
+              className="p-0"
+              variant="light"
+              onClick={() => column.toggleSorting()}
+            >
+              Rating
+              <BasicSorting {...column} />
+            </Button>
+          );
+        },
+
+        cell: ({ row, column }) => {
+          const { isLoading, data } = useQuery({
+            queryKey: ["googlePlaceDetails", row.getValue("rating")],
+            queryFn: () => getGooglePlaceDetails(row.getValue("isOpen"), false),
+          });
+
+          console.log(data);
+
+          if (isLoading) {
+            return <div>Loading...</div>;
+          }
+
+          return (
+            <div className="text-yellow-400 font-bold text-center">
+              {data?.rating}/5
+            </div>
           );
         },
       },

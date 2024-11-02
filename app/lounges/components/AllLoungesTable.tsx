@@ -27,15 +27,13 @@ const AllLoungesTable = ({
 
   return (
     <>
-      <div className="mb-3">
-        <Filters
-          currentAirportCodes={currentAirportCodes}
-          selectedAirportCodes={selectedAirportCodes}
-          table={table}
-          onAirportCodeSelection={handleAirportCodeSelection}
-          sessionClaims={sessionClaims}
-        />
-      </div>
+      <Filters
+        currentAirportCodes={currentAirportCodes}
+        selectedAirportCodes={selectedAirportCodes}
+        table={table}
+        onAirportCodeSelection={handleAirportCodeSelection}
+        sessionClaims={sessionClaims}
+      />
 
       <ResultsTable setPagination={setPagination} table={table} />
     </>

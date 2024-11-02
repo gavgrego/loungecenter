@@ -24,7 +24,7 @@ const Filters = ({
   return (
     <Popover placement="bottom-start">
       <PopoverTrigger>
-        <Button color="secondary" className="cursor-pointer">
+        <Button color="secondary" className="cursor-pointer mb-3">
           Filters
         </Button>
       </PopoverTrigger>
