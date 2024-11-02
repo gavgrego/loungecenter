@@ -8,13 +8,15 @@ import getLounges from "@/data/lounge/getLounges";
 const GoProPage = async () => {
   const { sessionClaims } = auth();
   const lounges = await getLounges({ limit: 8 });
+
   const airportCodes = Array.from(
     new Set(
-      lounges?.map(
-        (lounge) => lounge?.attributes?.airport?.data?.attributes?.code
+      lounges?.map((lounge) =>
+        String(lounge?.attributes?.airport?.data?.attributes?.code)
       )
     )
-  ) as string[];
+  );
+
   return (
     <div className="flex flex-col md:flex-row gap-10 items-start">
       <div className="md:basis-2/3">

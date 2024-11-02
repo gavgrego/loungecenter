@@ -25,11 +25,11 @@ const Home = async () => {
 
   const airportCodes = Array.from(
     new Set(
-      allLounges?.map(
-        (lounge) => lounge?.attributes?.airport?.data?.attributes?.code
+      allLounges?.map((lounge) =>
+        String(lounge?.attributes?.airport?.data?.attributes?.code)
       )
     )
-  ) as string[];
+  );
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
       <Search className="mb-10" placeholder="Find a lounge or airport..." />

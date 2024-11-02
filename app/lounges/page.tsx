@@ -22,11 +22,11 @@ const LoungesPage = async () => {
 
   const airportCodes = Array.from(
     new Set(
-      allLounges?.map(
-        (lounge) => lounge?.attributes?.airport?.data?.attributes?.code
+      allLounges?.map((lounge) =>
+        String(lounge?.attributes?.airport?.data?.attributes?.code)
       )
     )
-  ) as string[];
+  );
 
   return (
     <div>
