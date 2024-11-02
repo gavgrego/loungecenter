@@ -7,7 +7,7 @@ import { Skeleton } from "@nextui-org/react";
 import AllLoungesTable from "./components/AllLoungesTable";
 
 import Search from "@/components/search/Search";
-import getAllLounges from "@/data/lounge/getAllLounges";
+import getLlounges from "@/data/lounge/getLounges";
 import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const LoungesPage = async () => {
   const { sessionClaims } = auth();
 
-  const allLounges = await getAllLounges();
+  const allLounges = await getLlounges({});
 
   const airportCodes = Array.from(
     new Set(

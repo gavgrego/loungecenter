@@ -20,7 +20,7 @@ export default function AllAirportsTable({ airports }: AllAirportsTableProps) {
   } = useAllAirportsTable(airports);
 
   return (
-    <div className="space-y-4">
+    <div className="mb-3">
       <Filters
         selectedCities={selectedCities}
         availableCities={availableCities}

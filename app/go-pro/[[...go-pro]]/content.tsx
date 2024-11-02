@@ -21,8 +21,15 @@ import { SealCheck } from "@phosphor-icons/react/dist/ssr";
 
 import TrafficChart from "@/app/lounges/[airport]/[slug]/components/TrafficChart";
 import { dummyTrafficChartData } from "@/data/dummy";
+import AllLoungesTable from "@/app/lounges/components/AllLoungesTable";
+import { LoungeResponseDataObject } from "@/data/api/documentation";
 
-const GoProContent = () => {
+type GoProContentProps = {
+  lounges: LoungeResponseDataObject[] | null;
+  airportCodes: string[];
+};
+
+const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
   return (
     <>
       <Table isStriped className="my-6">
@@ -143,7 +150,40 @@ const GoProContent = () => {
           </div>
         </div>
       </div>
-      <Divider className="my-4" />
+      <Divider className="my-6" />
+      <div>
+        <h2 className="my-4">Additional Advanced Columns</h2>
+        <p className="mb-2">
+          Additional columns are available to help you find the perfect lounge.
+          Currently including whether or not you have access, as well as if the
+          lounge is open. More columns are coming soon!
+        </p>
+        <AllLoungesTable
+          lounges={lounges as LoungeResponseDataObject[]}
+          // this is fugly, but need to spoof this to get the table to work, not worth refactoring simply for this
+          sessionClaims={{
+            __raw: "",
+            iss: "",
+            sub: "",
+            sid: "",
+            nbf: 0,
+            userEmail: "test@lounge.center",
+            iat: 0,
+            exp: 0,
+            unsafeMetadata: {
+              cardSelections: [],
+              // @ts-ignore
+              alliances: ["oneworld-emerald"],
+              hasPriorityPass: false,
+            },
+            publicMetadata: {
+              stripeCustomerId: "",
+            },
+          }}
+          currentAirportCodes={airportCodes}
+        />
+      </div>
+      <Divider className="my-6" />
       <div>
         <h3>FAQ</h3>
         <Accordion selectionMode="multiple">

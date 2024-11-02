@@ -10,7 +10,7 @@ import getFeaturedAirports from "@/data/airport/getFeaturedAirports";
 import AirportCard from "@/components/airports/AirportCard";
 import AllAirportsTable from "./airports/components/AllAirportsTable";
 import AllLoungesTable from "./lounges/components/AllLoungesTable";
-import getAllLounges from "@/data/lounge/getAllLounges";
+import getLounges from "@/data/lounge/getLounges";
 
 export const metadata: Metadata = {
   title: "Lounge Center - Global Airport Lounges",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const Home = async () => {
   const { sessionClaims } = auth();
   const airports = await getFeaturedAirports();
-  const allLounges = await getAllLounges();
+  const allLounges = await getLounges({});
 
   const airportCodes = Array.from(
     new Set(

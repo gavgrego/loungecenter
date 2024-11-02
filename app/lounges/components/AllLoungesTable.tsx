@@ -27,7 +27,7 @@ const AllLoungesTable = ({
 
   return (
     <>
-      <div className="mb-4">
+      <div className="mb-3">
         <Filters
           currentAirportCodes={currentAirportCodes}
           selectedAirportCodes={selectedAirportCodes}
