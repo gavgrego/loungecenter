@@ -20,7 +20,7 @@ import {
 } from "@phosphor-icons/react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { JwtPayload } from "@clerk/types";
 
 import { Lounge } from "@/data/api/documentation";
@@ -33,6 +33,7 @@ export enum ColAccessors {
   airport = "attributes.airport.data.attributes.code",
   googlePlaceId = "attributes.googlePlaceId",
   hasAccess = "hasAccess",
+  rating = "rating",
 }
 
 const useAllLoungesTable = <T,>(
@@ -47,6 +48,7 @@ const useAllLoungesTable = <T,>(
   const [selectedAirportCodes, setSelectedAirportCodes] = useState<string[]>(
     []
   );
+  const queryCache = useQueryClient().getQueryCache();
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -64,6 +66,7 @@ const useAllLoungesTable = <T,>(
     [ColAccessors.airport]: true,
     [ColAccessors.googlePlaceId]: sessionClaims ? true : false,
     hasAccess: sessionClaims ? true : false,
+    isOpen: sessionClaims ? true : false,
   });
 
   const BasicSorting = (column: Column<T, unknown>): JSX.Element => {
@@ -82,7 +85,7 @@ const useAllLoungesTable = <T,>(
     );
   };
 
-  const columns: ColumnDef<T>[] = useMemo(
+  const columns = useMemo<ColumnDef<T>[]>(
     () => [
       {
         id: ColAccessors.lounge,
@@ -179,7 +182,6 @@ const useAllLoungesTable = <T,>(
               onClick={() => column.toggleSorting()}
             >
               Open Now?
-              <BasicSorting {...column} />
             </Button>
           );
         },
@@ -257,7 +259,22 @@ const useAllLoungesTable = <T,>(
         id: "rating",
         accessorKey: ColAccessors.googlePlaceId,
         enableSorting: true,
+        sortingFn: (rowA, rowB) => {
+          const ratingA =
+            (
+              queryCache.find({
+                queryKey: ["googlePlaceDetails", rowA.getValue("rating")],
+              })?.state?.data as GooglePlace
+            )?.rating ?? 0;
+          const ratingB =
+            (
+              queryCache.find({
+                queryKey: ["googlePlaceDetails", rowB.getValue("rating")],
+              })?.state?.data as GooglePlace
+            )?.rating ?? 0;
 
+          return ratingA < ratingB ? -1 : ratingA > ratingB ? 1 : 0;
+        },
         header: ({ column }) => {
           return (
             <Button
@@ -282,9 +299,7 @@ const useAllLoungesTable = <T,>(
           }
 
           return (
-            <div className="text-yellow-400 font-bold text-center">
-              {data?.rating}/5
-            </div>
+            <div className="text-yellow-400 font-bold">{data?.rating}/5</div>
           );
         },
       },
