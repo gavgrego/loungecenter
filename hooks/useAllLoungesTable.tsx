@@ -277,8 +277,6 @@ const useAllLoungesTable = <T,>(
             queryFn: () => getGooglePlaceDetails(row.getValue("isOpen"), false),
           });
 
-          console.log(data);
-
           if (isLoading) {
             return <div>Loading...</div>;
           }

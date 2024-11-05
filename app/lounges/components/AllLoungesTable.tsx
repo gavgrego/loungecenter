@@ -26,7 +26,7 @@ const AllLoungesTable = ({
   } = useAllLoungesTable(lounges, sessionClaims);
 
   return (
-    <>
+    <div>
       <Filters
         currentAirportCodes={currentAirportCodes}
         selectedAirportCodes={selectedAirportCodes}
@@ -36,7 +36,7 @@ const AllLoungesTable = ({
       />
 
       <ResultsTable setPagination={setPagination} table={table} />
-    </>
+    </div>
   );
 };
 

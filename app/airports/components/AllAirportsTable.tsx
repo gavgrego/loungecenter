@@ -20,13 +20,13 @@ export default function AllAirportsTable({ airports }: AllAirportsTableProps) {
   } = useAllAirportsTable(airports);
 
   return (
-    <>
+    <div>
       <Filters
         selectedCities={selectedCities}
         availableCities={availableCities}
         onCitySelection={handleCountrySelection}
       />
       <ResultsTable setPagination={setPagination} table={table} />
-    </>
+    </div>
   );
 }
