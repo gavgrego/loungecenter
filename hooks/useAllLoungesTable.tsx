@@ -2,7 +2,6 @@ import {
   Column,
   ColumnDef,
   ColumnFiltersState,
-  Row,
   SortingState,
   getCoreRowModel,
   getFilteredRowModel,

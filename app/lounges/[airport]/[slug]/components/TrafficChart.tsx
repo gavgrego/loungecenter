@@ -10,73 +10,78 @@ import {
   Bar,
   Legend,
 } from "recharts";
-import { Chip } from "@nextui-org/react";
-import { Broadcast } from "@phosphor-icons/react/dist/ssr";
 
 import { ChartData } from "../page";
+import CustomTooltip from "./TrafficChart/CustomTooltip";
+import { FootTraffic } from "@/types/footTraffic/types";
+import { GooglePlace } from "@/types/googlePlaces/types";
+import dayjs from "dayjs";
 
 type TrafficChartProps = {
-  chartData: ChartData;
+  trafficData: FootTraffic;
+  liveTrafficData: any;
+  placeDetails: GooglePlace;
+  dummyTrafficChartData?: ChartData;
 };
 
-type CustomTooltipProps = {
-  active?: boolean;
-  payload?: { payload: { average: number; live: number } }[];
-  label?: string;
-};
-const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
-  if (active && payload && payload.length) {
-    const busyness = () => {
-      if (payload[0].payload.average == payload[0].payload.live) {
-        return (
-          <p className="font-semibold text-sm">
-            This lounge is around its normal busyness level right now.
-          </p>
-        );
-      }
-      if (payload[0].payload.average > payload[0].payload.live) {
-        return (
-          <p className="font-semibold text-sm">
-            This lounge is less busy than normal right now.
-          </p>
-        );
-      } else {
-        return (
-          <p className="font-semibold text-sm">
-            This lounge is more busy than normal right now.
-          </p>
-        );
-      }
-    };
+const TrafficChart = ({
+  trafficData,
+  liveTrafficData,
+  placeDetails,
+  dummyTrafficChartData,
+}: TrafficChartProps) => {
+  let filteredChartData: ChartData = [];
 
-    return (
-      <div className="custom-tooltip max-w-[250px] dark:bg-black dark:text-white p-2 rounded light light:bg-white light:text-black">
-        {payload[0].payload.live > 0 && (
-          <div className="flex flex-col gap-2 mt-4 mb-4">
-            <Chip
-              className="animate-bounce"
-              color="danger"
-              startContent={<Broadcast size={18} />}
-            >
-              LIVE!
-            </Chip>
-            <p className="label">{`This lounge is currently ${payload[0].payload.live}/100 in busyness at around ${label} local time.`}</p>
-            {busyness()}
-          </div>
-        )}
-        <p className="label text-sm">{`⏱️ This lounge is typically an estimated ${payload[0].payload.average}/100 busyness at around ${label} local time.`}</p>
-      </div>
-    );
+  // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
+  // starts the week on Monday (0), so we need to subtract 1
+  // TODO: refactor all this shit, needs memoized, etc
+  let dayOfWeek = dayjs().day() - 1;
+
+  if (dayOfWeek === -1) {
+    dayOfWeek = 6;
   }
 
-  return null;
-};
+  const todaysOpen =
+    placeDetails.currentOpeningHours?.periods[dayOfWeek]?.open?.hour || 0;
 
-const TrafficChart = ({ chartData }: TrafficChartProps) => {
+  // The endpoint returns hourly data starting at 6AM for the current day, and ending
+  // at 5AM the next day.  Unfortunate, but we will just use tomorrow's 5AM hour for today
+  // in order to prevent two fetches for one day, and 5AM shouldn't matter too much day-to-day
+  const hoursData = trafficData.analysis.day_raw;
+  const fiveAm = hoursData.pop();
+
+  // take tomorrow's 5AM data and put it at the beginning of the today
+  hoursData.unshift(Number(fiveAm));
+  const chartData: ChartData = [];
+
+  hoursData.map((value, i) => {
+    const hour = i + todaysOpen;
+
+    // if hour is "now", fetch the live data and append it to the chartData
+
+    if (dayjs().hour() == hour) {
+      chartData.push({
+        name: `${hour}:00`,
+        average: value,
+        live: liveTrafficData.analysis.venue_live_busyness
+          ? liveTrafficData.analysis.venue_live_busyness
+          : liveTrafficData.analysis.venue_forecasted_busyness,
+      });
+    } else {
+      chartData.push({
+        name: `${hour}:00`,
+        average: value,
+        live: 0,
+      });
+    }
+  });
+
+  filteredChartData = chartData.filter((hour) => hour.average !== 0);
+
   return (
     <ResponsiveContainer height={300} width="100%">
       <ComposedChart
-        data={chartData}
+        data={dummyTrafficChartData ? dummyTrafficChartData : filteredChartData}
         height={300}
         margin={{
           top: 0,

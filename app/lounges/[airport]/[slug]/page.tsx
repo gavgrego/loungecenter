@@ -10,7 +10,6 @@ import ImageCarousel from "./components/ImageCarousel";
 import IconList from "./components/IconList";
 import TrafficChart from "./components/TrafficChart";
 import HasLoungeAccess from "./components/HasLoungeAccess";
-
 import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
 import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
 import getTrafficData from "@/data/lounge/getTrafficData";
@@ -61,67 +60,18 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
   const placeDetails = await getGooglePlaceDetails(
     loungeData?.googlePlaceId as string
   );
-  console.log(placeDetails);
-
-  // dayjs starts the week on Sunday (0), but where we are sending this (TrafficChart)
-  // starts the week on Monday (0), so we need to subtract 1
-  let dayOfWeek = dayjs().day() - 1;
-
-  if (dayOfWeek === -1) {
-    dayOfWeek = 6;
-  }
-
-  const todaysOpen =
-    placeDetails.currentOpeningHours?.periods[dayOfWeek]?.open?.hour || 0;
-
-  let filteredChartData: ChartData = [];
 
   // only need to fetch traffic data if the user is logged in
-  if (userId) {
-    const trafficData = await getTrafficData({
-      name: String(loungeData?.name),
-      address: String(placeDetails.formattedAddress),
-    });
+  const trafficData = await getTrafficData({
+    name: String(loungeData?.name),
+    address: String(placeDetails.formattedAddress),
+  });
 
-    const liveTrafficData = await getLiveTrafficData({
-      name: String(loungeData?.name),
-      address: String(placeDetails.formattedAddress),
-    });
+  const liveTrafficData = await getLiveTrafficData({
+    name: String(loungeData?.name),
+    address: String(placeDetails.formattedAddress),
+  });
 
-    // The endpoint returns hourly data starting at 6AM for the current day, and ending
-    // at 5AM the next day.  Unfortunate, but we will just use tomorrow's 5AM hour for today
-    // in order to prevent two fetches for one day, and 5AM shouldn't matter too much day-to-day
-    const hoursData = trafficData.analysis.day_raw;
-    const fiveAm = hoursData.pop() as number;
-
-    // take tomorrow's 5AM data and put it at the beginning of the today
-    hoursData.unshift(fiveAm);
-    const chartData: ChartData = [];
-
-    hoursData.map((value, i) => {
-      const hour = i + todaysOpen;
-
-      // if hour is "now", fetch the live data and append it to the chartData
-
-      if (dayjs().hour() == hour) {
-        chartData.push({
-          name: `${hour}:00`,
-          average: value,
-          live: liveTrafficData.analysis.venue_live_busyness
-            ? liveTrafficData.analysis.venue_live_busyness
-            : liveTrafficData.analysis.venue_forecasted_busyness,
-        });
-      } else {
-        chartData.push({
-          name: `${hour}:00`,
-          average: value,
-          live: 0,
-        });
-      }
-    });
-
-    filteredChartData = chartData.filter((hour) => hour.average !== 0);
-  }
   // add support for additional photos added via strapi, if there are any
   const placeImages = placeDetails.photos;
   const airportData = loungeData?.airport?.data?.attributes;
@@ -223,7 +173,11 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
           {userId ? (
             <>
               <h3 className="mb-4">Live Foot Traffic:</h3>
-              <TrafficChart chartData={filteredChartData} />
+              <TrafficChart
+                trafficData={trafficData}
+                liveTrafficData={liveTrafficData}
+                placeDetails={placeDetails}
+              />
             </>
           ) : (
             <>
@@ -237,7 +191,12 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
                 traffic data for this lounge!
               </h3>
 
-              <TrafficChart chartData={dummyTrafficChartData} />
+              <TrafficChart
+                trafficData={trafficData}
+                liveTrafficData={liveTrafficData}
+                placeDetails={placeDetails}
+                dummyTrafficChartData={dummyTrafficChartData}
+              />
             </>
           )}
 
@@ -247,9 +206,9 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
 
           <Suspense fallback={<div>Loading...</div>}>
             <OtherLounges
-              airport={airportData?.code as string}
+              airport={String(airportData?.code)}
               className="mt-14"
-              currentLounge={lounge.data?.[0].id as number}
+              currentLounge={Number(lounge.data?.[0].id)}
               userCards={userCards}
             />
           </Suspense>
