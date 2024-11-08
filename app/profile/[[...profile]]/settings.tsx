@@ -1,7 +1,14 @@
 "use client";
 
-import { CheckboxGroup, Checkbox, Switch, Tooltip } from "@nextui-org/react";
+import {
+  CheckboxGroup,
+  Checkbox,
+  Switch,
+  Tooltip,
+  Skeleton,
+} from "@nextui-org/react";
 import { useUser } from "@clerk/nextjs";
+import { useState } from "react";
 
 import AlliancesList from "./alliances/alliances-list";
 import { useOptimistic, startTransition } from "react";
@@ -15,7 +22,7 @@ type SettingsProps = {
   sessionClaims: JwtPayload | null;
 };
 const Settings = ({ cards, sessionClaims }: SettingsProps) => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const { toast } = useToast();
   const unsafeMetadata = user?.unsafeMetadata;
   const cardsSelected = user?.unsafeMetadata?.cardSelections as string[];
@@ -23,20 +30,61 @@ const Settings = ({ cards, sessionClaims }: SettingsProps) => {
   const alliances = user?.unsafeMetadata?.alliances as string[];
 
   const hasPriorityPass = sessionClaims?.unsafeMetadata?.hasPriorityPass;
-  const [optimisticHasPriorityPass, addOptimisticHasPriorityPass] =
-    useOptimistic(
-      Boolean(hasPriorityPass),
-      (state: boolean, value: boolean) => value
+  type OptimisticState = {
+    value: boolean;
+    isPending: boolean;
+  };
+
+  const [optimisticState, addOptimisticState] = useOptimistic<
+    OptimisticState,
+    boolean
+  >(
+    { value: Boolean(hasPriorityPass), isPending: false },
+    (state, newValue) => ({ value: newValue, isPending: true })
+  );
+
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  if (!isLoaded) {
+    return (
+      <div className="flex flex-col gap-8 mt-10">
+        <div>
+          <Skeleton className="h-6 w-3/4 rounded-lg mb-4" />
+          <div className="space-y-2">
+            {[1, 2, 3].map((i) => (
+              <Skeleton key={i} className="h-4 w-1/2 rounded-lg" />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <Skeleton className="h-6 w-1/2 rounded-lg mb-4" />
+          <div className="space-y-2">
+            {[1, 2].map((i) => (
+              <Skeleton key={i} className="h-4 w-1/3 rounded-lg" />
+            ))}
+          </div>
+        </div>
+
+        <Skeleton className="h-6 w-1/4 rounded-lg" />
+      </div>
     );
+  }
 
   if (!user) return null;
 
   const togglePriorityPass = async (value: boolean) => {
+    if (isUpdating) return;
+
     try {
+      setIsUpdating(true);
+
       startTransition(() => {
-        addOptimisticHasPriorityPass(value);
+        addOptimisticState(value);
       });
+
       await updatePriortityPass(value);
+      await user.reload();
 
       toast({
         duration: 2000,
@@ -44,12 +92,20 @@ const Settings = ({ cards, sessionClaims }: SettingsProps) => {
           "Success!  You've successfully updated your Priority Pass status.",
         variant: "success",
       });
-    } catch {
+    } catch (error) {
+      console.error("Priority Pass update failed:", error);
+
+      startTransition(() => {
+        addOptimisticState(!value);
+      });
+
       toast({
         duration: 2000,
         title:
           "Sorry, something went wrong.  Please refresh the page and try again.",
       });
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -156,8 +212,9 @@ const Settings = ({ cards, sessionClaims }: SettingsProps) => {
       >
         <Switch
           color="secondary"
-          isSelected={optimisticHasPriorityPass}
-          onValueChange={(value: boolean) => togglePriorityPass(value)}
+          isSelected={optimisticState.value}
+          onValueChange={togglePriorityPass}
+          isDisabled={isUpdating}
         >
           Do you have Priority Pass?
         </Switch>

@@ -10,6 +10,7 @@ import getCards from "@/data/card/getCards";
 const ProfilePage = async () => {
   const { userId, sessionClaims } = auth();
 
+  // TODO: handle this with proper authorization
   if (!userId) {
     redirect("/");
   }
