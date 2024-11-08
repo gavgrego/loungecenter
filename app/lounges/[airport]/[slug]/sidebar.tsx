@@ -124,7 +124,7 @@ const LoungeSidebar = ({
                           <TableCell className="font-semibold">{day}</TableCell>
                         </TableRow>
                       );
-                    },
+                    }
                   )}
                 </TableBody>
               </Table>
@@ -144,7 +144,7 @@ const LoungeSidebar = ({
             <h3 className="text-medium">Overall Rating:</h3>
           </div>
           <div className="flex flex-row font-bold text-md">
-            <span className="text-yellow-400">{placeDetails.rating}</span>
+            <span className="text-yellow-500">{placeDetails.rating}</span>
             &nbsp;/&nbsp;5
           </div>
         </div>

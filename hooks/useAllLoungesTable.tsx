@@ -298,7 +298,7 @@ const useAllLoungesTable = <T,>(
           }
 
           return (
-            <div className="text-yellow-400 font-bold">{data?.rating}/5</div>
+            <div className="text-yellow-500 font-bold">{data?.rating}/5</div>
           );
         },
       },
