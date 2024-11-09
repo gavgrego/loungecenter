@@ -95,7 +95,45 @@ const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
         of day, as well as the live foot traffic data.
       </p>
       <h3 className="text-xs font-regular italic mb-4">* Dummy data</h3>
-      <TrafficChart chartData={dummyTrafficChartData} />
+      <TrafficChart
+        trafficData={{
+          analysis: {
+            day_raw: [],
+          },
+          epoch_analysis: 3,
+          forecast_updated_on: "",
+          status: "",
+          venue_info: {
+            venue_address: "",
+            venue_address_list: [],
+            venue_dwell_time_avg: 0,
+            venue_dwell_time_max: 0,
+            venue_dwell_time_min: 0,
+            venue_id: "",
+            venue_lat: 0,
+            venue_lon: 0,
+            venue_name: "",
+            venue_timezone: "",
+            venue_type: "",
+            venue_types: [],
+          },
+          window: {
+            day_window: "",
+            day_window_end_int: 0,
+            day_window_end_txt: "",
+            day_window_start_int: 0,
+            day_window_start_txt: "",
+            time_window_end: 4,
+            time_window_end_12h: "",
+            time_window_end_ix: 0,
+            time_window_start: 0,
+            time_window_start_12h: "",
+            time_window_start_ix: 0,
+          },
+        }}
+        liveTrafficData={{}}
+        placeDetails={{}}
+      />
       <Divider />
       <div className="my-4">
         <h2 className="my-4">Save Your Card and Alliance Status!</h2>

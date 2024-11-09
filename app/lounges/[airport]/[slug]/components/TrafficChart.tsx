@@ -21,14 +21,12 @@ type TrafficChartProps = {
   trafficData: FootTraffic;
   liveTrafficData: any;
   placeDetails: GooglePlace;
-  dummyTrafficChartData?: ChartData;
 };
 
 const TrafficChart = ({
   trafficData,
   liveTrafficData,
   placeDetails,
-  dummyTrafficChartData,
 }: TrafficChartProps) => {
   let filteredChartData: ChartData = [];
 
@@ -81,7 +79,7 @@ const TrafficChart = ({
   return (
     <ResponsiveContainer height={300} width="100%">
       <ComposedChart
-        data={dummyTrafficChartData ? dummyTrafficChartData : filteredChartData}
+        data={filteredChartData}
         height={300}
         margin={{
           top: 0,

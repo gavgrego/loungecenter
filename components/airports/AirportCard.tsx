@@ -11,14 +11,14 @@ type AirportCardProps = {
 //
 //
 // Need to consolidate this and lounge card api and compositionally pass content as child
-const AirportCard = ({ airport, ...props }: AirportCardProps) => {
+const AirportCard = ({ airport, className, ...props }: AirportCardProps) => {
   return (
     <Link
       className="max-w-[400px] w-full "
       href={`/lounges/${airport.attributes?.code}`}
     >
       <Card
-        className={`relative overflow-visible h-full ${props.className} transform sm:hover:scale-105 transition-all bg-foreground-50`}
+        className={`relative overflow-visible h-full ${className} transform sm:hover:scale-105 transition-all bg-foreground-50`}
         shadow="lg"
         {...props}
       >
