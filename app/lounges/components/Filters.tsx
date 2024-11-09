@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Popover,
@@ -7,19 +7,20 @@ import {
   Button,
   Checkbox,
   CheckboxGroup,
-} from "@nextui-org/react";
-import { Table } from "@tanstack/react-table";
-import { ColAccessors } from "@/hooks/useAllLoungesTable";
-import { LoungeResponseDataObject } from "@/data/api/documentation";
-import { JwtPayload } from "@clerk/types";
+} from "@nextui-org/react"
+import { Table } from "@tanstack/react-table"
+import { JwtPayload } from "@clerk/types"
+
+import { ColAccessors } from "@/hooks/useAllLoungesTable"
+import { LoungeResponseDataObject } from "@/data/api/documentation"
 
 type FiltersProps<T> = {
-  table: Table<T>;
-  selectedAirportCodes: string[];
-  currentAirportCodes?: string[];
-  onAirportCodeSelection: (code: string, isSelected: boolean) => void;
-  sessionClaims: JwtPayload | null;
-};
+  table: Table<T>
+  selectedAirportCodes: string[]
+  currentAirportCodes?: string[]
+  onAirportCodeSelection: (code: string, isSelected: boolean) => void
+  sessionClaims: JwtPayload | null
+}
 
 const Filters = ({
   table,
@@ -31,7 +32,7 @@ const Filters = ({
   return (
     <Popover placement="bottom-start">
       <PopoverTrigger>
-        <Button color="secondary" className="cursor-pointer mb-3">
+        <Button className="cursor-pointer mb-3" color="secondary">
           Filters
         </Button>
       </PopoverTrigger>
@@ -41,18 +42,18 @@ const Filters = ({
             label="Airport Codes"
             value={selectedAirportCodes}
             onValueChange={(value) => {
-              const newValue = value as string[];
+              const newValue = value as string[]
 
               selectedAirportCodes.forEach((code) => {
                 if (!newValue.includes(code)) {
-                  onAirportCodeSelection(code, false);
+                  onAirportCodeSelection(code, false)
                 }
-              });
+              })
               newValue.forEach((code) => {
                 if (!selectedAirportCodes.includes(code)) {
-                  onAirportCodeSelection(code, true);
+                  onAirportCodeSelection(code, true)
                 }
-              });
+              })
             }}
           >
             {currentAirportCodes?.map((code) => (
@@ -68,7 +69,7 @@ const Filters = ({
                   onValueChange={(value) => {
                     table
                       .getColumn(ColAccessors.hasAccess)
-                      ?.setFilterValue(value === true ? value : undefined);
+                      ?.setFilterValue(value === true ? value : undefined)
                   }}
                 >
                   Have Access?
@@ -79,7 +80,7 @@ const Filters = ({
                   onValueChange={(value) => {
                     table
                       .getColumn("isOpen")
-                      ?.setFilterValue(value === true ? value : undefined);
+                      ?.setFilterValue(value === true ? value : undefined)
                   }}
                 >
                   Open Now?
@@ -90,7 +91,7 @@ const Filters = ({
         </div>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}
 
-export default Filters;
+export default Filters

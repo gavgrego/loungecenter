@@ -1,17 +1,18 @@
-"use client";
+"use client"
 
-import { JwtPayload } from "@clerk/types";
+import { JwtPayload } from "@clerk/types"
 
-import { LoungeResponseDataObject } from "@/data/api/documentation";
-import useAllLoungesTable from "@/hooks/useAllLoungesTable";
-import ResultsTable from "@/components/table/table";
-import Filters from "./Filters";
+import Filters from "./Filters"
+
+import { LoungeResponseDataObject } from "@/data/api/documentation"
+import useAllLoungesTable from "@/hooks/useAllLoungesTable"
+import ResultsTable from "@/components/table/table"
 
 type AllLoungesTableProps = {
-  lounges: LoungeResponseDataObject[];
-  sessionClaims: JwtPayload | null;
-  currentAirportCodes: string[];
-};
+  lounges: LoungeResponseDataObject[]
+  sessionClaims: JwtPayload | null
+  currentAirportCodes: string[]
+}
 
 const AllLoungesTable = ({
   lounges,
@@ -23,21 +24,21 @@ const AllLoungesTable = ({
     setPagination,
     selectedAirportCodes,
     handleAirportCodeSelection,
-  } = useAllLoungesTable(lounges, sessionClaims);
+  } = useAllLoungesTable(lounges, sessionClaims)
 
   return (
     <div>
       <Filters
         currentAirportCodes={currentAirportCodes}
         selectedAirportCodes={selectedAirportCodes}
+        sessionClaims={sessionClaims}
         table={table}
         onAirportCodeSelection={handleAirportCodeSelection}
-        sessionClaims={sessionClaims}
       />
 
       <ResultsTable setPagination={setPagination} table={table} />
     </div>
-  );
-};
+  )
+}
 
-export default AllLoungesTable;
+export default AllLoungesTable

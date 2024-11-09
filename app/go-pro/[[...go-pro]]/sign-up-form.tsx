@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useSignUp } from "@clerk/nextjs";
-import { useState } from "react";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
+import { useSignUp } from "@clerk/nextjs"
+import { useState } from "react"
 import {
   Card,
   CardHeader,
@@ -12,41 +12,41 @@ import {
   RadioGroup,
   Radio,
   CircularProgress,
-} from "@nextui-org/react";
-import { useForm, Controller } from "react-hook-form";
+} from "@nextui-org/react"
+import { useForm, Controller } from "react-hook-form"
 
 type SignUpFormProps = {
-  setVerifying: (val: boolean) => void;
-};
+  setVerifying: (val: boolean) => void
+}
 
 const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
-  const { isLoaded, signUp } = useSignUp();
-  const stripe = useStripe();
-  const elements = useElements();
-  const [cardValid, setCardValid] = useState(false);
+  const { isLoaded, signUp } = useSignUp()
+  const stripe = useStripe()
+  const elements = useElements()
+  const [cardValid, setCardValid] = useState(false)
   const [subscription, setSubscription] = useState(
     "price_1PWOniJ8buZJpCe9xpDhw0g5"
-  );
+  )
 
   const { register, handleSubmit, getValues, control, formState } = useForm({
     shouldUseNativeValidation: true,
-  });
+  })
 
   const onSubmit = async () => {
-    if (!isLoaded && !signUp) return null;
+    if (!isLoaded && !signUp) return null
 
     try {
       if (!elements || !stripe) {
-        return;
+        return
       }
 
-      let cardToken = "";
-      const cardEl = elements?.getElement("card");
+      let cardToken = ""
+      const cardEl = elements?.getElement("card")
 
       if (cardEl) {
-        const res = await stripe?.createToken(cardEl);
+        const res = await stripe?.createToken(cardEl)
 
-        cardToken = res?.token?.id || "";
+        cardToken = res?.token?.id || ""
       }
 
       await signUp.create({
@@ -55,18 +55,18 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
           cardToken,
           priceId: subscription,
         },
-      });
+      })
 
-      await signUp.prepareEmailAddressVerification();
+      await signUp.prepareEmailAddressVerification()
 
-      setVerifying(true);
+      setVerifying(true)
     } catch (err) {
-      console.log("error");
+      console.log("error")
     }
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="group">
+    <form className="group" onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-full sm:w-96">
         <CardHeader>
           <div className="flex flex-col gap-2">
@@ -129,7 +129,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
               id="card"
               onChange={(event) => {
                 if (event.complete) {
-                  setCardValid(true);
+                  setCardValid(true)
                 }
               }}
             />
@@ -168,7 +168,7 @@ const SignUpForm = ({ setVerifying }: SignUpFormProps) => {
         </div>
       </Card>
     </form>
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

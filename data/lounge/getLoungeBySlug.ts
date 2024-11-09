@@ -1,4 +1,4 @@
-import { LoungeListResponse } from "../api/documentation";
+import { LoungeListResponse } from "../api/documentation"
 
 const getLoungeBySlug = async (slug: string): Promise<LoungeListResponse> => {
   const response = await fetch(
@@ -9,9 +9,9 @@ const getLoungeBySlug = async (slug: string): Promise<LoungeListResponse> => {
       },
       cache: "no-cache",
     }
-  );
+  )
 
-  return await response.json();
-};
+  return await response.json()
+}
 
-export default getLoungeBySlug;
+export default getLoungeBySlug

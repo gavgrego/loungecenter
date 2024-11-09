@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Popover,
@@ -7,14 +7,15 @@ import {
   Button,
   Checkbox,
   CheckboxGroup,
-} from "@nextui-org/react";
-import { AirportResponseDataObject } from "@/data/api/documentation";
+} from "@nextui-org/react"
+
+import { AirportResponseDataObject } from "@/data/api/documentation"
 
 type FiltersProps<T> = {
-  selectedCities: string[];
-  availableCities?: string[];
-  onCitySelection: (city: string, isSelected: boolean) => void;
-};
+  selectedCities: string[]
+  availableCities?: string[]
+  onCitySelection: (city: string, isSelected: boolean) => void
+}
 
 const Filters = ({
   selectedCities,
@@ -24,7 +25,7 @@ const Filters = ({
   return (
     <Popover placement="bottom-start">
       <PopoverTrigger>
-        <Button color="secondary" className="cursor-pointer mb-3">
+        <Button className="cursor-pointer mb-3" color="secondary">
           Filters
         </Button>
       </PopoverTrigger>
@@ -34,18 +35,18 @@ const Filters = ({
             label="Cities"
             value={selectedCities}
             onValueChange={(value) => {
-              const newValue = value as string[];
+              const newValue = value as string[]
 
               selectedCities.forEach((city) => {
                 if (!newValue.includes(city)) {
-                  onCitySelection(city, false);
+                  onCitySelection(city, false)
                 }
-              });
+              })
               newValue.forEach((city) => {
                 if (!selectedCities.includes(city)) {
-                  onCitySelection(city, true);
+                  onCitySelection(city, true)
                 }
-              });
+              })
             }}
           >
             {availableCities?.map((city) => (
@@ -57,7 +58,7 @@ const Filters = ({
         </div>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}
 
-export default Filters;
+export default Filters

@@ -1,24 +1,24 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { auth } from "@clerk/nextjs/server";
-import { Suspense } from "react";
-import { Skeleton } from "@nextui-org/react";
+import { auth } from "@clerk/nextjs/server"
+import { Suspense } from "react"
+import { Skeleton } from "@nextui-org/react"
 
-import AllLoungesTable from "./components/AllLoungesTable";
+import AllLoungesTable from "./components/AllLoungesTable"
 
-import Search from "@/components/search/Search";
-import getLounges from "@/data/lounge/getLounges";
-import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
+import Search from "@/components/search/Search"
+import getLounges from "@/data/lounge/getLounges"
+import LoungeCardGroup from "@/components/lounges/LoungeCardGroup"
 
 export const metadata: Metadata = {
   title: "Lounge Center - Lounges",
   description: "Find and filter all lounges, check your access, and more.",
-};
+}
 
 const LoungesPage = async () => {
-  const { sessionClaims } = auth();
+  const { sessionClaims } = auth()
 
-  const allLounges = await getLounges({});
+  const allLounges = await getLounges({})
 
   const airportCodes = Array.from(
     new Set(
@@ -26,7 +26,7 @@ const LoungesPage = async () => {
         String(lounge?.attributes?.airport?.data?.attributes?.code)
       )
     )
-  );
+  )
 
   return (
     <div>
@@ -51,7 +51,7 @@ const LoungesPage = async () => {
         />
       </Suspense>
     </div>
-  );
-};
+  )
+}
 
-export default LoungesPage;
+export default LoungesPage

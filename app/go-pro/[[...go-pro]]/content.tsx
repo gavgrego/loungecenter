@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Accordion,
@@ -16,18 +16,17 @@ import {
   TableHeader,
   TableRow,
   Tooltip,
-} from "@nextui-org/react";
-import { SealCheck } from "@phosphor-icons/react/dist/ssr";
+} from "@nextui-org/react"
+import { SealCheck } from "@phosphor-icons/react/dist/ssr"
 
-import TrafficChart from "@/app/lounges/[airport]/[slug]/components/TrafficChart";
-import { dummyTrafficChartData } from "@/data/dummy";
-import AllLoungesTable from "@/app/lounges/components/AllLoungesTable";
-import { LoungeResponseDataObject } from "@/data/api/documentation";
+import TrafficChart from "@/app/lounges/[airport]/[slug]/components/TrafficChart"
+import AllLoungesTable from "@/app/lounges/components/AllLoungesTable"
+import { LoungeResponseDataObject } from "@/data/api/documentation"
 
 type GoProContentProps = {
-  lounges: LoungeResponseDataObject[] | null;
-  airportCodes: string[];
-};
+  lounges: LoungeResponseDataObject[] | null
+  airportCodes: string[]
+}
 
 const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
   return (
@@ -96,6 +95,8 @@ const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
       </p>
       <h3 className="text-xs font-regular italic mb-4">* Dummy data</h3>
       <TrafficChart
+        liveTrafficData={{}}
+        placeDetails={{}}
         trafficData={{
           analysis: {
             day_raw: [],
@@ -131,8 +132,6 @@ const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
             time_window_start_ix: 0,
           },
         }}
-        liveTrafficData={{}}
-        placeDetails={{}}
       />
       <Divider />
       <div className="my-4">
@@ -197,6 +196,7 @@ const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
           lounge is open. More columns are coming soon!
         </p>
         <AllLoungesTable
+          currentAirportCodes={airportCodes}
           lounges={lounges as LoungeResponseDataObject[]}
           // this is fugly, but need to spoof this to get the table to work, not worth refactoring simply for this
           sessionClaims={{
@@ -218,7 +218,6 @@ const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
               stripeCustomerId: "",
             },
           }}
-          currentAirportCodes={airportCodes}
         />
       </div>
       <Divider className="my-6" />
@@ -287,7 +286,7 @@ const GoProContent = ({ lounges, airportCodes }: GoProContentProps) => {
         </Accordion>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default GoProContent;
+export default GoProContent

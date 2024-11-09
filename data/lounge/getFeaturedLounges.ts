@@ -1,4 +1,4 @@
-import { LoungeResponseDataObject } from "../api/documentation";
+import { LoungeResponseDataObject } from "../api/documentation"
 
 const getFeaturedLounges = async (): Promise<
   LoungeResponseDataObject[] | null
@@ -13,15 +13,15 @@ const getFeaturedLounges = async (): Promise<
           "Strapi-Response-Format": "v4",
         },
       }
-    );
-    const data = await response.json();
+    )
+    const data = await response.json()
 
-    return data.data;
+    return data.data
   } catch (error) {
-    console.error("Error fetching lounges!", error);
+    console.error("Error fetching lounges!", error)
 
-    return null;
+    return null
   }
-};
+}
 
-export default getFeaturedLounges;
+export default getFeaturedLounges

@@ -8,12 +8,13 @@ import {
   Column,
   ColumnFiltersState,
   getPaginationRowModel,
-} from "@tanstack/react-table";
-import { useState, useMemo, useCallback } from "react";
-import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
-import { AirportResponseDataObject } from "@/data/api/documentation";
+} from "@tanstack/react-table"
+import { useState, useMemo, useCallback } from "react"
+import { ArrowsDownUp, ArrowUp, ArrowDown } from "@phosphor-icons/react"
+import { Button } from "@nextui-org/button"
+import { Link } from "@nextui-org/link"
+
+import { AirportResponseDataObject } from "@/data/api/documentation"
 export enum ColAccessors {
   code = "attributes.code",
   name = "attributes.name",
@@ -22,37 +23,39 @@ export enum ColAccessors {
 }
 
 const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
-  const [selectedCities, setSelectedCities] = useState<string[]>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [selectedCities, setSelectedCities] = useState<string[]>([])
+  const [sorting, setSorting] = useState<SortingState>([])
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
-  });
+  })
 
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
   const availableCities = useMemo(() => {
     const citySet = new Set<string>(
       data.map((airport) => airport?.attributes?.city || "")
-    );
-    return Array.from(citySet).sort();
-  }, [data]);
+    )
+
+    return Array.from(citySet).sort()
+  }, [data])
 
   const filteredAirports = useMemo(() => {
-    if (selectedCities.length === 0) return data;
+    if (selectedCities.length === 0) return data
+
     return data.filter((airport) =>
       selectedCities.includes(airport?.attributes?.city || "")
-    );
-  }, [data, selectedCities]);
+    )
+  }, [data, selectedCities])
 
   const handleCountrySelection = useCallback(
     (city: string, isSelected: boolean) => {
       setSelectedCities((prev) =>
         isSelected ? [...prev, city] : prev.filter((c) => c !== city)
-      );
+      )
     },
     []
-  );
+  )
 
   const BasicSorting = (
     column: Column<AirportResponseDataObject, unknown>
@@ -69,8 +72,8 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
           <ArrowDown className="pl-1" size={16} />
         ) : null}
       </>
-    );
-  };
+    )
+  }
 
   const columns: ColumnDef<AirportResponseDataObject>[] = [
     {
@@ -87,7 +90,7 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
             IATA Code
             <BasicSorting {...column} />
           </Button>
-        );
+        )
       },
       cell: ({ row }) => {
         return (
@@ -98,7 +101,7 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
           >
             {row.getValue(ColAccessors.code)}
           </Link>
-        );
+        )
       },
     },
     {
@@ -114,7 +117,7 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
             Name
             <BasicSorting {...column} />
           </Button>
-        );
+        )
       },
       accessorKey: ColAccessors.name,
       cell: ({ row }) => {
@@ -126,7 +129,7 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
           >
             {row.getValue(ColAccessors.name)}
           </Link>
-        );
+        )
       },
     },
     {
@@ -142,11 +145,11 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
             City
             <BasicSorting {...column} />
           </Button>
-        );
+        )
       },
       accessorKey: ColAccessors.city,
       cell: ({ row }) => {
-        return <div>{row.getValue(ColAccessors.city)}</div>;
+        return <div>{row.getValue(ColAccessors.city)}</div>
       },
     },
     {
@@ -162,15 +165,15 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
             Country
             <BasicSorting {...column} />
           </Button>
-        );
+        )
       },
       accessorKey: ColAccessors.country,
       cell: ({ row }) => {
-        return <div>{row.getValue(ColAccessors.country)}</div>;
+        return <div>{row.getValue(ColAccessors.country)}</div>
       },
     },
     // Add other columns as needed
-  ];
+  ]
 
   const table = useReactTable({
     data: filteredAirports,
@@ -187,7 +190,7 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-  });
+  })
 
   return {
     table,
@@ -195,7 +198,7 @@ const useAllAirportsTable = (data: AirportResponseDataObject[]) => {
     availableCities,
     handleCountrySelection,
     setPagination,
-  };
-};
+  }
+}
 
-export default useAllAirportsTable;
+export default useAllAirportsTable

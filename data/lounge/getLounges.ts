@@ -1,8 +1,8 @@
-import { LoungeResponseDataObject } from "../api/documentation";
+import { LoungeResponseDataObject } from "../api/documentation"
 
 type GetLoungesProps = {
-  limit?: number | undefined;
-};
+  limit?: number | undefined
+}
 
 const getLounges = async ({
   limit = undefined,
@@ -16,15 +16,15 @@ const getLounges = async ({
           "Strapi-Response-Format": "v4",
         },
       }
-    );
-    const data = await response.json();
+    )
+    const data = await response.json()
 
-    return data.data;
+    return data.data
   } catch (error) {
-    console.error("Error fetching lounges!", error);
+    console.error("Error fetching lounges!", error)
 
-    return null;
+    return null
   }
-};
+}
 
-export default getLounges;
+export default getLounges

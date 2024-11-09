@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server"
+import { Divider } from "@nextui-org/react"
 
-import LoungeCard from "@/components/lounges/LoungeCard";
-import getAirportByCode from "@/data/airport/getAirportByCode";
-import getLoungesByAirportCode from "@/data/lounge/getLoungesByAirportCode";
-import { Divider } from "@nextui-org/react";
+import LoungeCard from "@/components/lounges/LoungeCard"
+import getAirportByCode from "@/data/airport/getAirportByCode"
+import getLoungesByAirportCode from "@/data/lounge/getLoungesByAirportCode"
 
 export const metadata: Metadata = {
   title: "Lounge Center - Airports",
   description: "Find and filter all lounges, check your access, and more.",
-};
+}
 
 const AirportPage = async ({ params }: { params: { airport: string } }) => {
-  const airport = await getAirportByCode(params.airport);
-  const airportData = airport.data?.[0].attributes;
-  const airportLounges = await getLoungesByAirportCode(params.airport);
+  const airport = await getAirportByCode(params.airport)
+  const airportData = airport.data?.[0].attributes
+  const airportLounges = await getLoungesByAirportCode(params.airport)
 
   const terminals = Array.from(
     new Set(airportLounges?.data?.map((lounge) => lounge.attributes?.terminal))
-  ).toSorted();
+  ).toSorted()
 
-  const { sessionClaims } = auth();
+  const { sessionClaims } = auth()
 
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
@@ -33,7 +33,7 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
         {terminals.map((terminal) => {
           const lounges = airportLounges?.data?.filter(
             (lounge) => lounge.attributes?.terminal === terminal
-          );
+          )
 
           return (
             <div key={terminal}>
@@ -48,15 +48,15 @@ const AirportPage = async ({ params }: { params: { airport: string } }) => {
                       lounge={lounge}
                       sessionClaims={sessionClaims}
                     />
-                  );
+                  )
                 })}
               </div>
             </div>
-          );
+          )
         })}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default AirportPage;
+export default AirportPage

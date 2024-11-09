@@ -1,13 +1,14 @@
-import { auth } from "@clerk/nextjs/server";
-import { Card } from "@nextui-org/react";
+import { auth } from "@clerk/nextjs/server"
+import { Card } from "@nextui-org/react"
 
-import GoProContent from "./content";
-import SignUp from "./sign-up";
-import getLounges from "@/data/lounge/getLounges";
+import GoProContent from "./content"
+import SignUp from "./sign-up"
+
+import getLounges from "@/data/lounge/getLounges"
 
 const GoProPage = async () => {
-  const { sessionClaims } = auth();
-  const lounges = await getLounges({ limit: 8 });
+  const { sessionClaims } = auth()
+  const lounges = await getLounges({ limit: 8 })
 
   const airportCodes = Array.from(
     new Set(
@@ -15,7 +16,7 @@ const GoProPage = async () => {
         String(lounge?.attributes?.airport?.data?.attributes?.code)
       )
     )
-  );
+  )
 
   return (
     <div className="flex flex-col md:flex-row gap-10 items-start">
@@ -25,7 +26,7 @@ const GoProPage = async () => {
           A LoungeCenter Pro Membership provides a myriad of benefits for the
           serious traveler:
         </p>
-        <GoProContent lounges={lounges} airportCodes={airportCodes} />
+        <GoProContent airportCodes={airportCodes} lounges={lounges} />
       </div>
       <aside className="md:basis-1/3 md:sticky md:top-20">
         {!sessionClaims?.userEmail ? (
@@ -39,7 +40,7 @@ const GoProPage = async () => {
         )}
       </aside>
     </div>
-  );
-};
+  )
+}
 
-export default GoProPage;
+export default GoProPage

@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import { AirportResponseDataObject } from "@/data/api/documentation";
+import Filters from "./Filters"
 
-import Filters from "./Filters";
-import ResultsTable from "@/components/table/table";
-import useAllAirportsTable from "@/hooks/useAllAirportsTable";
+import { AirportResponseDataObject } from "@/data/api/documentation"
+import ResultsTable from "@/components/table/table"
+import useAllAirportsTable from "@/hooks/useAllAirportsTable"
 
 type AllAirportsTableProps = {
-  airports: AirportResponseDataObject[];
-};
+  airports: AirportResponseDataObject[]
+}
 
 export default function AllAirportsTable({ airports }: AllAirportsTableProps) {
   const {
@@ -17,16 +17,16 @@ export default function AllAirportsTable({ airports }: AllAirportsTableProps) {
     availableCities,
     handleCountrySelection,
     setPagination,
-  } = useAllAirportsTable(airports);
+  } = useAllAirportsTable(airports)
 
   return (
     <div>
       <Filters
-        selectedCities={selectedCities}
         availableCities={availableCities}
+        selectedCities={selectedCities}
         onCitySelection={handleCountrySelection}
       />
       <ResultsTable setPagination={setPagination} table={table} />
     </div>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import clsx from "clsx";
-import { PropsWithChildren } from "react";
+import "@/styles/globals.css"
+import { Metadata, Viewport } from "next"
+import clsx from "clsx"
+import { PropsWithChildren } from "react"
 
-import { Providers } from "./providers";
+import { Providers } from "./providers"
 
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
-import Footer from "@/components/Footer";
-import { Toaster } from "@/components/ui/toaster";
-import GoogleAdsense from "@/components/GoogleAdsense";
+import { siteConfig } from "@/config/site"
+import { fontSans } from "@/config/fonts"
+import { Navbar } from "@/components/navbar"
+import Footer from "@/components/Footer"
+import { Toaster } from "@/components/ui/toaster"
+import GoogleAdsense from "@/components/GoogleAdsense"
 
 export const metadata: Metadata = {
   title: {
@@ -21,20 +21,20 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-};
+}
 
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
-};
+}
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <GoogleAdsense pId={String(process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID)} />
+      <GoogleAdsense pId={String(process.env.GOOGLE_ADSENSE_ID)} />
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
@@ -53,5 +53,5 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </Providers>
       </body>
     </html>
-  );
+  )
 }

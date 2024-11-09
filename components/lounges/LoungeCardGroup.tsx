@@ -1,18 +1,19 @@
-import LoungeCard from "./LoungeCard";
-import { JwtPayload } from "@clerk/types";
+import { JwtPayload } from "@clerk/types"
 
-import getFeaturedLounges from "@/data/lounge/getFeaturedLounges";
+import LoungeCard from "./LoungeCard"
+
+import getFeaturedLounges from "@/data/lounge/getFeaturedLounges"
 
 type LoungeCardGroupProps = {
-  heading: string;
-  sessionClaims: JwtPayload | null;
-};
+  heading: string
+  sessionClaims: JwtPayload | null
+}
 
 const LoungeCardGroup = async ({
   heading,
   sessionClaims,
 }: LoungeCardGroupProps) => {
-  const lounges = await getFeaturedLounges();
+  const lounges = await getFeaturedLounges()
 
   return (
     <div>
@@ -26,11 +27,11 @@ const LoungeCardGroup = async ({
               lounge={lounge}
               sessionClaims={sessionClaims}
             />
-          );
+          )
         })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoungeCardGroup;
+export default LoungeCardGroup

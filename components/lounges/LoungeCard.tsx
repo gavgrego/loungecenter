@@ -1,30 +1,30 @@
-import { Card, CardHeader, CardFooter, Link, Tooltip } from "@nextui-org/react";
-import { SealCheck } from "@phosphor-icons/react/dist/ssr";
+import { Card, CardHeader, CardFooter, Link, Tooltip } from "@nextui-org/react"
+import { SealCheck } from "@phosphor-icons/react/dist/ssr"
+import { JwtPayload } from "@clerk/types"
 
-import { LoungeResponseDataObject } from "@/data/api/documentation";
-import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
-import getHasAccess from "@/data/lounge/getHasAccess";
-import { JwtPayload } from "@clerk/types";
+import { LoungeResponseDataObject } from "@/data/api/documentation"
+import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails"
+import getHasAccess from "@/data/lounge/getHasAccess"
 
 type LoungeCardProps = {
-  lounge: LoungeResponseDataObject;
-  className?: string;
-  sessionClaims: JwtPayload | null;
-};
+  lounge: LoungeResponseDataObject
+  className?: string
+  sessionClaims: JwtPayload | null
+}
 
 const LoungeCard = async ({
   lounge,
   className,
   sessionClaims,
 }: LoungeCardProps) => {
-  const airportData = lounge.attributes?.airport?.data?.attributes;
-  const location = lounge.attributes?.terminal;
+  const airportData = lounge.attributes?.airport?.data?.attributes
+  const location = lounge.attributes?.terminal
 
-  const slug = lounge.attributes?.slug;
-  const googlePlaceId = lounge.attributes?.googlePlaceId;
-  const placeDetails = await getGooglePlaceDetails(googlePlaceId as string);
+  const slug = lounge.attributes?.slug
+  const googlePlaceId = lounge.attributes?.googlePlaceId
+  const placeDetails = await getGooglePlaceDetails(googlePlaceId as string)
 
-  const hasLoungeAccess = getHasAccess(lounge.attributes, sessionClaims);
+  const hasLoungeAccess = getHasAccess(lounge.attributes, sessionClaims)
 
   return (
     <Link
@@ -85,7 +85,7 @@ const LoungeCard = async ({
         </div>
       </Card>
     </Link>
-  );
-};
+  )
+}
 
-export default LoungeCard;
+export default LoungeCard

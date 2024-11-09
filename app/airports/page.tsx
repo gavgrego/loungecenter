@@ -1,13 +1,14 @@
-import { Skeleton } from "@nextui-org/react";
-import { Suspense } from "react";
+import { Skeleton } from "@nextui-org/react"
+import { Suspense } from "react"
 
-import AirportCard from "@/components/airports/AirportCard";
-import Search from "@/components/search/Search";
-import getFeaturedAirports from "@/data/airport/getFeaturedAirports";
-import AllAirportsTable from "./components/AllAirportsTable";
+import AllAirportsTable from "./components/AllAirportsTable"
+
+import AirportCard from "@/components/airports/AirportCard"
+import Search from "@/components/search/Search"
+import getFeaturedAirports from "@/data/airport/getFeaturedAirports"
 
 const AirportsPage = async () => {
-  const airports = await getFeaturedAirports();
+  const airports = await getFeaturedAirports()
 
   return (
     <div>
@@ -21,7 +22,7 @@ const AirportsPage = async () => {
               airport={airport}
               className="w-full"
             />
-          );
+          )
         })}
       </div>
       <h2 className="text-center mt-20 text-4xl">All Airports</h2>
@@ -36,9 +37,9 @@ const AirportsPage = async () => {
         <AllAirportsTable airports={airports || []} />
       </Suspense>
     </div>
-  );
+  )
 
   // airport map
-};
+}
 
-export default AirportsPage;
+export default AirportsPage

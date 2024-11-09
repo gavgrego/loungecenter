@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Accordion,
@@ -13,21 +13,21 @@ import {
   TableHeader,
   TableRow,
   Tooltip,
-} from "@nextui-org/react";
-import { Info } from "@phosphor-icons/react/dist/ssr/Info";
-import { useMemo } from "react";
-import { ArrowSquareOut } from "@phosphor-icons/react";
+} from "@nextui-org/react"
+import { Info } from "@phosphor-icons/react/dist/ssr/Info"
+import { useMemo } from "react"
+import { ArrowSquareOut } from "@phosphor-icons/react"
 
-import Hours from "./components/Hours";
-import AccessMethods from "./components/AccessMethods";
+import Hours from "./components/Hours"
+import AccessMethods from "./components/AccessMethods"
 
-import { Lounge } from "@/data/api/documentation";
-import { GooglePlace } from "@/types/googlePlaces/types";
+import { Lounge } from "@/data/api/documentation"
+import { GooglePlace } from "@/types/googlePlaces/types"
 type LoungeSidebarProps = {
-  loungeData: Lounge | undefined;
-  placeDetails: GooglePlace;
-  userId: string | null;
-};
+  loungeData: Lounge | undefined
+  placeDetails: GooglePlace
+  userId: string | null
+}
 
 const LoungeSidebar = ({
   placeDetails,
@@ -36,11 +36,11 @@ const LoungeSidebar = ({
 }: LoungeSidebarProps) => {
   const phone = placeDetails.internationalPhoneNumber
     ? placeDetails.internationalPhoneNumber
-    : placeDetails.nationalPhoneNumber;
+    : placeDetails.nationalPhoneNumber
 
   const cards = useMemo(() => {
-    return loungeData?.cards?.data;
-  }, [loungeData?.cards?.data]);
+    return loungeData?.cards?.data
+  }, [loungeData?.cards?.data])
 
   return (
     <Card className="flex flex-col">
@@ -123,7 +123,7 @@ const LoungeSidebar = ({
                         <TableRow key={day} className="mb-2">
                           <TableCell className="font-semibold">{day}</TableCell>
                         </TableRow>
-                      );
+                      )
                     }
                   )}
                 </TableBody>
@@ -150,7 +150,7 @@ const LoungeSidebar = ({
         </div>
       ) : null}
     </Card>
-  );
-};
+  )
+}
 
-export default LoungeSidebar;
+export default LoungeSidebar

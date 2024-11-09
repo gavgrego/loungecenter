@@ -1,80 +1,78 @@
-import { Divider, Link } from "@nextui-org/react";
-import { auth } from "@clerk/nextjs/server";
-import dayjs from "dayjs";
-import { Suspense } from "react";
+import { Divider, Link } from "@nextui-org/react"
+import { auth } from "@clerk/nextjs/server"
+import { Suspense } from "react"
 
-import DirectionsAndMap from "./components/DirectionsAndMap";
-import OtherLounges from "./components/OtherLounges";
-import LoungeSidebar from "./sidebar";
-import ImageCarousel from "./components/ImageCarousel";
-import IconList from "./components/IconList";
-import TrafficChart from "./components/TrafficChart";
-import HasLoungeAccess from "./components/HasLoungeAccess";
-import getLoungeBySlug from "@/data/lounge/getLoungeBySlug";
-import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails";
-import getTrafficData from "@/data/lounge/getTrafficData";
-import getLiveTrafficData from "@/data/lounge/getLiveTrafficData";
-import { dummyTrafficChartData } from "@/data/dummy";
-import getHasAccess from "@/data/lounge/getHasAccess";
-import Markdown from "@/components/Markdown";
-export type ChartData = { name: string; average: number; live: number }[];
+import DirectionsAndMap from "./components/DirectionsAndMap"
+import OtherLounges from "./components/OtherLounges"
+import LoungeSidebar from "./sidebar"
+import ImageCarousel from "./components/ImageCarousel"
+import IconList from "./components/IconList"
+import TrafficChart from "./components/TrafficChart"
+import HasLoungeAccess from "./components/HasLoungeAccess"
+
+import getLoungeBySlug from "@/data/lounge/getLoungeBySlug"
+import getGooglePlaceDetails from "@/data/lounge/getGooglePlaceDetails"
+import getTrafficData from "@/data/lounge/getTrafficData"
+import getLiveTrafficData from "@/data/lounge/getLiveTrafficData"
+import getHasAccess from "@/data/lounge/getHasAccess"
+import Markdown from "@/components/Markdown"
+export type ChartData = { name: string; average: number; live: number }[]
 
 const LoungePage = async ({ params }: { params: { slug: string } }) => {
-  const { userId, sessionClaims } = auth();
+  const { userId, sessionClaims } = auth()
 
-  const lounge = await getLoungeBySlug(params.slug);
-  const loungeData = lounge.data?.[0].attributes;
-  const amenities = loungeData?.amenities?.data || [];
-  const detriments = loungeData?.detriments?.data || [];
-  const cards = loungeData?.cards?.data || [];
-  const alliances = loungeData?.alliance_access?.data || [];
+  const lounge = await getLoungeBySlug(params.slug)
+  const loungeData = lounge.data?.[0].attributes
+  const amenities = loungeData?.amenities?.data || []
+  const detriments = loungeData?.detriments?.data || []
+  const cards = loungeData?.cards?.data || []
+  const alliances = loungeData?.alliance_access?.data || []
 
   // if card.id in cards exists in metadata, then card is available
   const userCards: string[] =
-    sessionClaims?.unsafeMetadata?.cardSelections || [];
-  const userAlliances: string[] =
-    sessionClaims?.unsafeMetadata?.alliances || [];
+    sessionClaims?.unsafeMetadata?.cardSelections || []
+  const userAlliances: string[] = sessionClaims?.unsafeMetadata?.alliances || []
 
   const hasMatchingCard = userCards.some((userCard) =>
     cards.find((card) => card.id == parseInt(userCard))
-  );
+  )
 
   const matchingCards = cards.filter((card) =>
     userCards.includes(String(card.id))
-  );
+  )
 
   const hasMatchingAlliance = userAlliances.some((userAlliance) =>
     alliances.find((alliance) => alliance.attributes?.value == userAlliance)
-  );
+  )
 
   const matchingAlliances = alliances.filter((alliance) =>
     userAlliances.includes(alliance?.attributes?.value)
-  );
+  )
 
   const hasPriorityPass = Boolean(
     sessionClaims?.unsafeMetadata?.hasPriorityPass
-  );
+  )
 
-  const hasLoungeAccess = getHasAccess(loungeData, sessionClaims);
+  const hasLoungeAccess = getHasAccess(loungeData, sessionClaims)
 
   const placeDetails = await getGooglePlaceDetails(
     loungeData?.googlePlaceId as string
-  );
+  )
 
   // only need to fetch traffic data if the user is logged in
   const trafficData = await getTrafficData({
     name: String(loungeData?.name),
     address: String(placeDetails.formattedAddress),
-  });
+  })
 
   const liveTrafficData = await getLiveTrafficData({
     name: String(loungeData?.name),
     address: String(placeDetails.formattedAddress),
-  });
+  })
 
   // add support for additional photos added via strapi, if there are any
-  const placeImages = placeDetails.photos;
-  const airportData = loungeData?.airport?.data?.attributes;
+  const placeImages = placeDetails.photos
+  const airportData = loungeData?.airport?.data?.attributes
 
   return (
     <>
@@ -174,9 +172,9 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
             <>
               <h3 className="mb-4">Live Foot Traffic:</h3>
               <TrafficChart
-                trafficData={trafficData}
                 liveTrafficData={liveTrafficData}
                 placeDetails={placeDetails}
+                trafficData={trafficData}
               />
             </>
           ) : (
@@ -192,10 +190,9 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
               </h3>
 
               <TrafficChart
-                trafficData={trafficData}
                 liveTrafficData={liveTrafficData}
                 placeDetails={placeDetails}
-                dummyTrafficChartData={dummyTrafficChartData}
+                trafficData={trafficData}
               />
             </>
           )}
@@ -223,7 +220,7 @@ const LoungePage = async ({ params }: { params: { slug: string } }) => {
         </aside>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default LoungePage;
+export default LoungePage

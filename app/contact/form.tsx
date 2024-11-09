@@ -1,27 +1,27 @@
-"use client";
+"use client"
 
-import { Button, CircularProgress, Input, Textarea } from "@nextui-org/react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { Button, CircularProgress, Input, Textarea } from "@nextui-org/react"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect } from "react"
 
-import submitContactForm from "@/data/contact/submitContactForm";
+import submitContactForm from "@/data/contact/submitContactForm"
 
 type ContactFormProps = {
-  userEmail?: string;
-};
+  userEmail?: string
+}
 
 const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
-  await submitContactForm({ formData: data });
-};
+  await submitContactForm({ formData: data })
+}
 
 const schema = z.object({
   email: z.string().email(),
   comments: z.string(),
-});
+})
 
-export type ContactFormData = z.infer<typeof schema>;
+export type ContactFormData = z.infer<typeof schema>
 
 const ContactForm = ({ userEmail }: ContactFormProps) => {
   const {
@@ -37,7 +37,7 @@ const ContactForm = ({ userEmail }: ContactFormProps) => {
     },
   } = useForm<ContactFormData>({
     resolver: zodResolver(schema),
-  });
+  })
 
   useEffect(() => {
     reset(
@@ -46,8 +46,8 @@ const ContactForm = ({ userEmail }: ContactFormProps) => {
         comments: "",
       },
       { keepIsSubmitted: true }
-    );
-  }, [isSubmitSuccessful]);
+    )
+  }, [isSubmitSuccessful])
 
   return (
     <div className="mt-4">
@@ -98,7 +98,7 @@ const ContactForm = ({ userEmail }: ContactFormProps) => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default ContactForm;
+export default ContactForm

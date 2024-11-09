@@ -1,27 +1,28 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { auth } from "@clerk/nextjs/server";
-import { Skeleton } from "@nextui-org/react";
-import { Suspense } from "react";
+import { auth } from "@clerk/nextjs/server"
+import { Skeleton } from "@nextui-org/react"
+import { Suspense } from "react"
 
-import LoungeCardGroup from "@/components/lounges/LoungeCardGroup";
-import Search from "@/components/search/Search";
-import getFeaturedAirports from "@/data/airport/getFeaturedAirports";
-import AirportCard from "@/components/airports/AirportCard";
-import AllAirportsTable from "./airports/components/AllAirportsTable";
-import AllLoungesTable from "./lounges/components/AllLoungesTable";
-import getLounges from "@/data/lounge/getLounges";
+import AllAirportsTable from "./airports/components/AllAirportsTable"
+import AllLoungesTable from "./lounges/components/AllLoungesTable"
+
+import LoungeCardGroup from "@/components/lounges/LoungeCardGroup"
+import Search from "@/components/search/Search"
+import getFeaturedAirports from "@/data/airport/getFeaturedAirports"
+import AirportCard from "@/components/airports/AirportCard"
+import getLounges from "@/data/lounge/getLounges"
 
 export const metadata: Metadata = {
   title: "Lounge Center - Global Airport Lounges",
   description:
     "Find global airport lounge information, check your access, and more.",
-};
+}
 
 const Home = async () => {
-  const { sessionClaims } = auth();
-  const airports = await getFeaturedAirports();
-  const allLounges = await getLounges({});
+  const { sessionClaims } = auth()
+  const airports = await getFeaturedAirports()
+  const allLounges = await getLounges({})
 
   const airportCodes = Array.from(
     new Set(
@@ -29,7 +30,8 @@ const Home = async () => {
         String(lounge?.attributes?.airport?.data?.attributes?.code)
       )
     )
-  );
+  )
+
   return (
     <section className="flex flex-col justify-center gap-4 pt-4 pb-8 md:py-10">
       <Search className="mb-10" placeholder="Find a lounge or airport..." />
@@ -79,7 +81,7 @@ const Home = async () => {
               airport={airport}
               className="w-full"
             />
-          );
+          )
         })}
       </div>
       <h2 className="text-center mt-20 text-4xl">All Airports</h2>
@@ -94,7 +96,7 @@ const Home = async () => {
         <AllAirportsTable airports={airports || []} />
       </Suspense>
     </section>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
