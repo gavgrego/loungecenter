@@ -8,8 +8,6 @@ type AirportCardProps = {
   airport: AirportResponseDataObject;
 } & CardProps;
 //
-//
-//
 // Need to consolidate this and lounge card api and compositionally pass content as child
 const AirportCard = ({ airport, className, ...props }: AirportCardProps) => {
   return (
